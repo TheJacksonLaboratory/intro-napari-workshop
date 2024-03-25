@@ -29,25 +29,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
       - name: qt libs
         uses: tlambert03/setup-qt-libs@v1
       - name: Setup Pages
-        uses: actions/configure-pages@v2
-      - uses: aganders3/headless-gui@v1
+        uses: actions/configure-pages@v4
+      - uses: aganders3/headless-gui@v2
         name: Build workshop
         with:
           run: |
             pip install -r requirements.txt
             jupyter book build napari-workshops
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: 'napari-workshops/_build/html'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
