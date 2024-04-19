@@ -1,20 +1,21 @@
 # Downloading and launching this workshop's Jupyter notebooks
 
-During this tutorial, we will be working through a set of Jupyter notebooks. On
-this page, we will download the notebooks and launch the `jupyter notebook`
-application. 
+During this tutorial, we will be working through a set of Jupyter notebooks.
+The executed notebooks are hosted in the materials on this website. We encourage you
+to follow along with the workshop in a fresh, blank notebook. However, if you
+would like to be able to run the notebooks locally, you can download them
+and launch the `jupyter lab` application using the instructions below.
 
 ## Downloading the notebooks
 
 There are two ways to download the notebooks; follow the instructions below for
 either downloading a .zip file (recommended for beginners) or cloning via git.
 
-### Downloading .zip
+### Downloading a .zip file
 To download the notebooks as a .zip file, do the following:
 
-1. Navigate your web browser to the workshop's github repository (for this
-   template, this is https://github.com/napari/napari-workshop-template)
-2. Click the green "Code" button to open the download menu and then
+1. Click the GitHub logo at the top of this page or navigate your web browser to [the workshop's github repository](https://github.com/psobolewskiPhD/intro-napari-workshop): https://github.com/psobolewskiPhD/intro-napari-workshop
+2. Click the green (or blue) "Code" button to open the download menu and then
    "Download ZIP" ![download code](./resources/download_code.png)
 3. Choose the location you would like to download the .zip into.
 4. Open your file browser and double click on the .zip file to uncompress it.
@@ -38,44 +39,59 @@ this tutorial.
  git clone https://github.com/napari/napari-workshop-template.git
  ```
 
-## Launch the `jupyter notebook` application
+## Install additional `jupytext` dependency
 
-Open your terminal and navigate to the `notebooks` subdirectory of the
-`napari-workshop-template` directory you just downloaded.
+Because of the way the notebooks were prepared to provide a nice rendered look on the web,
+you need to install one additional dependency to run them locally
 
-```
-cd <path to napari-workshop-template>/notebooks
-```
-
-Now activate the `napari-tutorial` conda environment you created in the 
-installation step.
-
-```
-conda activate napari-tutorial
-```
-
-To start the Jupyter Notebook application, enter
+````{important}
+Remember to activate the right environment!
 
 ```bash
-jupyter notebook
+conda activate napari-workshop
+```
+````
+
+```bash
+conda install jupytext
 ```
 
-Jupyter Notebook will open in a browser window and you will see the following
-notebooks:
 
-- `part_0_viewer_intro.ipynb`: in this activity, you will gain familiarity with
-  loading and viewing images in napari.
-- `part_1_segmenting_and_measuring_nuclei.ipynb`: in this notebook, you will use
-  cellpose to segment nuclei and scikit-image to measure them.
-- `part_2_spot_detection_tutorial_beginner.ipynb`: this is the spot detection
-  notebook for people new to image processing with Python
-- `part_2_spot_detection_tutorial_advanced.ipynb`: this is the spot detection
-  notebook for people with experience performing image processing with Python
-- `part_2_spot_detection_tutorial_solution.ipynb`: this is the solution to the
-  spot detection activity.
+## Launch the `jupyter lab` application
 
-All of the "part 2" notebooks cover the same activities, with different levels
-of engagement required to reach the solution. For your convenience, we have
-rendered the solutions to these notebooks in the following pages.
+Navigate to the `notebooks` subdirectory of the
+`intro-napari-workshop` directory you just downloaded.
 
-![jupyter notebook](./resources/jupyter_notebook.png)
+```
+cd <path to intro-napari-workshop>/notebooks
+```
+
+Remember to activate the `napari-workshop` conda environment if you havn't already.
+
+```
+conda activate napari-workshop
+```
+
+```{important}
+Because of the way the notebooks were prepared to provide a nice rendered look on the web,
+you need to install one additional dependency to run them locally:
+
+```bash
+conda install jupytext
+```
+```
+
+To start the Jupyter application, enter:
+
+```bash
+jupyter lab
+```
+
+The Jupyter interface will open in a browser window and you will see the notebooks
+in the file browser on the left.
+
+```{important}
+To open these workshop notebooks in the Jupyter interface, right click the notebook name in the file navigation panel from the Jupyter interface, and click "Open with -> Notebook".
+
+![Right click on "intro_bioimage_visualization.md" file, and select "Open with -> Notebook"](./resources/open_with_notebook.png)
+```

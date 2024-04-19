@@ -1,20 +1,26 @@
-# How to open your notebooks using [mybinder.org](https://mybinder.org)
+# How to open the notebooks in the cloud using [mybinder.org](https://mybinder.org)
 
-If you can't install the Jupyter notebook application locally, or if you prefer using a cloud instance of Jupyter to execute and interact with your workshop notebooks, you can follow this guide.
+If you can't install napari and the Jupyter notebook application locally, or if you prefer using a cloud instance of Jupyter to execute and interact with the workshop notebooks, you can follow this guide.
 
 ## Open a single notebook in Binder
 
-To open a single notebook in Binder, click the rocketship badge at the top of each notebook, and click on "Binder".
+To open a notebook in Binder, click on the rocketship badge at the top of a notebook and click on "Binder".
 
 ![Binder badge shown in the "Bioimage visualization in Python" notebook](./resources/binder_button.png)
 
+This will launch a virtual machine in the cloud and install everything needed to run the notebook. Note that this could take several minutes to spin up!
+
+Just opening the notebook is not sufficient; because napari is a desktop application, we need a "Desktop" tab to see the napari GUI interface. To do this we need to return to the Jupyter dashboard, by clicking the Jupyter logo (marked in red below) in the uppper left.
+
+![Jupyter logo tool-tip showing `dashboard`](./resources/jupyter_logo_dashboard.png)
+
 ## Open desktop tab
 
-Because napari is a desktop application, we need a "Desktop" tab to see the napari GUI interface. In the Jupyter launcher tab, click on "Desktop".
+In the Jupyter launcher tab, click on "Desktop".
 
 ![Desktop tab button in Jupyter launcher tab](./resources/desktop_tab.png)
 
-After this, you should see a new tab open up in your browser window called "noVNC", with a basic desktop interface.
+After this, you should see a new tab open up in your browser window called "noVNC", with a basic desktop interface. Note if at first it doesn't connect, just close the tab and click the `D` tile a second time.
 
 ![Desktop interface shown in browser tab](./resources/desktop.png)
 
@@ -22,20 +28,22 @@ By moving your mouse pointer inside this desktop interface, you should be able t
 
 ## Run notebook cells
 
-Now that our desktop is set up, we can proceed to running each of the cells in the notebooks.
+Now that our desktop is set up, we can proceed to running each of the cells in the notebook. You can access them from the file browser on the left side, in the `notebooks` folder.
 
-To open a notebook from this Jupyter interface, right click the notebook name in the file navigation panel from the Jupyter interface, and click "Open with -> Notebook".
+```{important}
+To open these workshop notebooks in this Jupyter interface, right click the notebook name in the file navigation panel from the Jupyter interface, and click "Open with -> Notebook".
 
 ![Right click on "intro_bioimage_visualization.md" file, and select "Open with -> Notebook"](./resources/open_with_notebook.png)
 
-You will note that these notebooks contain a code cell which needs to be run to enable the Binder interface. 
+Additionally, all of these notebooks contain a code cell which needs to be run to enable the napari window to be displayed in the Binder Desktop tab. 
 
 ![First code cell for all notebooks, required to run the notebooks on Binder](./resources/prepare_binder.png)
+```
 
-Note that every napari operation will be shown in the desktop tab of your browser, and will only be visible in the notebook interface after the `nbscreenshot` function is called. After running any cell which opens the napari viewer from the Jupyter notebook, you should now see the napari GUI window in the Desktop tab on your browser.
+After running any cell which opens the napari viewer from the Jupyter notebook, you should now see the napari GUI window in the Desktop tab on your browser.
 
 ![napari interface in Desktop tab](./resources/napari_desktop.png)
 
 ## Interact with the notebook!
 
-You should now be able to interact with this notebook, by executing all cells and observing the results in the napari GUI window. You can also edit the code cells to experiment with different napari concepts and its API.
+You should now be able to interact with this notebook, by executing all cells and observing the results in the napari GUI window. You can also edit the code cells to experiment with different napari concepts and its API. You can save a snapshot of the viewer status to the notebook using the `nbscreenshot` function. 
