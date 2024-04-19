@@ -1,27 +1,18 @@
-# napari-workshop-template
+# Introduction to napari workshop
+## The Jackson Laboratory
+#### Peter Sobolewski 
+#### Imaging Applications, Research IT
+#### napari core developer
+#### April 23 & 30, 2024
 
-A JupyterBook template for napari workshops.
+![JAX logo](./resources/JAX_logo_rgb_transparentback.png)
 
-**To see the built website, go to
-https://<your_github_username>.github.io/napari-workshop-template**. For
-example, see this template [here](https://napari.org/napari-workshop-template/home.html).
+This site contains materials for the Introduction to `napari` workshop
+run at JAX on April 23 & 30, 2024.
 
-**To see a live version where you can execute the notebooks on your browser, use [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/napari/napari-workshop-template/main)** (make sure this link points to your own repository!)
+The slides for the introductory presentation can be accessed [here](https://psobolewskiphd.github.io/intro-napari-slides/).
 
-## What is this repository?
+## Colophon
 
-This repository is meant to be [forked](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and edited so that you have a starting point when creating your own napari workshop. All instructions below are meant to be executed _on your own fork_, so that you have a copy of the template that you can adjust to your needs.
+The basis for these workshop materials was the [`napari-workshops-template` project](https://github.com/napari/napari-workshop-template). For more information, please see [the documentation in that repository](https://napari.org/napari-workshop-template/docs/build_your_workshop.html).
 
-You can also click the `Use this template` button in the GitHub web interface for this repository:
-
-![Use this template button on GitHub interface](napari-workshops/docs/images/00-template.png)
-
-Once you have created your workshop, if you would like the event to be listed [in napari.org](https://napari.org/stable/further-resources/napari-workshops.html), feel free to submit a pull request to https://github.com/napari/docs
-
-## Documentation
-
-To learn more about how to build, publish, share and cite your workshop materials, check the [Build your own workshop section](https://napari.github.io/napari-workshop-template/docs/build_your_workshop.html).
-
-## Contributing to this repository
-
-If you find typos, incomplete or misleading instructions, or have suggestions for improvements to this template, open an issue at the napari/napari-workshop-template repo.
