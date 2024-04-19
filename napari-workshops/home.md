@@ -1,15 +1,13 @@
-# napari workshop
+# Introduction to napari workshop
+## The Jackson Laboratory, April 23, 30, 2024
+## Peter Sobolewski
 
-This site contains materials for creating and deploying `napari` workshop
-materials. For more information about the project, head over to
-[napari.org](https://napari.org). To explore our plugin ecosystem, be sure to
-check out the [napari hub](https://www.napari-hub.org/).
+This site contains materials for the Introduction to `napari` workshop
+run at JAX on April 23, 30, 2024
 
-Use the sidebar to navigate to the materials, and
-[fork this repo](https://docs.github.com/get-started/quickstart/fork-a-repo) if
-you want to create your own workshop.
+The slides for the introductory presentation can be accessed [here](https://psobolewskiphd.github.io/intro-napari-slides/).
 
-```{tip}
-If you run into any trouble, head over to our
-[zulip chat](https://napari.zulipchat.com/) where we can help you get unstuck!
-```
+
+## Colophon
+
+The basis for these workshop materials was the [`napari-workshops-template` project](https://github.com/napari/napari-workshop-template). For more information, please see [the documentation in that repository](https://napari.org/napari-workshop-template/docs/build_your_workshop.html).
