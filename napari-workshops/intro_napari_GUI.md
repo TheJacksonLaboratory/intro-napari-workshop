@@ -177,17 +177,18 @@ You may want to delete any unneeded layers and/or re-open the Cells3D sample fil
     viewer.layers['nuclei'].scale = [0.35, 0.2, 0.2]
     ```
 
-Alternatively, you could use the index of the layer instead.
-If you want to change the scale of all layers, enter the following commands one line at a time, ensuring an indent on the second line, as shown below: 
+Alternatively, you could use the index of the layer instead. 
+
+* If you want to change the scale of all layers, enter the following commands one line at a time, ensuring an indent on the second line, as shown below: 
 
     ```python
     for layer in viewer.layers:  
         layer.scale = [0.35, 0.2, 0.2]
     ```
 
-    ```{important} 
-    If your layers disappeared, you will need to click the `home` button to reset the viewer and you may need to adjust the slider to a new slice
-    ```
+```{important} 
+If your layers disappeared, you will need to click the `home` button to reset the viewer and you may need to adjust the slider to a new slice
+```
 
 * Add a scale bar using the GUI **View** > **Scale Bar** > **Visible** or by typing 
 `viewer.scale_bar.visible = True`  in the integrated console. 
@@ -199,9 +200,10 @@ The integrated console is a full-featured iPython kernel. You can use it for int
 analysis, just import `numpy` or `skimage`. You can use `tab` for auto-completions and the Up
 arrow to access the command history. Use a ? to access documentation, e.g.
     
-    ```Python
-    viewer?
-    ```
+```Python
+viewer?
+```
+
 ````
 
 
