@@ -11,6 +11,7 @@ This module covers the following topics:
 * [Explore Images in 2D and 3D](#explore-images-in-2d-and-3d)  
 * [Explore Stack Manipulation](#explore-stack-manipulation)  
 * [Explore Layer Types](#explore-layer-types)  
+* [Save your data](#save-your-data)
 * [Install Your First Plugin](#install-your-first-plugin)
 
 ## Launch napari
