@@ -1,7 +1,6 @@
 # The napari viewer
 
-```{note} This content based on material originally prepared by Dannielle McCarthy, CZI (@
-dgmccart)
+```{note} This content based on material originally prepared by Dannielle McCarthy, CZI (@dgmccart)
 ```
 For full documentation of the napari viewer, please see [the Viewer tutorial](https://napari.org/stable/tutorials/fundamentals/viewer.html) in the napari docs. Here we will just have an overview.
 
@@ -140,9 +139,9 @@ which can be convenient for use in a vector graphics program or for web.
 * Select more than one layer and use the File menu or Command+S(Mac) / Control+S(Windows), 
 then in the dialog dropdown menu ensure `napari-svg` is selected, give the file a name, and save.
 
-```{important} 
-The output file will not be openable in napari!
-```
+    ```{important} 
+    The output file will not be openable in napari!
+    ```
 
 Perhaps more usefully, multiple different layer types, e.g. image and points, can be saved as
 individual layers (as described above) *to a folder.* 
@@ -150,9 +149,9 @@ individual layers (as described above) *to a folder.*
 to `napari builtins Save to Folder`. Enter a folder name and hit save. A new folder with that name will be
 created and the files will be individually exported there, as noted above.
 
-```{important} 
-To re-open the files, open the enclosing folder, select all the files, and drag-n-drop them on the napari canvas. At present, opening the folder directly, if it contains a mix of layer types, will not work—only images are supported in this way. Note that a folder of images will be imported as a stack.
-```
+    ```{important} 
+    To re-open the files, open the enclosing folder, select all the files, and drag-n-drop them on the napari canvas. At present, opening the folder directly, if it contains a mix of layer types, will not work—only images are supported in this way. Note that a folder of images will be imported as a stack.
+    ```
 
 ## Use the integrated Python console to interact with the viewer
 
@@ -163,9 +162,9 @@ You may want to delete any unneeded layers and/or re-open the Cells3D sample fil
 * Open the integrated console with the first button on the row of the viewer control buttons.  
 ![console-button](resources/console-button.png)
 
-```{important}
-The integrated Python console is only available if napari was started from a non-interactive session, meaning the terminal (using `napari`) or a script. If you are already in an interactive session, like iPython or a notebook, keep using that!
-```
+    ```{important}
+    The integrated Python console is only available if napari was started from a non-interactive session, meaning the terminal (using `napari`) or a script. If you are already in an interactive session, like iPython or a notebook, keep using that!
+    ```
 * Get the layer list programmatically; enter:
 
     ```python
@@ -177,21 +176,33 @@ The integrated Python console is only available if napari was started from a non
     ```Python
     viewer.layers['nuclei'].scale = [0.35, 0.2, 0.2]
     ```
-Alternatively, you could use the index of the layer instead.
-If you want to change the scale of all layers: 
-    Enter the commands one line at a time, ensuring an indent on the second line, as shown below: 
 
-    ```Python
+Alternatively, you could use the index of the layer instead.
+If you want to change the scale of all layers, enter the following commands one line at a time, ensuring an indent on the second line, as shown below: 
+
+    ```python
     for layer in viewer.layers:  
         layer.scale = [0.35, 0.2, 0.2]
     ```
 
-    ```{important} If your layers disappeared, you will need to click the `home` button to reset the viewer and you may need to adjust the slider to a new slice
+    ```{important} 
+    If your layers disappeared, you will need to click the `home` button to reset the viewer and you may need to adjust the slider to a new slice
     ```
+
 * Add a scale bar using the GUI **View** > **Scale Bar** > **Visible** or by typing 
 `viewer.scale_bar.visible = True`  in the integrated console. 
 * Add physical units of microns to the scale bar by typing `viewer.scale_bar.unit = "um"`  
 in the integrated console.
+
+````{tip}
+The integrated console is a full-featured iPython kernel. You can use it for interactive
+analysis, just import `numpy` or `skimage`. You can use `tab` for auto-completions and the Up
+arrow to access the command history. Use a ? to access documentation, e.g.
+    
+    ```Python
+    viewer?
+    ```
+````
 
 
 ## Install Your First Plugin  
