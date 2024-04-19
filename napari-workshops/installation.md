@@ -151,6 +151,6 @@ Once you have that set, you can skip to [the next section](setting-up-your-napar
     napari
     ```
 
-```{admonition} Errors launching?
-Contact the workshop instructors or you can reach out to the napari community on the [napari zulip chat](https://napari.zulipchat.com/#narrow/stream/212875-general)
-```
+   ```{admonition} Errors launching?
+   Contact the workshop instructors or you can reach out to the napari community on the [napari zulip chat](https://napari.zulipchat.com/#narrow/stream/212875-general)
+   ```
