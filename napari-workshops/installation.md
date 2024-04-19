@@ -18,7 +18,7 @@ as well. You can check using:
 conda info
 ```
 
-However, we recommend you ensure the conda version is >23.10 and that you are using 
+However, we recommend you that the conda version is >23.10 and that you are using 
 [`conda-forge` channels](https://conda-forge.org/docs/user/introduction/). You can ensure this using:
 
 ```bash
@@ -26,7 +26,7 @@ conda update conda
 conda config --add channels conda-forge
 ```
 
-Once you have that set, you can skip to [the next section](setting-up-your-environment).
+Once you have that set, you can skip to [the next section](setting-up-your-napari-workshop-environment).
 ````
 
 1. In your web browser, navigate to the
@@ -126,9 +126,10 @@ Once you have that set, you can skip to [the next section](setting-up-your-envir
    `(napari-workshop)` to the left of your command prompt.
 
    ```{important}
-   It's extremely important to activate the right environment for what you need! And always 
+   Remember to activate the right environment for what you need! And always 
    double-check that the activated environment is the one you want before installing any 
    packages—you never want to install into the `base` environment.
+   ```
 
 4. Test that your notebook installation is working. We will be using notebooks
    for interactive analysis. Enter the command below and it should launch the
