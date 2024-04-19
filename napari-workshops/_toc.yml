@@ -8,6 +8,7 @@ chapters:
   sections:
   - file: installation
   - file: notebook_setup
+  - file: launching_binder
 - file: notebooks/index
   sections:
   - file: notebooks/intro_bioimage_visualization
