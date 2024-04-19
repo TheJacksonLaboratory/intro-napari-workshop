@@ -7,40 +7,43 @@ with your own, fresh notebook, using the executed and rendered notebooks [includ
 ## Launch the `jupyter lab` application
 
 1. Open your terminal application
-2. Activate the `napari-workshop` conda environment if you havn't already.
 
-  ```bash
-  conda activate napari-workshop
-  ```
+2. Activate the `napari-workshop` conda environment, if you havn't already.
 
-  You should see `(napari-workshop)` to the left of your command prompt. For example it could look something like this:
+   ```bash
+    conda activate napari-workshop
+    ```
 
-  ```bash
-  (napari-workshop) $
-  ```
+   You should see `(napari-workshop)` to the left of your command prompt. For example it could look something like this:
 
-3. Launch `jupyer lab`:
+   ```bash
+   (napari-workshop) $
+   ```
 
-  ```bash
-  jupyter lab
-  ```
+3. Launch teh Jupyter lab web interface:
 
-  You should have a browser tab open with the Jupyter launcher:
+   ```bash
+   jupyter lab
+   ```
 
-  ![Jupyter lab launcher in browser window](./resources/jupyter_launcher.png)
+   You should have a browser tab open with the Jupyter launcher:
+
+   ![Jupyter lab launcher in browser window](./resources/jupyter_launcher.png)
 
 4. Open a new notebook, by clicking the tile under `Notebooks` with the Python logo, marked in red above.
 
 5. You can enter code into `code cells` (the default) and execute it by hitting Shift-Enter, which
-  will also create a new code cell. We encourage you to follow along with the instructor and/or [the rendered web versions of the notebooks](notebooks/index.md) typing the code and interacting with the napari window. 
+   will also create a new code cell. We encourage you to follow along with the instructor and/or [the rendered web versions of the notebooks](notebooks/index.md) typing the code and interacting with the napari window. 
   
-  ```{tip}
-  If you want to enter rich-text notes using Markdown, press Escape, followed by the M-key, to switch to Markdown mode.
-  ```
+   ```{tip}
+   If you want to enter rich-text notes using Markdown, press Escape, followed by the M-key, to switch to Markdown mode.
+   ```
 
-  For more detailed information on using Jupyter notebooks, see [the official Jupyter lab interface documentation](https://jupyterlab.readthedocs.io/en/stable/user/interface.html) and [the official Jupyter notebook documentation](https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/What%20is%20the%20Jupyter%20Notebook.html)
+   For more detailed information on using Jupyter notebooks, see [the official Jupyter lab interface documentation](https://jupyterlab.readthedocs.io/en/stable/user/interface.html) and [the official Jupyter notebook documentation](https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/What%20is%20the%20Jupyter%20Notebook.html)
 
-# Downloading and launching this workshop's Jupyter notebooks
+<br />
+
+# Downloading and launching the completed Jupyter notebooks
 
 The complete, executed notebooks are hosted in the materials on this website. We encourage you
 to follow along with the workshop in a fresh, blank notebook. However, if you
