@@ -26,4 +26,4 @@ Before the workshop, please ensure you have an up-to-date `conda` installation a
 
 ## Workshop content
 
-The workshop will consist of [introductory slides](https://psobolewskiphd.github.io/intro-napari-slides/), as well as notebooks. The notebooks are [included in this repository](notebooks/index.md), but we strongly encourage you to follow along with your own, fresh notebook, rather than just executing the existing content. To execute the notebooks, locally please see [the instructions here](notebook_setup.md). They can also be run in the cloud, [using Binder](launching_binder.md).
+The workshop consists of [introductory slides](https://psobolewskiphd.github.io/intro-napari-slides/), as well as code examples in notebooks. The executed and rendered notebooks are [included in this repository](notebooks/index.md). We strongly encourage you to follow along with your own, fresh notebook. However, if you would like to down load and execute the completed notebooks locally, please see [the instructions here](notebook_setup.md). Additionally, the completed notebooks can also be run in the cloud [using Binder](launching_binder.md).
