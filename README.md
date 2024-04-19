@@ -1,8 +1,8 @@
 # Introduction to napari workshop
 ## The Jackson Laboratory
-*Peter Sobolewski*
-Imaging Applications, Research IT
-napari core developer
+**Peter Sobolewski**  
+Imaging Applications, Research IT  
+napari core developer  
 April 23 & 30, 2024
 
 
