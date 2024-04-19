@@ -9,6 +9,7 @@ chapters:
   - file: installation
   - file: notebook_setup
   - file: launching_binder
+- file: intro_napari_GUI
 - file: notebooks/index
   sections:
   - file: notebooks/intro_bioimage_visualization
