@@ -4,15 +4,15 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.14.0
+    jupytext_version: 1.16.1
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
 
-# notebook: interactive analysis
-One need for bioimage analysts is to interactivly perform analysis on images. This interaction could be manual parameter tuning, such as adjusting thresholds, or performing human-in-the-loop analysis through clicking on specific regions of an image.
+# Interactive analysis with napari
+One need for bioimage analysts is to interactively perform analysis on images. This interaction could be manual parameter tuning, such as adjusting thresholds, or performing human-in-the-loop analysis through clicking on specific regions of an image.
 
 **[napari](https://napari.org/)** makes such interactive analyses easy because of it's easy coupling with Python and Scientific Python ecosystem, including tools like **[numpy](https://numpy.org/)** and **[scikit-image](https://scikit-image.org/)**.
 
@@ -20,13 +20,14 @@ One need for bioimage analysts is to interactivly perform analysis on images. Th
 
 ```{code-cell} ipython3
 :tags: [remove-output]
+
 # this cell is required to run these notebooks on Binder. Make sure that you also have a desktop tab open.
 import os
 if 'BINDER_SERVICE_HOST' in os.environ:
     os.environ['DISPLAY'] = ':1.0'
 ```
 
-We start by importing `napari`, our `nbscreenshot` utility and instantiating an empty viewer.
+As previously, we start by importing `napari`, our `nbscreenshot` utility, and instantiating an empty viewer.
 
 ```{code-cell} ipython3
 import napari
@@ -36,14 +37,16 @@ from napari.utils import nbscreenshot
 viewer = napari.Viewer()
 ```
 
-Let's read the original image from previous lessons, take a maximum projection, and view it in napari:
+Let's read the same `cells3d` image from previous lessons, take a maximum projection, and view it in napari:
 
 ```{code-cell} ipython3
-from tifffile import imread
+from skimage.data import cells3d
 
-# load the image data and inspect its shape
-nuclei_mip = imread('data/nuclei.tif').max(axis=0)
-print(nuclei_mip.shape)
+image_data = cells3d()  # shape (60, 2, 256, 256)
+
+membranes = image_data[:, 0, :, :]
+nuclei = image_data[:, 1, :, :]
+nuclei_mip = nuclei.max(axis=0)
 ```
 
 ```{code-cell} ipython3
@@ -61,7 +64,6 @@ One common task in image processing in **image filtering** which can be used to 
 We can use **napari** to visualize the results of some of the image filters that come with the **scikit-image** library.
 
 ```{code-cell} ipython3
-# Import scikit-image's filtering module
 from skimage import filters
 ```
 
@@ -76,6 +78,8 @@ viewer.add_image(filters.scharr(nuclei_mip), name='Scharr')
 ```{code-cell} ipython3
 nbscreenshot(viewer)
 ```
+
+Toggle the visibility on and off in the layer list to see the different effects of the filters.
 
 ```{code-cell} ipython3
 # Remove all filter layers
@@ -95,7 +99,7 @@ from scipy import ndimage
 import numpy as np
 ```
 
-First let's try and seperate background from foreground using a threhold. Here we'll use an automatically calculated threshold.
+First let's try and separate background from foreground using a threshold. Here we'll use an automatically calculated threshold.
 
 ```{code-cell} ipython3
 foreground = nuclei_mip >= filters.threshold_li(nuclei_mip)
@@ -106,7 +110,9 @@ viewer.add_labels(foreground, name='foreground')
 nbscreenshot(viewer)
 ```
 
-Notice the debris located outside the nuclei and some of the holes located inside the nuclei. We will remove the debris by filtering out small objects, and fill the holes using a hole filling algorithm. We can update the data in the viewer in place.
+Notice the debris located outside the nuclei and some of the holes located inside the nuclei. We will remove the debris by 
+filtering out small objects, and fill the holes using a hole filling algorithm. Note that we can update the layer data in the 
+viewer *in place* if we don't want to create another object or another layer.
 
 ```{code-cell} ipython3
 foreground_processed = morphology.remove_small_holes(foreground, 60)
@@ -121,7 +127,8 @@ nbscreenshot(viewer)
 
 We will now convert this binary mask into an **instance segmentation** where each nuclei is assigned a unique label.
 
-We will do this using a **marker controlled watershed** approach. The first step in this procedure is to calculate a distance transform on the binary mask as follows.
+We will do this using a **marker controlled watershed** approach. The first step in this procedure is to calculate a 
+distance transform on the binary mask as follows.
 
 ```{code-cell} ipython3
 distance = ndimage.distance_transform_edt(foreground_processed)
@@ -143,33 +150,30 @@ viewer.layers['distance'].data = smoothed_distance
 nbscreenshot(viewer)
 ```
 
-Now we can try and identify the centers of each of the nuclei by finding peaks of the distance transform
+Now we can try and identify the centers of each of the nuclei by finding peaks of the smoothed distance transform.
 
 ```{code-cell} ipython3
 peak_local_max = feature.peak_local_max(
     smoothed_distance,
-    footprint=np.ones((7, 7), dtype=bool),
-    indices=False,
-    labels=measure.label(foreground_processed)
+    min_distance=12
 )
-peaks = np.nonzero(peak_local_max)
 ```
 
 ```{code-cell} ipython3
-viewer.add_points(np.array(peaks).T, name='peaks', size=5, face_color='red');
+viewer.add_points(peak_local_max, name='peaks', size=5, face_color='red')
 ```
 
 ```{code-cell} ipython3
 nbscreenshot(viewer)
 ```
 
-We can now remove any of the points that don't correspond to nuclei centers or add any new ones using the GUI.
+We can now remove any of the points that don't correspond to nuclei centers or add any new ones using the GUI Points
+layer tools. Or we could select a point using the GUI tools, but remove it programmatically—or some combination of both.
 
 ```{code-cell} ipython3
-:tags: [remove-cell]
-
-viewer.layers['peaks'].selected_data = {11}
-viewer.layers['peaks'].remove_selected()
+# uncomment these lines to remove points
+#viewer.layers['peaks'].selected_data = {5}
+#viewer.layers['peaks'].remove_selected()
 ```
 
 Based on those peaks we can now seed the watershed algorithm which will find the nuclei boundaries.
@@ -193,10 +197,11 @@ viewer.add_labels(nuclei_segmentation)
 nbscreenshot(viewer)
 ```
 
-We can now save our segmentation using our builtin save method.
+We can now save our segmentation programmatically using our builtin save method.
 
 ```{code-cell} ipython3
-viewer.layers['nuclei_segmentation'].save('nuclei-automated-segmentation.tif', plugin='builtins')
+# uncomment this line to save the segmentation to a tif file
+#viewer.layers['nuclei_segmentation'].save('nuclei-automated-segmentation.tif', plugin='builtins')
 ```
 
 ## Interactive thresholding with a custom GUI element
@@ -268,13 +273,11 @@ def complete_segmentation(viewer):
     foreground = viewer.layers['threshold result'].data
     distance = ndimage.distance_transform_edt(foreground)
     smoothed_distance = filters.gaussian(distance, 10)
-    peak_local_max = feature.peak_local_max(
-        smoothed_distance,
-        footprint=np.ones((7, 7), dtype=bool),
-        indices=False,
-        labels=measure.label(foreground)
+    peaks = feature.peak_local_max(
+        distance,
+        min_distance=12
     )
-    peaks = np.nonzero(peak_local_max)
+    peaks = np.round(peaks).astype(int).T
     seeds = np.zeros(smoothed_distance.shape, dtype=bool)
     seeds[(peaks[0], peaks[1])] = 1
 
