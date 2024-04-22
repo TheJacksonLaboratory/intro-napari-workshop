@@ -4,14 +4,6 @@
 ```
 For full documentation of the napari viewer, please see [the Viewer tutorial](https://napari.org/stable/tutorials/fundamentals/viewer.html) in the napari docs. Here we will just have an overview.
 
-This module covers the following topics:
-* [Launch the napari application](#launch-napari)
-* [Open an Image](#open-an-image)
-* [Explore Images in 2D and 3D](#explore-images-in-2d-and-3d)  
-* [Explore Stack Manipulation](#explore-stack-manipulation)  
-* [Explore Layer Types](#explore-layer-types)  
-* [Save your data](#save-your-data)
-
 ## Launch napari
 
 For this introduction, we will launch the napari application directly from the terminal.
@@ -75,8 +67,8 @@ It is second from the left end on the row of viewer buttons.
 * Select an image from the layers list (selected images are blue in the layer list).  
 * Adjust the contrast limits by using the contrast limits slider in the layer controls section.
 
-```{tip} You can control+click(Mac) or right-click(Windows) on the slider to open the expanded view with min and max pixel values labeled on the ends of the slider.
-```  
+    ```{tip} You can control+click(Mac) or right-click(Windows) on the slider to open the expanded view with min and max pixel values labeled on the ends of the slider.
+    ```  
 * Adjust opacity, color map, and blending modes in the layer controls section.  
 
 ## Explore Stack Manipulation  
