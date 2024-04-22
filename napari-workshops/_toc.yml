@@ -7,6 +7,7 @@ chapters:
 - file: getting_started
   sections:
   - file: installation
+  - file: using_jupyter
   - file: notebook_setup
   - file: launching_binder
 - file: intro_napari_GUI
