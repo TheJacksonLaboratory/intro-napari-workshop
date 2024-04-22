@@ -15,4 +15,4 @@ The slides for the introductory presentation can be accessed [here](https://psob
 
 The basis for these workshop materials was the [`napari-workshops-template` project](https://github.com/napari/napari-workshop-template). 
 Some notebooks were removed and reorganized. Additionally, the `napari application` walkthrough was based on [material from a workshop](https://github.com/dgmccart/intro-to-napari-workshop) prepared by Dannielle McCarthy (@dgmccart), Sean Martin (seankmartin), and Melissa Weber Mendonça (@melissawm).
-For information on preparing your own workshop materials using the template, please see [the documentation in that repository](https://napari.org/napari-workshop-template/docs/build_your_workshop.html).
+For information on preparing your own workshop materials using the template, please see [the documentation for the `napari-workshops-template` repository](https://napari.org/napari-workshop-template/docs/build_your_workshop.html).
