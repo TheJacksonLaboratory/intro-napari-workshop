@@ -93,14 +93,23 @@ mousewheel or trackpad to zoom.
 You can adjust a layer's opacity to see the change how much you see of the
 layers that are "under" it.
 ```
+For example, for better contrast you could choose an inverted colormap and minimum blending.
 
+```{code-cell} python
+viewer.layers['nuclei'].colormap = 'I Forest'
+viewer.layers['nuclei'].blending = 'minimum'
+viewer.layers['spots'].colormap = 'I Orange'
+viewer.layers['spots'].blending = 'minimum'
+```
 
 Once you are satisfied, you can print the output of any manual changes and then take a screenshot of the viewer.
 
 ```{code-cell} python
-print('Colormap: ', viewer.layers['nuclei'].colormap)
+# example of printing the nuclei layer visualization params
+print('Colormap: ', viewer.layers['nuclei'].colormap.name)
 print('Contrast limits: ', viewer.layers['nuclei'].contrast_limits)
 print('Opacity: ', viewer.layers['nuclei'].opacity)
+print('Blending: ', viewer.layers['nuclei'].blending)
 ```
 
 ```{code-cell} python
@@ -110,13 +119,10 @@ nbscreenshot(viewer)
 ## Create an image filter
 
 If you look carefull at the `spots` layer, you will notice that it contains background and
-autofluorescence from the cells. It may help to just look at the single channel and for better 
-contrast you could choose an inverted colormap (and minimum blending if you want to view
-multiple layers).
+autofluorescence from the cells. It may help to just look at the single channel.
 
 ```{code-cell} python
 viewer.layers['nuclei'].visible = False
-viewer.layers['spots'].colormap = "I Orange"
 ```
 
 To improve spot detection, we will apply a high pass filter to improve the contrast of the spots.
@@ -148,7 +154,7 @@ Let's hide the `low_pass` and take a screenshot for documentation.
 
 
 ```{code-cell} python
-viewer.layers['low_pass'].visibility = False
+viewer.layers['low_pass'].visible = False
 
 nbscreenshot(viewer)
 ```
@@ -168,7 +174,7 @@ from skimage.feature import blob_log
 
 # detect the spots on the filtered image
 blobs_log = blob_log(
-    high_passed_im,
+    high_passed_spots,
     max_sigma=3,
     threshold=None, # use a relative threshold instead
     threshold_rel=0.2
