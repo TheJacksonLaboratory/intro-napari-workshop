@@ -100,6 +100,12 @@ nbscreenshot(viewer)
 
 Now start adding points, clicking once per cell, approximately in the center of the cell, with the appropriate `Points` layer selected. You can tell which `Points` layer is selected because it will be highlighted left in the layers list in the bottom left hand corner of the screen. You can rapidly switch between selected layers using the up and down keys. Also don't forget this is a z-slice so you should move up and down the slice, which can also be done with the left/ right key.
 
+```{note}
+Points can be added in the 3D viewer mode, however it can be difficult to precisely control placement
+within the volume. For more control, you may wish to investigate the tools provided by the
+[napari-threedee plugin](https://napari-threedee.github.io).
+```
+
 After annotation, my data looks as follows:
 
 ```{code-cell} ipython3
@@ -311,7 +317,13 @@ nbscreenshot(viewer)
 With the labels layer we can now make pixel-wise annotaions using a paintbrush, fill bucket, 
 and eraser tools (see the row of buttons in the control panel in the top left of the viewer).
 
-Using these tools we can touch up any of the labels that we got from our polygon masks or draw entirely new ones.
+Using these tools we can touch up any of the labels that we got from our polygon masks or draw entirely new ones. As noted for Points layers, napari does support painting labels while in 3D viewer mode, but it
+is tricky to paint within the volume due to the mouse/2D screen limitations.
+
+```{tip}
+For improving your manually labeling workflow, be sure to check out the Labels layer keybindings
+in the napari Preferences/Settings. For example, by default the M-key will increment the label to the next unused label, while the P-key will toggle preserving existing labels, preventing you from painting over them.
+```
 
 ```{code-cell} ipython3
 :tags: [remove-cell]
