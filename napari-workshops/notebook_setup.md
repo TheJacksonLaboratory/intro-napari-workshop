@@ -66,19 +66,10 @@ Navigate to the `notebooks` subdirectory of the
 cd <path to intro-napari-workshop>/notebooks
 ```
 
-Remember to activate the `napari-workshop` conda environment if you havn't already.
-
-```
-conda activate napari-workshop
-```
-
-```{important}
-Because of the way the notebooks were prepared to provide a nice rendered look on the web,
-you need to install one additional dependency to run them locally:
+Remember to activate the `napari-workshop` conda environment if you haven't already.
 
 ```bash
-conda install jupytext
-```
+conda activate napari-workshop
 ```
 
 To start the Jupyter application, enter:
