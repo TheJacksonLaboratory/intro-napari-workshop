@@ -20,25 +20,54 @@ for information regarding installation.
 
 For more information on plugins, please see the [official Plugin documentation](https://napari.org/stable/plugins/index.html).
 
-## Install Your First Plugin  
+## Install Your First Plugins  
 * Navigate to [napari-hub.org](https://www.napari-hub.org)—this is the platform to discover and share plugins.  
-* Search for **sample:**.
-* Scroll down until you see **napari-bio-sample-data**.  
-* Select **napari-bio-sample-data**.  
-* Read the documentation on the plugin page.  
+* **napari-bio-sample-data** : some additional sample data (File menu)
+    * Search for **sample**.
+    * Scroll down until you see **napari-bio-sample-data**.  
+    * Select **napari-bio-sample-data**.  
+    * Read the documentation on the plugin page. 
+* **napari-skimage-regionprops** : widget to access [scikit-image `measure.regionprops`](https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops)
+    * Search for **regionprops**.
+    * Scroll down until you see **napari-skimage-regionprops**.  
+    * Select **napari-skimage-regionprops**.  
+    * Read the documentation on the plugin page. 
 * In napari, open  
 **Plugins**>**Install/Uninstall Plugins...**   
 and wait for the plugin list to populate.  
-* Search for **sample** in the top search/filter bar, and click the install button next to **napari-bio-sample-data**.  
+* Search for **sample** in the top search/filter bar, and click the install button next to **napari-bio-sample-data**.
+* Once the install completes, search for **regionprops** and install that plugin as well.  
 
     ```{note}
     - After clicking the install button and you can monitor the **installing…** process by clicking `Show status`. This can be helpful in trouble-shooting installation issues.
     - After installing, you will typically need to close napari and reopen it, then  continue.
     ``` 
 
-* Restart napari and check if the plugin installed by opening **File**>**Open Sample**.  **napari-bio-sample-data** should be a menu option.  
-  
-* **File**>**Open Sample**>**napari-bio-sample-data**>**3D nuclei**  
+* Restart napari. 
+* Open **File**>**Open Sample**. **napari-bio-sample-data** should be a menu option.  
+    * Select: **File**>**Open Sample**>**napari-bio-sample-data**>**3D nuclei**  
 
-This sample data includes the same `nuclei` data as before, but this time a 3D labels and surface layer
-are present. You can explore these in the 3D view.
+    This sample data includes the same `nuclei` data as before, but this time a 3D labels and surface layer
+    are present. You can explore these in the 3D view. Delete the surface layer once you're ready to move
+    on.
+* Open **Tools**>**Measurement Tables**>**Regionprops (scikit-image, nsr)**
+    * Ensure that `nuclei (data)` is selected for the `image` layer and `nuclei label (data)` is selected
+    for the `labels` layer.
+    * Use the checkboxes to select some properties to measure. Refer to the [scikit-image `measure.regionprops` documentation](https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops) for more information
+    * Click run, which should yield a table of measurements—depending how many you checked, this could take
+    a moment to run.
+
+    ```{tip}
+    Grab the titlebar of the new widget `Properties of nuclei label` and drag it off the napari
+    viewer to undock. Then you can resize the table for easier browsing.
+    You can re-dock the widget by dragging it on the existing side dock  or the bottom of the viewer,
+    e.g. where the viewer buttons are, to dock it beneath the canvas.
+    ```
+
+    * In the labels layer layer controls widget, check the box `show selected` to only view the currently
+    selected label. Now in the table, when you click a cell you will be shown the corresponding label.
+    
+    ```{tip}
+    You can double-click a table header to generate a heat map of that property.
+    ```
+
