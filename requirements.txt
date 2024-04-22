@@ -2,6 +2,3 @@ jupyter-book
 jupyterlab
 jupytext
 napari[all]
-napari-animation
-matplotlib
-
