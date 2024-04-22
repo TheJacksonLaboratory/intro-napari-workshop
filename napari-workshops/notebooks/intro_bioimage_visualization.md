@@ -156,7 +156,7 @@ print('Opacity: ', viewer.layers['nuclei'].opacity)
 ```{code-cell} ipython3
 # Now let's change some of them. Note that the viewer GUI will update in real time as you run this code in the notebook
 viewer.layers['nuclei'].colormap = 'red'
-viewer.layers['nuclei'].contrast_limits = [0.4, 0.6]
+viewer.layers['nuclei'].contrast_limits = [30000, 65000]
 viewer.layers['nuclei'].opacity = 0.9
 
 # We can even rename the layer, but note that from now on you'll need to refer to if with its new name
@@ -170,7 +170,7 @@ nbscreenshot(viewer)
 We could have actually passed these parameters as key-word arguments to during the first `add_image` call. For example we can add another copy of the data as follows:
 
 ```{code-cell} ipython3
-viewer.add_image(nuclei, contrast_limits=[0.07, 0.35], colormap='blue', blending='additive')
+viewer.add_image(nuclei, contrast_limits=[1600, 50000], colormap='blue', blending='additive')
 ```
 
 Setting the `blending` of the second layer to `additive` now lets us see both together, which could be useful for understanding how parts of the image relate to each other.
@@ -182,7 +182,7 @@ nbscreenshot(viewer)
 Let's now load in an additional channel of data containing a stain for cell membranes and add them to the viewer as a new layer.
 
 ```{code-cell} ipython3
-viewer.add_image(membranes, contrast_limits=[0.02, 0.2], colormap='green', blending='additive');
+viewer.add_image(membranes, contrast_limits=[1000, 24000], colormap='green', blending='additive');
 ```
 
 ```{code-cell} ipython3
@@ -207,9 +207,9 @@ As this is a 3D volume, we can also use napari to look at 2D slices along other 
 ```{code-cell} ipython3
 :tags: [remove-cell]
 
-viewer.layers['membranes'].contrast_limits = (0, 0.75)
-viewer.layers['nuclei'].contrast_limits = (0.07, 0.35)
-viewer.layers['division'].contrast_limits = (0, 1)
+viewer.layers['membranes'].contrast_limits = (0, 50000)
+viewer.layers['nuclei'].contrast_limits = (4000, 23000)
+viewer.layers['division'].contrast_limits = (0, 65000)
 viewer.dims.order = (2, 0, 1)
 viewer.dims.current_step = (25, 0, 60)
 ```
