@@ -40,8 +40,9 @@ this tutorial.
 
 ## Install additional `jupytext` dependency
 
-Because of the way the notebooks were prepared to provide a nice rendered look on the web,
-you need to install one additional dependency to run them locally
+Because the notebooks were converted to MyST Markdown files (with a .md extension),
+to better  visualize on GitHub and provide a nice rendered look on the web,
+you need to install one additional dependency to run them locally.
 
 ````{important}
 Remember to activate the right environment!
@@ -89,8 +90,15 @@ jupyter lab
 The Jupyter interface will open in a browser window and you will see the notebooks
 in the file browser on the left.
 
-```{important}
+````{important}
 To open these workshop notebooks in the Jupyter interface, right click the notebook name in the file navigation panel from the Jupyter interface, and click "Open with -> Notebook".
 
 ![Right click on "intro_bioimage_visualization.md" file, and select "Open with -> Notebook"](./resources/open_with_notebook.png)
+
+Or, as an alternative you can first convert them to normal `.ipynb` using:
+
+```bash
+jupytext –to ipynb <notebook_file>.md
 ```
+
+````
