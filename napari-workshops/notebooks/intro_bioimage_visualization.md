@@ -68,7 +68,7 @@ There are a few different ways to load images to into our `viewer`.
 
 For the first three options the file path will get passed through our `fileIO` plugin interface, allowing you to easily leverage highly customized `fileIO` plugins for your diverse needs. The fourth option allows you complete control over loading and visualization and is most suited for when you have data already loaded into your notebook from other sources.
 
-For exmaple, you could explicitly load a 3D image using the `tifffile` library and the `add_image()` method of our `Viewer` object.
+For example, you could explicitly load a 3D image using the `tifffile` library and the `add_image()` method of our `Viewer` object.
 
 ```Python
 from tifffile import imread
@@ -144,7 +144,7 @@ first_layer = viewer.layers[0]
 nuclei_layer, first_layer
 ```
 
-If we go in and get the `nuclei` layer from our layer list we can now see and edit the values of some of the properties that we can control in the GUI.
+If we go in and get the `nuclei` layer from our layer list we can now see and edit the values of some of the properties that we can control in the GUI. First, let's print the values of some layer visualization properties.
 
 ```{code-cell} ipython3
 # let's look at the values of some of the properties on the `nuclei` layer
@@ -153,8 +153,9 @@ print('Contrast limits: ', viewer.layers['nuclei'].contrast_limits)
 print('Opacity: ', viewer.layers['nuclei'].opacity)
 ```
 
+Now let's change some of them. Note that the viewer GUI will update in real time as you run this code in the notebook.
+
 ```{code-cell} ipython3
-# Now let's change some of them. Note that the viewer GUI will update in real time as you run this code in the notebook
 viewer.layers['nuclei'].colormap = 'red'
 viewer.layers['nuclei'].contrast_limits = [26000, 40000]
 viewer.layers['nuclei'].opacity = 0.9
@@ -190,7 +191,8 @@ nbscreenshot(viewer)
 ```
 
 ### Orthogonal slicing and 3D rendering
-So far we've only looked at one slice. Use the slider at the bottom of the viewer to scroll through to another slice and see what the image looks like. For example the 27th slice looks like:
+So far we've only looked at one slice. Use the slider at the bottom of the viewer to scroll through to another slice 
+and see what the image looks like. For example the 27th slice looks like:
 
 ```{code-cell} ipython3
 :tags: [remove-cell]
@@ -202,8 +204,10 @@ viewer.dims.current_step = (26, 0, 0)
 nbscreenshot(viewer)
 ```
 
-As this is a 3D volume, we can also use napari to look at 2D slices along other axes. If we click the `roll dimensions` button in the bottom left hand corner of the viewer (which looks like a 3D cube with an arrow, 3rd from the left), and then scrolling through to the 60th slice. We can also accomplish this using the API
-(contrast limits are being tweaked to improve contrast):
+As this is a 3D volume, we can also use napari to look at 2D slices along other axes. If we click the `roll dimensions` 
+button in the bottom left hand corner of the viewer (which looks like a 3D cube with an arrow, 3rd from the left), 
+and then scrolling through to the 60th slice. We can also accomplish this using the API (contrast limits are being 
+tweaked to improve contrast):
 
 ```{code-cell} ipython3
 viewer.layers['membranes'].contrast_limits = (0, 50000)
@@ -217,7 +221,12 @@ viewer.dims.current_step = (25, 0, 60)
 nbscreenshot(viewer)
 ```
 
-In addition to doing 2D rendering, napari can also do full 3D rendering. To enable 3D mode click on the 3D rendering button (which looks like a wireframe of a cube, second from the left). Now the slider has disappeared as the full 3D volume is being rendered at the same time. If the original dataset had been 4D, say for a volumetric timeseries then when using 2D rendering we would have initially seen two sliders, one for Z and one for Time, and 3D rendering would have switched us to only seeing one slider, for Time. In this way napari can be used to visualize either 2D or 3D slices of full n-Dimensional data with multiple color channels.
+In addition to doing 2D rendering, napari can also do full 3D rendering. To enable 3D mode click on the 3D rendering 
+button (which looks like a wireframe of a cube, second from the left). Now the slider has disappeared as the full 3D 
+volume is being rendered at the same time. If the original dataset had been 4D, say for a volumetric timeseries then 
+when using 2D rendering we would have initially seen two sliders, one for Z and one for Time, and 3D rendering would 
+have switched us to only seeing one slider, for Time. In this way napari can be used to visualize either 2D or 3D 
+slices of full n-Dimensional data with multiple color channels.
 
 Try playing around with some of the 3D rendering modes and parameters in the gui to get a nice 3D visualization.
 

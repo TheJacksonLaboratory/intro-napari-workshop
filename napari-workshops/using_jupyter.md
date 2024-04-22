@@ -8,7 +8,7 @@ with your own, fresh notebook, using the executed and rendered notebooks [includ
 
 1. Open your terminal application
 
-2. Activate the `napari-workshop` conda environment, if you havn't already.
+2. Activate the `napari-workshop` conda environment, if you haven't already.
 
    ```bash
     conda activate napari-workshop

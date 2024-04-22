@@ -66,11 +66,11 @@ nbscreenshot(viewer)
 
 ## Annotating dividing and non-dividing cells using the points layer
 
-One simple task that a biologist or bioimage analyst might be interseted in annotating each cell as diving or non-dividng.
+One simple task that a biologist or bioimage analyst might be interested in annotating each cell as diving or non-dividing.
 
 In order to do this we are going to add two points layers to the viewer, one called `dividing` and one called `non-dividing` and set some basic properties on these layers.
 
-You can add the layers using the new points button in the middle of the left panel of the viewer (left-most button featuring with many small dots), or you can add them programatically from the viewer. We'll add them programatically from the viewer for this example.
+You can add the layers using the new points button in the middle of the left panel of the viewer (left-most button featuring with many small dots), or you can add them programmatically from the viewer. We'll add them programmatically from the viewer for this example.
 
 ```{code-cell} ipython3
 # add the first points layer for dividing cells
@@ -86,10 +86,10 @@ Notice now how two new layers have been created, and that these layers have diff
 nbscreenshot(viewer)
 ```
 
-To add points you must enter add mode. This can be done by clicking on the add mode button in the top row of the control panel (2nd from the left, circle with a plus in it), or programatically from the notebook.
+To add points you must enter add mode. This can be done by clicking on the `add` mode button in the top row of the control panel (2nd from the left, circle with a plus in it), or programmatically from the notebook.
 
 ```{code-cell} ipython3
-# programatically enter add mode for both Points layers to enable editing
+# programmatically enter `add` mode for both Points layers to enable editing
 viewer.layers['dividing'].mode = 'add'
 viewer.layers['non-dividing'].mode = 'add'
 ```
@@ -153,8 +153,8 @@ nbscreenshot(viewer)
 You can also get the number of cells of each class and an array of their centers as follows:
 
 ```{code-cell} ipython3
-print('Number of diving cells:', len(viewer.layers['dividing'].data))
-print('Number of non-diving cells:', len(viewer.layers['non-dividing'].data))
+print('Number of diving cells: ', len(viewer.layers['dividing'].data))
+print('Number of non-diving cells: ', len(viewer.layers['non-dividing'].data))
 ```
 
 ```{code-cell} ipython3
@@ -165,7 +165,7 @@ viewer.layers['non-dividing'].data
 To save a `csv` file with these values for each layer you can use our builtin writer functionality. Note these csv files can easily be opened up into standard tools like [`pandas`](https://pandas.pydata.org) or Excel for further analysis.
 
 ```{code-cell} ipython3
-# Save out Points layer data to a csv file
+# Uncomment the lines below to save out Points layer data to csv files
 #viewer.layers['dividing'].save('dividing.csv', plugin='builtins')
 #viewer.layers['non-dividing'].save('non-dividing.csv', plugin='builtins')
 ```
@@ -204,7 +204,7 @@ viewer.add_image(nuclei_mip);
 nbscreenshot(viewer)
 ```
 
-We can now add an empty new shapes layer from the GUI using the new shapes button (middle of the left panel, 2nd from the left with a polygon on it) or programatically from the notebook. (Let's ensure we're in 2D mode.)
+We can now add an empty new shapes layer from the GUI using the new shapes button (middle of the left panel, 2nd from the left with a polygon on it) or programmatically from the notebook. (Let's ensure we're in 2D mode.)
 
 ```{code-cell} ipython3
 viewer.dims.ndisplay = 2
@@ -301,7 +301,7 @@ print('Number of labels:', nuclei_labels.max())
 We can now add this labels image to the viewer as a labels layer.
 
 ```{code-cell} ipython3
-# Add the cell segmenation labels as a labels layer
+# Add the cell segmentation labels as a labels layer
 viewer.add_labels(nuclei_labels);
 
 # Turn off the visibility of the shapes layer so as not to get confused
@@ -314,7 +314,7 @@ nbscreenshot(viewer)
 
 ## Painting labels for pixel-wise annotations
 
-With the labels layer we can now make pixel-wise annotaions using a paintbrush, fill bucket, 
+With the labels layer we can now make pixel-wise annotations using a paintbrush, fill bucket, 
 and eraser tools (see the row of buttons in the control panel in the top left of the viewer).
 
 Using these tools we can touch up any of the labels that we got from our polygon masks or draw entirely new ones. As noted for Points layers, napari does support painting labels while in 3D viewer mode, but it
