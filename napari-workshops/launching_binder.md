@@ -2,15 +2,17 @@
 
 If you can't install napari and the Jupyter notebook application locally, or if you prefer using a cloud instance of Jupyter to execute and interact with the workshop notebooks, you can follow this guide.
 
+```{note}
+Because this will launch a virtual machine in the cloud and install everything needed to run the notebook, it could take *several minutes* to spin up!
+```
+
 ## Open a single notebook in Binder
 
 To open a notebook in Binder, click on the rocketship badge at the top of a notebook and click on "Binder".
 
 ![Binder badge shown in the "Bioimage visualization in Python" notebook](./resources/binder_button.png)
 
-This will launch a virtual machine in the cloud and install everything needed to run the notebook. Note that this could take several minutes to spin up!
-
-Just opening the notebook is not sufficient; because napari is a desktop application, we need a "Desktop" tab to see the napari GUI interface. To do this we need to return to the Jupyter dashboard, by clicking the Jupyter logo (marked in red below) in the uppper left.
+Just opening the notebook is not sufficient. Because napari is a desktop application, we need a "Desktop" tab to see the napari GUI interface. To do this we need to return to the Jupyter dashboard, by clicking the Jupyter logo (marked in red below) in the upper left.
 
 ![Jupyter logo tool-tip showing `dashboard`](./resources/jupyter_logo_dashboard.png)
 
@@ -46,4 +48,4 @@ After running any cell which opens the napari viewer from the Jupyter notebook, 
 
 ## Interact with the notebook!
 
-You should now be able to interact with this notebook, by executing all cells and observing the results in the napari GUI window. You can also edit the code cells to experiment with different napari concepts and its API. You can save a snapshot of the viewer status to the notebook using the `nbscreenshot` function. 
+You should now be able to interact with this notebook, by executing all cells and observing the results in the napari GUI window. You can also edit the code cells to experiment with different napari concepts and its API. You can save a snapshot of the viewer status to the notebook using the `nbscreenshot` function.
