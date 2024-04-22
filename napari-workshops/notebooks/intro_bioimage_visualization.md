@@ -148,7 +148,7 @@ If we go in and get the `nuclei` layer from our layer list we can now see and ed
 
 ```{code-cell} ipython3
 # let's look at the values of some of the properties on the `nuclei` layer
-print('Colormap: ', viewer.layers['nuclei'].colormap)
+print('Colormap: ', viewer.layers['nuclei'].colormap.name)
 print('Contrast limits: ', viewer.layers['nuclei'].contrast_limits)
 print('Opacity: ', viewer.layers['nuclei'].opacity)
 ```

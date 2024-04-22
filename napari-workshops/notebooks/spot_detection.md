@@ -201,6 +201,15 @@ viewer.add_points(spot_coords, size=spot_sizes)
 nbscreenshot(viewer)
 ```
 
+Let's zoom in for a better look. You can explore interactively in the viewer and then you can explicitly
+set the center of the field of view and the zoom factor.
+
+```{code-cell} python
+viewer.camera.center = (200, 270)
+viewer.camera.zoom = 8
+```
+
+
 ## Conclusion
 In this activity, we have developed done the exploratory analysis for spot detection
 using a combination of Jupyter notebook, scipy, scikit-image, and napari. In the
