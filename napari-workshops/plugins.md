@@ -13,7 +13,9 @@ napari GUI using the Plugin menu.
 
 ```{note}
 Currently (napari 0.4.19) the built-in Plugin installer uses `pip` to install plugins into
-the Python environment.
+the Python environment. This means that plugins with compiled dependencies or those that require non-Python
+components may not install properly. In those cases, you will need to check the documentation of the plugin
+for information regarding installation.
 ```
 
 For more information on plugins, please see the [official Plugin documentation](https://napari.org/stable/plugins/index.html).
@@ -30,7 +32,8 @@ and wait for the plugin list to populate.
 * Search for **sample** in the top search/filter bar, and click the install button next to **napari-bio-sample-data**.  
 
     ```{note}
-    After clicking the install button and you can monitor the **installing…** process by clicking `Show status`. After installing, you will typically need to close napari and reopen it, then  continue.
+    - After clicking the install button and you can monitor the **installing…** process by clicking `Show status`. This can be helpful in trouble-shooting installation issues.
+    - After installing, you will typically need to close napari and reopen it, then  continue.
     ``` 
 
 * Restart napari and check if the plugin installed by opening **File**>**Open Sample**.  **napari-bio-sample-data** should be a menu option.  

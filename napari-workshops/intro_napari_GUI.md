@@ -1,4 +1,4 @@
-# The napari viewer
+# napari application
 
 ```{note} This content based on material originally prepared by Dannielle McCarthy, CZI (@dgmccart)
 ```
