@@ -98,10 +98,10 @@ viewer.add_image(nuclei)
 Don't forget to change windows so you can now see the viewer. By default you'll just be looking at the middle
 slice of the leading axis (index 0). You should see a single slider at the bottom of the viewer that will
 allow you to scroll through the rest of the z-stack. You can programmatically set the slice to display 
-to the 46 slice using the API as follows:
+to the 27 slice using the API as follows:
 
 ```{code-cell} ipython3
-viewer.dims.current_step = (45, 0, 0)
+viewer.dims.current_step = (26, 0, 0)
 ```
 
 Let's take a screenshot to record this in our notebook:
@@ -113,13 +113,13 @@ nbscreenshot(viewer)
 In the top left hand corner of the viewer we now have a control panel with controls that cover all our layers, and those that are specific to images like contrast limits and colormap.
 
 ### Color channels and blending
-Right clicking on the **contrast limits** slider pulls up an elongated version of the slider which you can type specific numbers into. Let's give that a try to adjust the contrast limits to `[0.07, 0.35]`, and let's change the colormap to `blue` using the drop down menu.
+Right clicking on the **contrast limits** slider pulls up an elongated version of the slider which you can type specific numbers into. Let's give that a try to adjust the contrast limits to `(4000, 23000)`, and let's change the colormap to `blue` using the drop down menu.
 
 ```{code-cell} ipython3
 :tags: [remove-cell]
 
 layer = viewer.layers[0]
-layer.contrast_limits = [0.07, 0.35]
+layer.contrast_limits = (4000, 23000)
 layer.colormap = 'blue'
 ```
 
@@ -156,7 +156,7 @@ print('Opacity: ', viewer.layers['nuclei'].opacity)
 ```{code-cell} ipython3
 # Now let's change some of them. Note that the viewer GUI will update in real time as you run this code in the notebook
 viewer.layers['nuclei'].colormap = 'red'
-viewer.layers['nuclei'].contrast_limits = [30000, 65000]
+viewer.layers['nuclei'].contrast_limits = [26000, 40000]
 viewer.layers['nuclei'].opacity = 0.9
 
 # We can even rename the layer, but note that from now on you'll need to refer to if with its new name
@@ -190,23 +190,22 @@ nbscreenshot(viewer)
 ```
 
 ### Orthogonal slicing and 3D rendering
-So far we've only looked at one slice. Use the slider at the bottom of the viewer to scroll through to another slice and see what the image looks like. For example the 45th slice looks like:
+So far we've only looked at one slice. Use the slider at the bottom of the viewer to scroll through to another slice and see what the image looks like. For example the 27th slice looks like:
 
 ```{code-cell} ipython3
 :tags: [remove-cell]
 
-viewer.dims.current_step = (45, 0, 0)
+viewer.dims.current_step = (26, 0, 0)
 ```
 
 ```{code-cell} ipython3
 nbscreenshot(viewer)
 ```
 
-As this is a 3D volume, we can also use napari to look at 2D slices along other axes. If we click the `roll dimensions` button in the bottom left hand corner of the viewer (which looks like a 3D cube with an arrow, 3rd from the left), and then scrolling through to the 60th slice gives the following:
+As this is a 3D volume, we can also use napari to look at 2D slices along other axes. If we click the `roll dimensions` button in the bottom left hand corner of the viewer (which looks like a 3D cube with an arrow, 3rd from the left), and then scrolling through to the 60th slice. We can also accomplish this using the API
+(contrast limits are being tweaked to improve contrast):
 
 ```{code-cell} ipython3
-:tags: [remove-cell]
-
 viewer.layers['membranes'].contrast_limits = (0, 50000)
 viewer.layers['nuclei'].contrast_limits = (4000, 23000)
 viewer.layers['division'].contrast_limits = (0, 65000)
