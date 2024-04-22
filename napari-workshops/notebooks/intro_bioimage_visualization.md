@@ -85,7 +85,7 @@ from skimage.data import cells3d
 image_data = cells3d()  # shape (60, 2, 256, 256)
 
 membranes = image_data[:, 0, :, :]
-nuclei = image_daata[:, 1, :, :]
+nuclei = image_data[:, 1, :, :]
 ```
 
 Now that we have the data arrays loaded, we can directly what we want to the viewer.
@@ -95,13 +95,16 @@ Now that we have the data arrays loaded, we can directly what we want to the vie
 viewer.add_image(nuclei)
 ```
 
-Don't forget to change windows so you can now see the viewer. By default you'll just be looking at the 1st plane of the 3D data, which is the 0th slice of 60. You should see a single slider at the buttom of the viewer that will allow you to scroll through the rest of the z-stack. If you find the 30th slice then you should see the same as in the screenshot below.
+Don't forget to change windows so you can now see the viewer. By default you'll just be looking at the middle
+slice of the leading axis (index 0). You should see a single slider at the bottom of the viewer that will
+allow you to scroll through the rest of the z-stack. You can programmatically set the slice to display 
+to the 46 slice using the API as follows:
 
 ```{code-cell} ipython3
-:tags: [remove-cell]
-
-viewer.dims.current_step = (30, 0, 0)
+viewer.dims.current_step = (45, 0, 0)
 ```
+
+Let's take a screenshot to record this in our notebook:
 
 ```{code-cell} ipython3
 nbscreenshot(viewer)
