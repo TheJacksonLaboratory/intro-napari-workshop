@@ -61,10 +61,6 @@ the canvas.
 ![home button](resources/home-button.png)  
 It is on the right end of the row of viewer buttons.  
 
-* Move the _nuclei_ and _membrane_ images to be side-by-side by toggling the `grid mode` button.  
-![grid-button](resources/grid-button.png)  
-It is second from the right end on the row of viewer buttons.  
-
 * Explore images in 3D by toggling the `2D/3D` button.  When you're in 2D mode, it looks like this:  
 ![2d-3d-button](resources/2d-3d-button-2d.png)  
 When you're in 3D mode, it looks like this:  
@@ -73,8 +69,8 @@ It is second from the left end on the row of viewer buttons.
 * Click and drag on the 3D image to rotate.
 * Shift + click and drag to translate (move) the 3D image.  
 * Scroll to zoom in and out of the 3D volume.
-* Move the **nuclei** and **membrane** 3D volumes side by side by toggling the grid mode button. (Fifth button on the lower left bar).
-* Toggle back to 2D mode (Second button on the lower left bar).  
+* Move the _nuclei_ and _membrane_ images to be side-by-side by toggling the `grid mode` button; it's the second button from the right end on the row of viewer buttons and acts as a toggle. 
+![grid-button](resources/grid-button.png)  
  
 ## Adjust Image Visualization   
 * Select an image from the layers list (selected images are blue in the layer list).  
