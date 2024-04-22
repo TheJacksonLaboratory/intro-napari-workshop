@@ -68,17 +68,27 @@ There are a few different ways to load images to into our `viewer`.
 
 For the first three options the file path will get passed through our `fileIO` plugin interface, allowing you to easily leverage highly customized `fileIO` plugins for your diverse needs. The fourth option allows you complete control over loading and visualization and is most suited for when you have data already loaded into your notebook from other sources.
 
-Here we will explore the fourth option, explicitly loading a 3D image using the `tifffile` library and the `add_image()` method of our `Viewer` object.
+For exmaple, you could explicitly load a 3D image using the `tifffile` library and the `add_image()` method of our `Viewer` object.
 
-```{code-cell} ipython3
+```Python
 from tifffile import imread
 
 # load the image data and inspect its shape
 nuclei = imread('data/nuclei.tif')
-print(nuclei.shape)
 ```
 
-Now that we have the data array loaded, we can directly add it to the viewer.
+However, for simplicity, we will use the [`cells3d` dataset, provided by scikit-image](https://scikit-image.org/docs/stable/api/skimage.data.html#skimage.data.cells3d). 
+
+```{code-cell} ipython3
+from skimage.data import cells3d
+
+image_data = cells3d()  # shape (60, 2, 256, 256)
+
+membranes = image_data[:, 0, :, :]
+nuclei = image_daata[:, 1, :, :]
+```
+
+Now that we have the data arrays loaded, we can directly what we want to the viewer.
 
 ```{code-cell} ipython3
 ## directly adding image data to the napari viewer
@@ -167,14 +177,6 @@ nbscreenshot(viewer)
 ```
 
 Let's now load in an additional channel of data containing a stain for cell membranes and add them to the viewer as a new layer.
-
-```{code-cell} ipython3
-from tifffile import imread
-
-# load the image data and inspect its shape
-membranes = imread('data/cell_membranes.tif')
-print(membranes.shape)
-```
 
 ```{code-cell} ipython3
 viewer.add_image(membranes, contrast_limits=[0.02, 0.2], colormap='green', blending='additive');
