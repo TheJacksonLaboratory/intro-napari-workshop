@@ -209,6 +209,9 @@ viewer.camera.center = (200, 270)
 viewer.camera.zoom = 8
 ```
 
+```{code-cell} python
+nbscreenshot(viewer)
+```
 
 ## Conclusion
 In this activity, we have developed done the exploratory analysis for spot detection
