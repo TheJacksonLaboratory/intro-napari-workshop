@@ -11,7 +11,6 @@ This module covers the following topics:
 * [Explore Stack Manipulation](#explore-stack-manipulation)  
 * [Explore Layer Types](#explore-layer-types)  
 * [Save your data](#save-your-data)
-* [Install Your First Plugin](#install-your-first-plugin)
 
 ## Launch napari
 
@@ -50,7 +49,7 @@ the canvas.
 
 ## Explore Images in 2D and 3D  
 
-* Toggle layers on and off with the **eye button next to the layer name** in the layer list.  
+* Toggle layer visibility on and off with the **eye button next to the layer name** in the layer list.  
 * Use the dimension sliders beneath the canvas to  control the z position/slice number. Slide through the 3D stack one 2D slice at a time.  
 
 * Scroll (use two finger scroll on a touchpad) to zoom in and out.  
@@ -108,7 +107,8 @@ the API. For guides to using the various, please see the [napari layer guides](h
 
 * Add a points, shapes, or labels layer using the buttons above the layers list.
     * These layers will be blank to begin with.  
-    * In 2D mode, use the layer controls to add points, draw some shapes, or paint some labels on your image (referring to points, shapes, and labels layers respectively).  
+    * In 2D mode, use the layer controls to add points, draw some shapes, or paint some labels on your image (referring to points, shapes, and labels layers respectively).
+* Re-order the layer list by dragging a selected layer in the list below another. Depending on the blending and opacity settings, this will change the visualization!
 
 ```{tip}
 You can delete layers selected individually using the trash can icon or by pressing the backspace key.
@@ -190,6 +190,7 @@ If your layers disappeared, you will need to click the `home` button to reset th
 `viewer.scale_bar.visible = True`  in the integrated console. 
 * Add physical units of microns to the scale bar by typing `viewer.scale_bar.unit = "um"`  
 in the integrated console.
+* Try zooming in and out of the image, while watching the scale bar!
 
 ````{tip}
 The integrated console is a full-featured iPython kernel. You can use it for interactive
