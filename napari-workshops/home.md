@@ -22,12 +22,6 @@ For **bioimage visualization** some major challenges are:
 
 This workshop will introduce `napari` a fast, interactive, multi-dimensional image viewer for Python.
 
-```{image} resources/napari-logo.png
-:alt: napari logo
-:width: 20%
-:align: center
-```
-
 `napari` is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large multi-dimensional images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-based rendering), and the scientific Python stack (NumPy, SciPy).
 
 `napari` includes critical viewer features out-of-the-box, such as support for large multi-dimensional data, layering, and annotation. By integrating closely with the scientific Python ecosystem, napari can be easily coupled to leading machine learning and image analysis tools (e.g. scikit-image, scikit-learn, PyTorch), enabling more user-friendly automated analysis.
