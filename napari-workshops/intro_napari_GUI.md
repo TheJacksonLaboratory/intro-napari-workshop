@@ -1,6 +1,6 @@
 # napari application
 
-```{note} This content based on material originally prepared by Dannielle McCarthy, CZI (@dgmccart)
+```{note} This content was based on [material from a workshop](https://github.com/dgmccart/intro-to-napari-workshop) prepared by Dannielle McCarthy (@dgmccart), Sean Martin (seankmartin), and Melissa Weber Mendonça (@melissawm).
 ```
 For full documentation of the napari viewer, please see [the Viewer tutorial](https://napari.org/stable/tutorials/fundamentals/viewer.html) in the napari docs. Here we will just have an overview.
 
