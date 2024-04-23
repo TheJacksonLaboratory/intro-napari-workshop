@@ -64,7 +64,7 @@ There are a few different ways to load images to into our `viewer`.
 - By `dragging and dropping` image files onto the viewer
 - By selecting image files from the `Open File(s)` menu option
 - Using the `viewer.open` command with a file path from within the notebook
-- Loading the image data into an array and then passing that array using the `viewer.add_image` command
+- Loading the image data into an array-like object and then passing that array using the `viewer.add_image` command
 
 For the first three options the file path will get passed through our `fileIO` plugin interface, allowing you to easily leverage highly customized `fileIO` plugins for your diverse needs. The fourth option allows you complete control over loading and visualization and is most suited for when you have data already loaded into your notebook from other sources.
 
@@ -230,9 +230,11 @@ slices of full n-Dimensional data with multiple color channels.
 
 Try playing around with some of the 3D rendering modes and parameters in the gui to get a nice 3D visualization.
 
-```{code-cell} ipython3
-:tags: [remove-cell]
+You can also programmatically set the camera to a specific view. So if you
+manually find a view you like, you can print the values and then set them
+explicitly in the notebook. For example:
 
+```{code-cell} ipython3
 viewer.dims.ndisplay = 3
 viewer.camera.angles = (-10, 10, 150)
 viewer.camera.zoom = 1.75
