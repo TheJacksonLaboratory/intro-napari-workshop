@@ -2,6 +2,7 @@
     "cSpell.words": [
         "builtins",
         "colormap",
+        "denoise",
         "ipython",
         "jupytext",
         "magicgui",
@@ -9,6 +10,7 @@
         "miniforge",
         "nbscreenshot",
         "ndim",
+        "ndimage",
         "ndisplay",
         "regionprops",
         "scikit",
