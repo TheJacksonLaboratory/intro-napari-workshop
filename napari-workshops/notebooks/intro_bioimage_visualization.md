@@ -206,15 +206,15 @@ nbscreenshot(viewer)
 
 As this is a 3D volume, we can also use napari to look at 2D slices along other axes. If we click the `roll dimensions` 
 button in the bottom left hand corner of the viewer (which looks like a 3D cube with an arrow, 3rd from the left), 
-and then scrolling through to the 60th slice. We can also accomplish this using the API (contrast limits are being 
-tweaked to improve contrast):
+and then scrolling through to the 60th slice. We can also accomplish this using the API.
+
+```{tip}
+Remember that the 2 right-most array dimensions will be the displayed ones and that we use `zyx` convention with 0-based indexing.
+```
 
 ```{code-cell} ipython3
-viewer.layers['membranes'].contrast_limits = (0, 50000)
-viewer.layers['nuclei'].contrast_limits = (4000, 23000)
-viewer.layers['division'].contrast_limits = (0, 65000)
-viewer.dims.order = (2, 0, 1)
-viewer.dims.current_step = (25, 0, 60)
+viewer.dims.order = (2, 0, 1)  # z, y will be displayed
+viewer.dims.current_step = (25, 0, 60)  # this tuple is still in the zyx order
 ```
 
 ```{code-cell} ipython3
