@@ -141,6 +141,19 @@ created and the files will be individually exported there, as noted above.
     To re-open the files, open the enclosing folder, select all the files, and drag-n-drop them on the napari canvas. At present, opening the folder directly, if it contains a mix of layer types, will not work—only images are supported in this way. Note that a folder of images will be imported as a stack.
     ```
 
+## The Preferences/Settings
+
+Here you can customize the behavior of napari, e.g. keybindings, as well as
+the look (e.g. themes).
+* Access the Settings on Windows/Linux in the **File** menu or the Preferences in the **napari** menu on macOS
+![Preferences/Settings window](resources/preferences.png)
+    * Be sure and check the extensive, editable keyboard shortcuts!
+
+```{note}
+- Preferences/Settings are stored *per Python environment*. 
+- They can reset using `napari --reset` in the terminal
+```
+
 ## Use the integrated Python console to interact with the viewer
 
 ```{tip}
