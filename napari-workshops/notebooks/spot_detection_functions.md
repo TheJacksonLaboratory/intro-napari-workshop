@@ -138,6 +138,8 @@ Press the `Run` button and you will see that a new Image layer is added with the
 function—again thanks to autogeneration from `magicgui`.
 
 ```{code-cell} ipython3
+:tags: ["hide-output"]
+
 # we'll call the widget to simulate clicking `Run`
 gaussian_high_pass(viewer.layers['spots'].data)
 ```
@@ -250,15 +252,16 @@ just the layer data using `napari.types.PointsData`. But lets get a nicer Points
 we will return a LayerDataTuple.  
 
 If `detect_spots()` returns a `LayerDataTuple`, napari will add a *new layer* to
-   the viewer using the data in the `LayerDataTuple`. For more information on
+   the viewer using the data in the `LayerDataTuple`. For more information on using
    the `LayerDataTuple` type, please see
-   [the docs](https://napari.org/plugins/guides.html#the-layerdata-tuple).
-    - The layer data tuple should be: `(layer_data, layer_metadata, layer_type)`
-    - `layer_data`: the data to be displayed in the new layer (i.e., the points
+   [the documentation](https://napari.org/stable/guides/magicgui.html#returning-napari-types-layerdatatuple).
+   Briefly:
+    * The layer data tuple should be: `(layer_data, layer_metadata, layer_type)`
+    * `layer_data`: the data to be displayed in the new layer (i.e., the points
       coordinates)
-    - `layer_metadata`: the display options for the layer stored as a
+    * `layer_metadata`: the display options for the layer stored as a
       dictionary. Some options to consider: `symbol`, `size`, `face_color`
-    - `layer_type`: the name of the layer type as a string—in this case `'Points'`  
+    * `layer_type`: the name of the layer type as a string—in this case `'Points'`  
 
 Also let's change the `image` argument type hint to `ImageLayer` so that we can access more
 properties if we'd like or be able to more easily set the value programmatically.
@@ -278,7 +281,7 @@ def detect_spots(
     high_pass_sigma: float = 2,
     spot_threshold: float = 0.2,
     blob_sigma: float = 2
-)->"napari.types.LayerDataTuple":
+    )->"napari.types.LayerDataTuple":
     """Apply a gaussian high pass filter to an image.
 
     Parameters
@@ -331,6 +334,8 @@ viewer.window.add_dock_widget(detect_spots)
 ```
 
 ```{code-cell} ipython3
+:tags: ["hide-output"]
+
 # let's call the widget/function to simulate pressing run
 detect_spots(viewer.layers['spots'])
 ```
@@ -348,8 +353,47 @@ One additional important—and useful!—distinction is that `@magic_factory` ga
 For more details, on the two `magicgui` decorators, see [the official documentation](https://pyapp-kit.github.io/magicgui/decorators/).
 ```
 
-+++
+## Custom keybindings
+
+napari has extensive keyboard shortcuts that can be customized in the Preferences/Settings GUI.
+However, it also enables you to bind key-press events to custom callback functions. Again, the 
+napari implementation is smart, so you arguments like the viewer getting the keypress or the current
+selected layer of a given time can be passed to your function.
+
+Lets try a simple example, to get the number of Points returned by our detector. Let's have the key-press
+pass in a selected Points layer.
+
+```{tip}
+If you use `print`, the print statement will be in the notebook. To get something visible in the 
+viewer, you can use [`napari.utils.notifications.show_info`](https://napari.org/dev/api/napari.utils.notifications.html).
+```
+
+```{code-cell} ipython3
+from napari.layers import Points
+from napari.utils.notifications import show_info
+
+@Points.bind_key("Shift-D")
+def print_number_of_points(points_layer: "napari.layers.Points"):
+    show_info("Detected points: "+ str(len(points_layer.data)))
+
+```
+
+```{important}
+At the moment, `bind_key` shortcuts cannot overwrite napari builtin shortcuts, even with `overwrite=True`.
+Worse yet, this will silently fail, because the builtin napari keybinding *will* trigger.
+```
+
+Give it a shot in the viewer, you should get a notification when you press the keybinding with a Points layer
+selected, but not with any other layer type.
+
+
+There are actually a number of other events that you can connect callbacks to, other than just key presses.
+For more information, see the [napari events documentation](https://napari.org/stable/howtos/connecting_events.html).
+
 
 ## Conclusions
 
-We've now seen how to how to extend the viewer with custom GUI functionality, making analyses even more interactive!
+We've now seen how to how to extend the viewer with custom GUI functionality: widgets and keybindings. 
+By using these concepts you can making analyses even more interactive, particularly exploratory/human-in-the-loop
+analysis. Additionally, the approach described here, using `magicgui`, can also be directly used to create
+a plugin to share with the world.
