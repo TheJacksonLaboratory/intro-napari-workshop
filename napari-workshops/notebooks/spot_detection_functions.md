@@ -67,8 +67,28 @@ high_passed_spots = gaussian_high_pass(spots, 2)
 viewer.add_image(high_passed_spots, colormap="I Blue", blending="minimum")
 ```
 
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
 Now lets modify the function slightly, by providing type annotations and a docstring, to 
 leverage napari `magicgui` integration.
+
+````{tip}
+A brief note about type hints:  
+Type hints are not enforced at runtime, **but** they can still raise `NameError` exceptions if not defined or imported.
+To avoid that, we are putting the napari types in quotes to make them "forward references", because we have
+not imported them. Alternatively, we could have imported them. A third option is to import:
+
+```python
+from __future__ import annotations 
+```
+
+This would permit us to drop the quotes from the type hints.  
+For more information, see the official Python documentation for: 
+[type hints in Python](https://peps.python.org/pep-0484/), [forward references](https://peps.python.org/pep-0484/#forward-references),and [annotations](https://peps.python.org/pep-0563/).
+
+````
 
 ```{code-cell} ipython3
 from magicgui import magicgui
@@ -97,15 +117,44 @@ def gaussian_high_pass(image: "napari.types.ImageData", sigma: float = 2)->"napa
 ```
 
 We have our `magicgui` decorated function and we've annotated it with the napari types.
-Now it is both a compound widget and a callable function. Let's add the widget to the
-viewer.
+Now, the object `gaussian_high_pass` is both a (compound) widget and a callable function. 
+Let's add it to the viewer.
 
 ```{code-cell} ipython3
+high_pass_widget
 viewer.window.add_dock_widget(gaussian_high_pass)
 ```
 
-Hit the `Run` button and you will see that a new layer is added with the results of our
-function! If you press it again, the data for that layer will be updated in place. So
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
+Notice that because we told `magicgui` that our function will use not just any numpy array, but 
+specifically `ImageData`—the data of an Image layer—and that it will also return that, `magicgui`
+generated UI widgets for selecting an Image layer--if you add another layer type, it won't show
+up in the dropdown!
+Press the `Run` button and you will see that a new Image layer is added with the results of our
+function—again thanks to autogeneration from `magicgui`.
+
+```{code-cell} ipython3
+# we'll call the widget to simulate clicking `Run`
+gaussian_high_pass(viewer.layers['spots'].data)
+```
+
+Note that we are just returning `ImageData`, so there is no information passed about colormaps, blending, etc. If we want to specify that, we would need to annotate as [`LayerDataTuple`](https://napari.org/stable/guides/magicgui.html#returning-napari-types-layerdatatuple).
+For now you will need to manually or programmatically set any colormap/blending settings. (Let's also hide the previous filtering output.)
+
+```{code-cell} ipython3
+viewer.layers[-1].blending = "minimum"
+viewer.layers[-1].colormap = "I Blue"
+viewer.layers['high_passed_spots'].visible = False
+```
+
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
+However, if you press `Run` again, the data for that layer will be updated in place, so
 you can change the `sigma` value and see the updated result.
 
 ```{tip}
@@ -113,14 +162,15 @@ Hover over the labels `image` and `sigma` -- the names of the parameters we pass
 You should see tooltips with the docstring information! How cool is that?
 ```
 
-Our function is also the widget, so we can get the value of the current setting:
+Our `gaussian_high_pass` object *is the widget*, so we can easily get the value of the current setting:
 
 ```{code-cell} ipython3
 gaussian_high_pass.sigma.value
 ```
 
-Let's also check that the function is still working as expected -- type annotations are not
-used by Python at runtime, so nothing should have changed.
+At the same time, `gaussian_high_pass` remains a callable function. Let's call it normally, to check 
+that the function is still working as expected. Remember, type hints are not enforced by Python at runtime, 
+so nothing should have changed.
 
 ```{code-cell} ipython3
 test_output = gaussian_high_pass(spots, 2)
@@ -128,11 +178,17 @@ test_output.shape
 ```
 
 This means that if you have a script or module you can import the function and use it as normally
-or use it as a widget in napari.
+*or* use it as a widget in napari.
 
-Let's make the the widget more dynamic, by giving `magicgui` some extra information.
+Let's make the the widget more dynamic and user-friendly, by giving `magicgui` some extra information.
 Let's ask for a slider for the `sigma` parameter and lets have the function be auto-called
-when the slider is dragged.
+when the slider is changed.
+
+But first, lets remove the previous widget.
+
+```{code-cell} ipython3
+viewer.window.remove_dock_widget("all")
+```
 
 ```{code-cell} ipython3
 @magicgui(auto_call=True,
@@ -164,6 +220,10 @@ def gaussian_high_pass(image: "napari.types.ImageData", sigma: float = 2)->"napa
 viewer.window.add_dock_widget(gaussian_high_pass)
 ```
 
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
 Now you can play with the slider until you get the effect you want in the GUI and then return the value:
 
 ```{code-cell} ipython3
@@ -173,11 +233,16 @@ gaussian_high_pass.sigma.value
 Or you can *set the value*:
 
 ```{code-cell} ipython3
-gaussian_high_pass.sigma.value = 5
+gaussian_high_pass.sigma.value = 3
+```
+
+```{code-cell} ipython3
+nbscreenshot(viewer)
 ```
 
 Finally, lets make a widget for the whole workflow as a function. Now we are starting with
-image layer data, but then we want a Points layer with points. So we will return a LayerDataTuple.
+image layer (data), but then we want a Points layer with points. We could again return just the
+layer data using `napari.types.PointsData`. But lets get a nicer Points layer instead, so we will return a LayerDataTuple.
 If `detect_spots()` returns a `LayerDataTuple`, napari will add a *new layer* to
    the viewer using the data in the `LayerDataTuple`. For more information on
    the `LayerDataTuple` type, please see
@@ -187,7 +252,14 @@ If `detect_spots()` returns a `LayerDataTuple`, napari will add a *new layer* to
       coordinates)
     - `layer_metadata`: the display options for the layer stored as a
       dictionary. Some options to consider: `symbol`, `size`, `face_color`
-    - `layer_type`: the name of the layer type as a string—in this case `'Points'`
+    - `layer_type`: the name of the layer type as a string—in this case `'Points'`  
+Also let's change the `image` argument type hint to `ImageLayer` so that we can access more
+properties if we'd like or be able to more easily set the value programmatically.
+
+```{code-cell} ipython3
+# again lets remove the previous widget
+viewer.window.remove_dock_widget("all")
+```
 
 ```{code-cell} ipython3
 import numpy as np
@@ -195,7 +267,7 @@ from skimage.feature import blob_log
 
 @magicgui
 def detect_spots(
-    image: "napari.types.ImageData",
+    image: "napari.layers.Image",
     high_pass_sigma: float = 2,
     spot_threshold: float = 0.01,
     blob_sigma: float = 2
@@ -228,7 +300,7 @@ def detect_spots(
     
     """
     # filter the image
-    filtered_spots = gaussian_high_pass(image, high_pass_sigma)
+    filtered_spots = gaussian_high_pass(image.data, high_pass_sigma)
 
     # detect the spots on the filtered image
     blobs_log = blob_log(
@@ -249,4 +321,15 @@ def detect_spots(
 
 ```{code-cell} ipython3
 viewer.window.add_dock_widget(detect_spots)
+```
+
+```{code-cell} ipython3
+# let's call the widget/function to simulate pressing run
+detect_spots(viewer.layers['spots'])
+```
+
+```{code-cell} ipython3
+# lets set the dropdown value for the screenshot
+detect_spots.image.value = viewer.layers['spots']
+nbscreenshot(viewer)
 ```
