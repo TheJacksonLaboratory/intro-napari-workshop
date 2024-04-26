@@ -343,6 +343,10 @@ detect_spots(viewer.layers['spots'])
 ```{code-cell} ipython3
 # lets set the dropdown value for the screenshot
 detect_spots.image.value = viewer.layers['spots']
+
+# and lets zoom in a bit
+viewer.camera.center = (200, 270)
+viewer.camera.zoom = 8
 nbscreenshot(viewer)
 ```
 
@@ -378,7 +382,10 @@ def print_number_of_points(points_layer: "napari.layers.Points"):
 
 ```
 
+Let's call the function to trigger it for the notebook:
 ```{code-cell} ipython3
+
+print_number_of_points(viewer.layers['Points'])
 nbscreenshot(viewer)
 ```
 
