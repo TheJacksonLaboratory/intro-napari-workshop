@@ -378,6 +378,10 @@ def print_number_of_points(points_layer: "napari.layers.Points"):
 
 ```
 
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
 ```{important}
 At the moment, `bind_key` shortcuts cannot overwrite napari builtin shortcuts, even with `overwrite=True`.
 Worse yet, this will silently fail, because the builtin napari keybinding *will* trigger.
