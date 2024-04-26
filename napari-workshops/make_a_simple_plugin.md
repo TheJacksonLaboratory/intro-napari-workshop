@@ -6,13 +6,13 @@ In this tutorial, we will make a napari analysis plugin from the
 The primary steps in making a napari plugin are as follows:
 
 1. Choose which manifest contribution(s) your plugin requires
-2. Create your repository using the napari cookiecutter template
+2. Create your repository using the [cookiecutter napari plugin template](https://github.com/napari/cookiecutter-napari-plugin)
 3. Implement your contributions
 4. Share your plugin with the community
 
 In the following sections, we will work through steps (1) - (3). For step (4),
 you can refer to the [in depth plugin tutorial](https://www.youtube.com/watch?v=NL-VywidzXE),
-or [the instructions on napari.org](https://napari.org/plugins/test_deploy.html#preparing-for-release).
+or [the instructions on napari.org](https://napari.org/stable/plugins/index.html).
 You can also use
 [the lecture slides](https://docs.google.com/presentation/d/1-9ObrjrbjtrsO3kjEZELpd3QFDM0ct-oa3L-EIdO77I/edit?usp=sharing)
 as reference material if you'd like.
@@ -20,15 +20,16 @@ as reference material if you'd like.
 ![plugin example](./resources/plugin-01.png)
 
 ## Choosing a contribution
+
 A contribution is a construct in `napari.yaml` (the manifest file), that napari
 uses for each specific type of plugin. Each contribution conforms to a function
 signature, i.e. the function linked to the contribution defines what napari
 provides to the plugin (e.g., data and parameters) and what the plugin returns
 to napari. napari is then able to use the functions pointed to in `napari.yaml`
 to carry out the plugin tasks. Please see the
-[contribution reference](https://napari.org/plugins/contributions.html) and
-[contribution guide](https://napari.org/plugins/guides.html) for more details.
-Many plugins will declare multiple contributions to provide all of the desired
+[contribution reference](https://napari.org/stable/plugins/contributions.html) and
+[contribution guide](https://napari.org/stable/plugins/guides.html) for more details.
+Plugins can declare multiple contributions to provide all of the desired
 functionality.
 
 The current categories of contributions are described below:
@@ -55,25 +56,30 @@ implemented using a command line utility called
 steps, you will build your plugin directory using the cookiecutter template.
 
 First, open your terminal and navigate to the folder where you want the plugin
-folder to be created. As before, we recommend using your Documents folder:
+repository folder to be created. As before, we recommend using your Documents folder:
 
 ```bash
 cd ~/Documents
 ```
 
 Next, activate the conda environment you created in the first part of the
-tutorial. This environment includes all of the packages required to make your
-plugin (including `cookiecutter`).
+tutorial. For this tutorial we we will install `cookiecutter` in this environment,
+but you can check the [cookiecutter installation guide](https://cookiecutter.readthedocs.io/en/stable/README.html#installation) for installing it globally, if you plan to use it regularly.
 
 ```bash
 conda activate napari-tutorial
 ```
 
-In this next step, we will use `cookiecutter` to create a directory for our
-plugin from the template. `cookiecutter` will ask a series of questions that
-will customize the directory for your plugin. Once completed, a new directory
-will be created in your current directory. It will come pre-initialized with a
-git repository.
+Install `cookiecutter`:
+```bash
+pip install cookiecutter
+```
+
+In this next step, we will use `cookiecutter` to create a repository for our
+plugin from the napari plugin template. 
+`cookiecutter` will ask a series of questions that will customize the directory for your plugin. 
+Once completed, a new directory will be created in your current directory. 
+It will come pre-initialized with a git repository.
 
 ```bash
 cookiecutter https://github.com/napari/cookiecutter-napari-plugin
@@ -81,7 +87,13 @@ cookiecutter https://github.com/napari/cookiecutter-napari-plugin
 
 You will be asked for some information to customize the setup of your plugin.
 Each prompt gives the default value in square brackets (`[]`). The questions are
-explained below. Enter your answer after the prompt and press enter to continue.
+briefly explained below, for more information see the [prompt reference](https://github.com/napari/cookiecutter-napari-plugin/blob/main/PROMPTS.md). 
+Enter your answer after the prompt and press enter to continue.
+
+```{important}
+None of these configuration options are set in stone — you can always change these later, 
+but it may require some effort.
+```
 
 - `full_name [Napari Developer]`: enter your name here. Names entered here will
   be listed as the authors of the plugin in the package metadata.
@@ -164,17 +176,15 @@ the other files.
 
 - `.github/workflows/test_and_deploy.yml`: This is a
   [github actions](https://github.com/features/actions) workflow that will
-  automatically run the tests and upload your plugin to pypi (thus making it
-  available through the built-in napari plugin browser. Please ask the teaching
-  team if you would like to learn how to set up your github repository to
-  support this workflow.
+  automatically run the tests and upload your plugin to PyPI (thus making it
+  available through the built-in napari plugin browser). 
 - `pyproject.toml` and `setup.cfg`: These files allow your plugin to be built as
-  a package and installed by pip. The cookiecutter template has set everything
+  a package and installed by `pip`. The `cookiecutter` template has set everything
   up in these files, so you are good to go!
 - The `src/` folder contains all the Python code for your plugin.
 - `src/napari_spot_detector/_widget.py`: This file contains example
   implementations for different widget contributions. This is where you will add
-  your `detect_spot()` function. 
+  the `detect_spot()` function. 
 - The `src/napari_spot_detector/napari.yaml` file declares commands and
   contributions for each example widget in the `_widget.py` file. Look at these
   carefully and match up which command & contribution belong to what Python code
@@ -182,7 +192,7 @@ the other files.
 
 You have now set up the directory for your new plugin! You can explore the
 directory and files with the file browser. In the next step, you will complete
-your plugin by adding your `detect_spots()` function to the `_widget.py` file.
+your plugin by adding the `detect_spots()` function to the `_widget.py` file.
 
 ## Implementing a function GUI
 In this step, we will implement our `detect_spots()` function as a plugin
@@ -196,8 +206,8 @@ napari can infer the correct GUI elements to add to our plugin.
    above.
      - From the "File" menu, select "Open..."
      - Navigate to and select the directory you created with `cookiecutter`
-     (`~/Documents/napari-spot-detector` if you called your plugin
-     `napari-spot-detector)`. 
+     (e.g. `~/Documents/napari-spot-detector` if you called your plugin
+     `napari-spot-detector` and placed the repository in `~/Documents`)`. 
 3. You should now see your plugin directory in the "Explorer" pane in the left
    hand side of the window. You can double click on folders to expand them and
    files to open them in the editor.
@@ -246,7 +256,6 @@ napari can infer the correct GUI elements to add to our plugin.
 
 
         2. The second option is to write a `magic_factory` decorated function.
-           You might recognize this from our `intensify` widget in the lecture.
            With minimal extra work you can configure options for your GUI
            elements, such as min and max values for integers, or choices for
            dropdown boxes. See the
@@ -262,7 +271,8 @@ napari can infer the correct GUI elements to add to our plugin.
         3. Finally, you see the what looks like just a plain function. We don't
            need complex GUI interactions for our plugin, and we don't want to
            have to lay out the GUI ourselves, so we will modify this to
-           incorporate our `detect_spots` function.
+           incorporate our `detect_spots` function and then rely on the widget
+           being autogenerated by `magicgui`
 
              ```python
              # Uses the `autogenerate: true` flag in the plugin manifest
@@ -296,7 +306,7 @@ napari can infer the correct GUI elements to add to our plugin.
 7. Copy the `gaussian_high_pass()` and `detect_spots()` functions from your
    notebook from the first part of the tutorial and paste it where the example
    functions were (the ones you deleted in the previous step).
-8. Next, we need to modify `detect_spots()` to return the necessary layer data
+8. Next, we need to ensure that `detect_spots()` returns the necessary layer data
    so that napari can create a new Points layer with our detected spots. If
    `detect_spots()` returns a `LayerDataTuple`, napari will add a new layer to
    the viewer using the data in the `LayerDataTuple`. For more information on
@@ -432,7 +442,8 @@ contributions:
       display_name: Spot Detection
 ```
 
-## Explore the other files generated by cookiecutter
+## Explore the other files generated by `cookiecutter`
+
 In order for napari to automatically find and make your plugin available to the
 user once it has been installed (i.e., "discoverable"), we must add a
 `napari.manifest` entry point to the `setup.cfg` file. An entry point is a way
@@ -490,10 +501,8 @@ napari
 ```
 
 Once napari is open, you can open your plugin from the "Plugin" menu. You can
-test your plugin by locating the spots image from the tutorial notebooks folder
-we downloaded at the beginning of this tutorial in the File browser
-(`<path to notebook folder>/data/stardist_masks.tif`), dragging the image into
-the napari viewer, and try running the plugin.
+test your plugin by locating the spots image from the tutorial notebooks and loading
+it into the napari viewer. Then try running the plugin.
 
 Congratulations! You have made your first napari plugin!
 
@@ -511,4 +520,3 @@ give them a go and ask the teaching team if you have any questions.
 - Add some tests to the `_tests/test_widget.py` file.
 - Upload your plugin to github
 - Start your own plugin
-- Consult with the teaching team about integrating napari into your workflow
