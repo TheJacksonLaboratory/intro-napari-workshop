@@ -1,8 +1,8 @@
-# Creating a napari plugin
+# Optional: Creating a napari plugin
 
 ## Overview
 In this tutorial, we will make a napari analysis plugin from the
-`detect_spots()` function we wrote in the first part of this practical session.
+`detect_spots()` function we wrote in the ["from workflow to widget" notebook](notebooks/spot_detection_functions.md).
 The primary steps in making a napari plugin are as follows:
 
 1. Choose which manifest contribution(s) your plugin requires
