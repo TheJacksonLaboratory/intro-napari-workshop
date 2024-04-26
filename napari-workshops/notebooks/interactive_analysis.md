@@ -46,49 +46,16 @@ image_data = cells3d()  # shape (60, 2, 256, 256)
 
 membranes = image_data[:, 0, :, :]
 nuclei = image_data[:, 1, :, :]
-nuclei_mip = nuclei.max(axis=0)
-```
 
-```{code-cell} ipython3
-viewer.add_image(nuclei_mip)
-```
-
-```{code-cell} ipython3
-nbscreenshot(viewer)
-```
-
-## Visualizing image filtering results
-
-One common task in image processing in **image filtering** which can be used to denoise an image or detect edges or other features.
-
-We can use **napari** to visualize the results of some of the image filters that come with the **scikit-image** library.
-
-```{code-cell} ipython3
-from skimage import filters
-```
-
-```{code-cell} ipython3
-viewer.add_image(filters.sobel_h(nuclei_mip), name='Horizontal Sobel')
-viewer.add_image(filters.sobel_v(nuclei_mip), name='Vertical Sobel')
-viewer.add_image(filters.roberts(nuclei_mip), name='Roberts')
-viewer.add_image(filters.prewitt(nuclei_mip), name='Prewitt')
-viewer.add_image(filters.scharr(nuclei_mip), name='Scharr')
+viewer.add_image(nuclei, colormap="green")
 ```
 
 ```{code-cell} ipython3
 nbscreenshot(viewer)
 ```
 
-Toggle the visibility on and off in the layer list to see the different effects of the filters.
-
-```{code-cell} ipython3
-# Remove all filter layers
-for l in viewer.layers[1:]:
-    viewer.layers.remove(l)
-```
-
-## Interactive segmentation
-Let's now perform an interactive segmentation of the nuclei using processing utilities from scikit-image.
+## Segmentation workflow
+Let's develop a segmentation workflow for the nuclei using processing utilities from scikit-image.
 
 ```{code-cell} ipython3
 from skimage import morphology
@@ -99,10 +66,14 @@ from scipy import ndimage
 import numpy as np
 ```
 
-First let's try and separate background from foreground using a threshold. Here we'll use an automatically calculated threshold.
+First let's try and separate background from foreground using a threshold. Here we'll use an 
+automatically calculated threshold. However, we can see that the image has some noise so lets 
+apply a gaussian blur to smooth it.
 
 ```{code-cell} ipython3
-foreground = nuclei_mip >= filters.threshold_li(nuclei_mip)
+blur = filters.gaussian(nuclei, sigma=10, preserve_range=True)
+viewer.add_image(blur)
+foreground = nuclei >= filters.threshold_li(blur)
 viewer.add_labels(foreground, name='foreground')
 ```
 
@@ -110,25 +81,52 @@ viewer.add_labels(foreground, name='foreground')
 nbscreenshot(viewer)
 ```
 
-Notice the debris located outside the nuclei and some of the holes located inside the nuclei. We will remove the debris by 
-filtering out small objects, and fill the holes using a hole filling algorithm. Note that we can update the layer data in the 
-viewer *in place* if we don't want to create another object or another layer.
+Notice that there is still some signal from outside the nuclei and some of the holes located 
+inside the nuclei. We can use some morphological operators to clean this up. First we will do an
+opening operation, which will first erode the image and then dilate it. Then, we will fill the 
+holes using a hole filling algorithm and then remove any small objects. 
+
+```{tip}
+We could update the layer data in the viewer *in place* if we didn't want to create another 
+object or another layer.
+```
 
 ```{code-cell} ipython3
-foreground_processed = morphology.remove_small_holes(foreground, 60)
-foreground_processed = morphology.remove_small_objects(foreground_processed, min_size=50)
-
-viewer.layers['foreground'].data = foreground_processed
+foreground_processed = morphology.binary_opening(foreground)
+foreground_processed = morphology.remove_small_holes(foreground_processed, area_threshold = 20**3)
+foreground_processed = morphology.remove_small_objects(foreground_processed, min_size=20**3)    
+viewer.add_labels(foreground_processed)
 ```
 
 ```{code-cell} ipython3
 nbscreenshot(viewer)
 ```
 
-We will now convert this binary mask into an **instance segmentation** where each nuclei is assigned a unique label.
+We will now convert this binary mask into an **instance segmentation** where each nuclei is assigned a unique label by using connected-components labeling.
 
-We will do this using a **marker controlled watershed** approach. The first step in this procedure is to calculate a 
-distance transform on the binary mask as follows.
+```{code-cell} ipython3
+from skimage import measure
+
+labels = measure.label(foreground_processed)
+
+viewer.add_labels(
+    labels,
+    opacity=0.5,
+)
+```
+
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
+As you can see, we have all the objects labeled, but touching objects are not separated. To do this, 
+we can use a **marker controlled watershed** approach. 
+
+```{tip}
+You could place the markers manually in napari instead of computing the locations.
+```
+
+The first step in this procedure is to calculate a distance transform on the binary mask as follows.
 
 ```{code-cell} ipython3
 distance = ndimage.distance_transform_edt(foreground_processed)
@@ -139,10 +137,11 @@ viewer.add_image(distance)
 nbscreenshot(viewer)
 ```
 
-We'll actually want to smooth the distance transform to avoid over segmentation artifacts. We can do this on the data in the viewer in place.
+We'll actually want to smooth the distance transform to avoid over segmentation artifacts. 
+We can do this on the data in the viewer, in place.
 
 ```{code-cell} ipython3
-smoothed_distance = filters.gaussian(distance, 10)
+smoothed_distance = filters.gaussian(distance, 5)
 viewer.layers['distance'].data = smoothed_distance
 ```
 
@@ -155,33 +154,39 @@ Now we can try and identify the centers of each of the nuclei by finding peaks o
 ```{code-cell} ipython3
 peak_local_max = feature.peak_local_max(
     smoothed_distance,
-    min_distance=12
+    min_distance=10,
+    exclude_border=False
 )
 ```
 
 ```{code-cell} ipython3
-viewer.add_points(peak_local_max, name='peaks', size=5, face_color='red')
+viewer.add_points(peak_local_max, name='peaks', size=5, face_color='red', blending='translucent_no_depth')
 ```
 
 ```{code-cell} ipython3
 nbscreenshot(viewer)
 ```
 
-We can now remove any of the points that don't correspond to nuclei centers or add any new ones using the GUI Points
-layer tools. Or we could select a point using the GUI tools, but remove it programmatically—or some combination of both.
+We can now remove any of the points that don't correspond to nuclei centers or add any new ones using 
+the GUI Points layer tools. Or we could select a point using the GUI tools, but remove it 
+programmatically—or some combination of both.
 
 ```{code-cell} ipython3
-# uncomment these lines to remove points
+# uncomment these lines to remove a point programmatically
 #viewer.layers['peaks'].selected_data = {5}
 #viewer.layers['peaks'].remove_selected()
 ```
 
-Based on those peaks we can now seed the watershed algorithm which will find the nuclei boundaries.
+Using the markers we can now seed the watershed algorithm which will find the nuclei boundaries.
+However, we do need to convert the coordinates into a mask first.
+
+```{note}
+We'll use the Points layer data, because we may have added or removed a point!
+```
 
 ```{code-cell} ipython3
-new_peaks = np.round(viewer.layers['peaks'].data).astype(int).T
-seeds = np.zeros(nuclei_mip.shape, dtype=bool)
-seeds[(new_peaks[0], new_peaks[1])] = 1
+seeds = np.zeros(nuclei.shape, dtype=bool)
+seeds[tuple(viewer.layers['peaks'].data.T)] = 1
 
 markers = measure.label(seeds)
 nuclei_segmentation = segmentation.watershed(
@@ -258,12 +263,8 @@ process_foreground(viewer)
 ```
 
 ```{code-cell} ipython3
-nbscreenshot(viewer)
-```
-
-```{code-cell} ipython3
 # Add an empty labels layer with the same shape as our maximum intensity projection
-viewer.add_labels(np.zeros(nuclei_mip.shape, dtype=int), name='nuclei segmentation')
+viewer.add_labels(np.zeros(nuclei.shape, dtype=int), name='nuclei segmentation')
 ```
 
 ```{code-cell} ipython3
@@ -293,7 +294,7 @@ def complete_segmentation(viewer):
 ```{code-cell} ipython3
 :tags: [remove-cell]
 
-image_data = viewer.layers['nuclei_mip'].data
+image_data = viewer.layers['nuclei'].data
 thresholded = image_data > image_data.min() + 12 / 100 * (image_data.max() - image_data.min())
 viewer.layers['threshold result'].data = thresholded
 process_foreground(viewer)
