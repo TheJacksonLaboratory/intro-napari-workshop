@@ -17,7 +17,7 @@ The napari application uses a backend for the graphical user interface (GUI) cal
 
 There are a number of ways to go about creating your own widgets, you can see [an in-depth overview in the napari documentation](https://napari.org/dev/howtos/extending/magicgui.html). By far the simplest is to rely on the fact that napari supports the use of [`magicgui`](https://pyapp-kit.github.io/magicgui/), a Python library for quick and easy building of GUIs. A key feature of `magicgui` is autogeneration of GUIs from functions and dataclasses, by mapping Python type hints to widgets.
 
-In this module, we will implement elements of our previous workflow as functions and then use [`magicgui.magicgui`](https://pyapp-kit.github.io/magicgui/api/magicgui/#magicguimagicgui) decorator on those functions to return us compound widgets that we can use to make exploring the parameters easier in the GUI
+In this module, we will implement elements of our previous workflow as functions and then use [`magicgui.magicgui`](https://pyapp-kit.github.io/magicgui/api/magicgui/#magicguimagicgui) decorator on those functions to return us compound widgets that we can use to make exploring the parameters easier in the GUI. For a nice overview of the `magicgui` decorators, see [the official documentation](https://pyapp-kit.github.io/magicgui/decorators/).
 
 Let's get everything set up, based on the previous notebook:
 
@@ -71,6 +71,8 @@ viewer.add_image(high_passed_spots, colormap="I Blue", blending="minimum")
 nbscreenshot(viewer)
 ```
 
+## Obtaining a basic widget using the `@magicgui` decorator
+
 Now lets modify the function slightly, by providing type annotations and a docstring, to 
 leverage napari `magicgui` integration.
 
@@ -121,7 +123,6 @@ Now, the object `gaussian_high_pass` is both a (compound) widget and a callable 
 Let's add it to the viewer.
 
 ```{code-cell} ipython3
-high_pass_widget
 viewer.window.add_dock_widget(gaussian_high_pass)
 ```
 
@@ -240,9 +241,14 @@ gaussian_high_pass.sigma.value = 3
 nbscreenshot(viewer)
 ```
 
-Finally, lets make a widget for the whole workflow as a function. Now we are starting with
-image layer (data), but then we want a Points layer with points. We could again return just the
-layer data using `napari.types.PointsData`. But lets get a nicer Points layer instead, so we will return a LayerDataTuple.
+## A more complex example
+
+Finally, lets make a widget for the whole workflow as a function. We will need to write a function
+and then properly annotate it such that `magicgui` can generate the widgets. This time we are also
+starting with image layer (data), but then we want a Points layer with points. We could again return 
+just the layer data using `napari.types.PointsData`. But lets get a nicer Points layer instead, so 
+we will return a LayerDataTuple.  
+
 If `detect_spots()` returns a `LayerDataTuple`, napari will add a *new layer* to
    the viewer using the data in the `LayerDataTuple`. For more information on
    the `LayerDataTuple` type, please see
@@ -253,6 +259,7 @@ If `detect_spots()` returns a `LayerDataTuple`, napari will add a *new layer* to
     - `layer_metadata`: the display options for the layer stored as a
       dictionary. Some options to consider: `symbol`, `size`, `face_color`
     - `layer_type`: the name of the layer type as a string—in this case `'Points'`  
+
 Also let's change the `image` argument type hint to `ImageLayer` so that we can access more
 properties if we'd like or be able to more easily set the value programmatically.
 
@@ -269,7 +276,7 @@ from skimage.feature import blob_log
 def detect_spots(
     image: "napari.layers.Image",
     high_pass_sigma: float = 2,
-    spot_threshold: float = 0.01,
+    spot_threshold: float = 0.2,
     blob_sigma: float = 2
 )->"napari.types.LayerDataTuple":
     """Apply a gaussian high pass filter to an image.
@@ -282,8 +289,8 @@ def detect_spots(
         The sigma (width) of the gaussian filter to be applied.
         The default value is 2.
     spot_threshold : float
-        The threshold to be passed to the blob detector.
-        The default value is 0.01.
+        The relative threshold to be passed to the blob detector.
+        The default value is 0.2.
     blob_sigma: float
         The expected sigma (width) of the spots. This parameter
         is passed to the "max_sigma" parameter of the blob
@@ -299,15 +306,15 @@ def detect_spots(
         with the diameter of each spot.
     
     """
-    # filter the image
+    # filter the image layer data
     filtered_spots = gaussian_high_pass(image.data, high_pass_sigma)
 
     # detect the spots on the filtered image
     blobs_log = blob_log(
         filtered_spots,
         max_sigma=blob_sigma,
-        num_sigma=1,
-        threshold=spot_threshold
+        threshold=None,
+        threshold_rel=spot_threshold
     )
     
     # convert the output of the blob detector to the 
@@ -333,3 +340,16 @@ detect_spots(viewer.layers['spots'])
 detect_spots.image.value = viewer.layers['spots']
 nbscreenshot(viewer)
 ```
+
+```{tip}
+In this notebook we used the `@magicgui` decorator, which turned out function into both a function
+and a widget. Another similar option is the `@magic_factory` decorator. This one *does not return a widget instance immediately*. Instead, it turns out function into a "widget factory function" that can be called to *create a widget instance*. This can be more convenient in many cases, if you are writing a library or package where someone else will be instantiating your widget.  
+One additional important—and useful!—distinction is that `@magic_factory` gains the `widget_init` keyword argument, which will be called with the new widget each time the factory function is called.
+For more details, on the two `magicgui` decorators, see [the official documentation](https://pyapp-kit.github.io/magicgui/decorators/).
+```
+
++++
+
+## Conclusions
+
+We've now seen how to how to extend the viewer with custom GUI functionality, making analyses even more interactive!
