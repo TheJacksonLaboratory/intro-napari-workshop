@@ -99,6 +99,32 @@ napari was closed!
    viewer.update_console(locals())
    ```
    
-   To see this in action, check out [this example](https://napari.org/stable/gallery/update_console.html#sphx-glr-gallery-update-console-py). Run it and try to access, for example `polygons`, in the
-   console. Then, comment out `viewer.update_console(locals())` and run it again and you will get a 
-   **NameError**.
+   To see this in action, save this simple example as a `.py` locally, e.g. `update_console_example.py`:
+
+   ```Python
+   from skimage import data
+
+   import napari
+
+   # create the viewer with an image
+   viewer = napari.view_image(data.astronaut(), rgb=True, name="Astronaut")
+
+   astro = viewer.layers['Astronaut']
+   dummy_var = 42
+
+   # push local variabls (astro and dummy var) to the console
+   viewer.update_console(locals())
+
+   # start the event loop allowing you to interact with the viewer
+   napari.run()
+   ```
+   
+   Run it and try to access `astro` or `dummy_var` in the napari console of the spawned viewer, 
+   for example using `astro.data.shape`, or `print(dummy_var)`.
+   
+   ```{tip} 
+   You will also have access to imported modules! Try: `data.cells3d().shape`
+   ```
+   
+   Then, close the viewer, comment out the `viewer.update_console(locals())` line and run the script 
+   again. Now try to access `astro` or `dummy_var` and you will get a **NameError**.
