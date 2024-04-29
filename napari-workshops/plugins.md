@@ -71,3 +71,16 @@ and wait for the plugin list to populate.
     You can double-click a table header to generate a heat map of that property.
     ```
 
+## A few other handy plugins
+
+1. [napari-animation](https://napari.org/napari-animation/): a plugin that lets you make
+   (and export) animations in napari by simply setting key frames.
+1. [napari-threedee](https://napari-threedee.github.io): a plugin to make interacting and annotating in 3D easier.
+1. [napari-ome-zarr](https://www.napari-hub.org/plugins/napari-ome-zarr): a reader plugin for for `zarr` backed
+   OME-NGFF images (local or remote).
+1. [napari-aicsimageio](https://www.napari-hub.org/plugins/napari-aicsimageio): a reader plugin that uses
+   `aicsimageio` as a backend. Provides access to proprietary formats (e.g. `.lif`, `.czi`) via drag-n-drop. 
+   Can also give access to `bioformats` if `bioformats_jar` is installed from conda-forge (`conda install -c conda-forge bioformats_jar`).
+1. [napari-matplotlib](https://napari-matplotlib.github.io): a plugin providing widgets with `matplotlib` based
+   plots, such as histogram, scatter plot, line plot, etc. 
+   
