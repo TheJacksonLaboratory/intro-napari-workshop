@@ -19,3 +19,4 @@ chapters:
   - file: notebooks/spot_detection
   - file: notebooks/spot_detection_functions
 - file: make_a_simple_plugin
+- file: napari_in_scripts
