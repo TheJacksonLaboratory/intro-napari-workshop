@@ -186,7 +186,7 @@ We'll use the Points layer data, because we may have added or removed a point!
 
 ```{code-cell} ipython3
 seeds = np.zeros(nuclei.shape, dtype=bool)
-seeds[tuple(viewer.layers['peaks'].data.T)] = 1
+seeds[tuple(np.round(viewer.layers['peaks'].data).astype(int).T)] = 1
 
 markers = measure.label(seeds)
 nuclei_segmentation = segmentation.watershed(
