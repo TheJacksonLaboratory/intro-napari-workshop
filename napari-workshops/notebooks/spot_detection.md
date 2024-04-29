@@ -4,9 +4,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.16.1
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -31,8 +31,10 @@ Following this activity, we will use the workflow generated in this activity to
 create a napari spot detection widget or even plugin.
 
 ## `binder` setup
+
 ```{code-cell} ipython3
 :tags: [remove-output]
+
 # this cell is required to run these notebooks on Binder. Make sure that you also have a desktop tab open.
 import os
 if 'BINDER_SERVICE_HOST' in os.environ:
@@ -55,7 +57,7 @@ more information about the `imread()` function, please see the [scikit-image doc
 - `nuclei`: an image of cell nuclei
 - `spots`: an image of in situ sequencing spots
 
-```{code-cell} python
+```{code-cell} ipython3
 from skimage import io
 
 nuclei_url = 'https://raw.githubusercontent.com/kevinyamauchi/napari-spot-detection-tutorial/main/data/nuclei_cropped.tif'
@@ -70,7 +72,7 @@ spots = io.imread(spots_url)
 To view our data, we will create a napari viewer and then we will add the images to the viewer
 via the viewer's `add_image()` method. We will also import the `nbscreenshot` utility.
 
-```{code-cell} python
+```{code-cell} ipython3
 import napari
 from napari.utils import nbscreenshot
 
@@ -95,7 +97,7 @@ layers that are "under" it.
 ```
 For example, for better contrast you could choose an inverted colormap and minimum blending.
 
-```{code-cell} python
+```{code-cell} ipython3
 viewer.layers['nuclei'].colormap = 'I Forest'
 viewer.layers['nuclei'].blending = 'minimum'
 viewer.layers['spots'].colormap = 'I Orange'
@@ -104,7 +106,7 @@ viewer.layers['spots'].blending = 'minimum'
 
 Once you are satisfied, you can print the output of any manual changes and then take a screenshot of the viewer.
 
-```{code-cell} python
+```{code-cell} ipython3
 # example of printing the nuclei layer visualization params
 print('Colormap: ', viewer.layers['nuclei'].colormap.name)
 print('Contrast limits: ', viewer.layers['nuclei'].contrast_limits)
@@ -112,7 +114,7 @@ print('Opacity: ', viewer.layers['nuclei'].opacity)
 print('Blending: ', viewer.layers['nuclei'].blending)
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 nbscreenshot(viewer)
 ```
 
@@ -121,7 +123,7 @@ nbscreenshot(viewer)
 If you look carefull at the `spots` layer, you will notice that it contains background and
 autofluorescence from the cells. It may help to just look at the single channel.
 
-```{code-cell} python
+```{code-cell} ipython3
 viewer.layers['nuclei'].visible = False
 ```
 
@@ -133,18 +135,18 @@ A simple way to achieve this is to:
 
 Lets try this using the `gaussian_filter` from `scipy` with a sigma of 2 px and lets clip any negative values:
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 from scipy import ndimage as ndi
 
 
 low_pass = ndi.gaussian_filter(spots, 2)
-high_passed_spots = (spots - low_pass).clip(0)   
+high_passed_spots = (spots - low_pass).clip(0)
 ```
 
 Let's visualize both versions of the data.
 
-```{code-cell} python
+```{code-cell} ipython3
 viewer.add_image(low_pass, colormap="I Forest", blending="minimum")
 viewer.add_image(high_passed_spots, colormap="I Blue", blending="minimum")
 ```
@@ -152,10 +154,11 @@ viewer.add_image(high_passed_spots, colormap="I Blue", blending="minimum")
 Toggle the visibility of the 3 spots layers to get a better sense of the effect of our filter.
 Let's hide the `low_pass` and take a screenshot for documentation.
 
-
-```{code-cell} python
+```{code-cell} ipython3
 viewer.layers['low_pass'].visible = False
+```
 
+```{code-cell} ipython3
 nbscreenshot(viewer)
 ```
 
@@ -169,7 +172,7 @@ perform the blob detection.
 - See the "Note" from the blob_log docs: "The radius of each blob is approximately $\sqrt{2}\sigma$ for a 2-D image"
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 from skimage.feature import blob_log
 
 # detect the spots on the filtered image
@@ -192,24 +195,70 @@ To visualize the results, add the spots to the viewer as a
 would like to see an example of using a points layer, see
 [this example](https://napari.org/gallery/add_points.html).
 
-```{code-cell} python
+```{code-cell} ipython3
 # add the detected spots to the viewer as a Points layer
 viewer.add_points(spot_coords, size=spot_sizes)
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 nbscreenshot(viewer)
 ```
 
 Let's zoom in for a better look. You can explore interactively in the viewer and then you can explicitly
 set the center of the field of view and the zoom factor.
 
-```{code-cell} python
+```{code-cell} ipython3
 viewer.camera.center = (200, 270)
 viewer.camera.zoom = 8
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
+## Optional: using Points layer `properties`
+
+`properties` is a table associated with a Points layer that can store additional data associated with
+a data point. It has one row per data element (Point) and one column per feature. Importantly,
+napari can not only display the values of associated features in the status bar, but also use them for
+styling, e.g. for `face_color`. For more information, see the [Points layer guide](https://napari.org/stable/howtos/layers/points.html#setting-point-edge-and-face-color-with-properties).
+
+```{note}
+napari plans to deprecate `properties` in favor of `features` in a future release, but for the time being
+the documentation for `properties` is superior, so we use that here. Note that some examples in the Gallery
+have been updated to use `features`, but for the purposes of these simple examples you can replace
+`features` with `properties` or vice versa.
+```
+
+Let's use the `properties` dictionary to store the intensity value of the image at the coordinate of point
+and then we can encode the color of the point marker using that value.
+
+First let's get an array of the pixel values of the original data array at the coordinates of our detected
+points.
+
+```{code-cell} ipython3
+# convert coordinates into a tuple that can be used to index the image data
+tuple_of_spots_as_indexes = tuple(np.round(spot_coords).astype(int).T)
+intensities = viewer.layers['spots'].data[tuple_of_spots_as_indexes]
+```
+
+Now we will set the `properties` table of our Points layer—we could have done this when we constructed the layer.
+
+```{code-cell} ipython3
+viewer.layers['spot_coords'].properties = {'intensity': intensities}
+```
+
+Now when you mouseover a point, you should see the corresponding intensity value in the status bar.
+Next let's hook up the coloring to color the Points by intensity.
+
+```{code-cell} ipython3
+viewer.layers['spot_coords'].face_color = 'intensity'
+viewer.layers['spot_coords'].face_colormap = 'viridis'
+viewer.layers['spot_coords'].face_color_mode = 'colormap'
+viewer.layers['spot_coords'].refresh_colors()
+```
+
+```{code-cell} ipython3
 nbscreenshot(viewer)
 ```
 
