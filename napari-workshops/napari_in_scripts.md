@@ -1,4 +1,4 @@
-# (Optional) Using napari in a script
+# Using napari in a script
 
 napari can be used in Python scripts much like any other module. This can be very useful
 for setting a viewer, loading data, etc. for  reproducibility or for sharing a setup.
@@ -125,6 +125,6 @@ napari was closed!
    ```{tip} 
    You will also have access to imported modules! Try: `data.cells3d().shape`
    ```
-   
+
    Then, close the viewer, comment out the `viewer.update_console(locals())` line and run the script 
    again. Now try to access `astro` or `dummy_var` and you will get a **NameError**.
