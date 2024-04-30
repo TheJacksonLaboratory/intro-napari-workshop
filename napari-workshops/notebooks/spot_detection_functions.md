@@ -256,12 +256,12 @@ If `detect_spots()` returns a `LayerDataTuple`, napari will add a *new layer* to
    the `LayerDataTuple` type, please see
    [the documentation](https://napari.org/stable/guides/magicgui.html#returning-napari-types-layerdatatuple).
    Briefly:
-    * The layer data tuple should be: `(layer_data, layer_metadata, layer_type)`
-    * `layer_data`: the data to be displayed in the new layer (i.e., the points
+    - The layer data tuple should be: `(layer_data, layer_metadata, layer_type)`
+    - `layer_data`: the data to be displayed in the new layer (i.e., the points
       coordinates)
-    * `layer_metadata`: the display options for the layer stored as a
+    - `layer_metadata`: the display options for the layer stored as a
       dictionary. Some options to consider: `symbol`, `size`, `face_color`
-    * `layer_type`: the name of the layer type as a string—in this case `'Points'`  
+    - `layer_type`: the name of the layer type as a string—in this case `'Points'`  
 
 Also let's change the `image` argument type hint to `ImageLayer` so that we can access more
 properties if we'd like or be able to more easily set the value programmatically.
