@@ -13,7 +13,7 @@ either downloading a .zip file (recommended for beginners) or cloning via git.
 ### Downloading a .zip file
 To download the notebooks as a .zip file, do the following:
 
-1. Click the GitHub logo at the top of this page or navigate your web browser to [the workshop's github repository](https://github.com/psobolewskiPhD/intro-napari-workshop): https://github.com/psobolewskiPhD/intro-napari-workshop
+1. Click the GitHub logo at the top of this page or navigate your web browser to [the workshop's github repository](https://github.com/TheJacksonLaboratory/intro-napari-workshop): https://github.com/TheJacksonLaboratory/intro-napari-workshop
 2. Click the green (or blue) "Code" button to open the download menu and then
    "Download ZIP" ![download code](./resources/download_code.png)
 3. Choose the location you would like to download the .zip into.
