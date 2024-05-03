@@ -144,7 +144,7 @@ function—again thanks to autogeneration from `magicgui`.
 gaussian_high_pass(viewer.layers['spots'].data)
 ```
 
-Note that we are just returning `ImageData`, so there is no information passed about colormaps, blending, etc. If we want to specify that, we would need to annotate as [`LayerDataTuple`](https://napari.org/stable/guides/magicgui.html#returning-napari-types-layerdatatuple).
+Note that we are just returning `ImageData`, so there is no information passed about colormaps, blending, etc. If we want to specify that, we would need to annotate as [`LayerDataTuple`](https://napari.org/stable/guides/magicgui.html#returning-napari-types-layerdatatuple). (We will do this in the next example.)
 For now you will need to manually or programmatically set any colormap/blending settings. (Let's also hide the previous filtering output.)
 
 ```{code-cell} ipython3
@@ -360,17 +360,12 @@ For more details, on the two `magicgui` decorators, see [the official documentat
 
 napari has extensive keyboard shortcuts that can be customized in the Preferences/Settings GUI.
 However, it also enables you to bind key-press events to custom callback functions. Again, the 
-napari implementation is smart, so you arguments like the viewer getting the keypress or the current
-selected layer of a given time can be passed to your function.
+napari implementation (`bind_key`) is smart, so arguments like the viewer getting the key press or the current
+selected layer of a given time will be passed to your function.
 
-Lets try a simple example, to get the number of Points returned by our detector. Let's have the key-press
-pass in a selected Points layer.
-
-```{tip}
-If you use `print`, the print statement will be in the notebook. To get something visible in the 
-viewer, you can use [`napari.utils.notifications.show_info`](https://napari.org/dev/api/napari.utils.notifications.html).
-However, be aware that this won't work from Jupyter notebook at the moment (hopefully fixed in napari 0.5.0).
-```
+Lets try a simple example, to get the number of Points returned by our detector when we press
+a key binding. For this, we will want the `bind_key` decorator to pass in a selected Points layer
+as an argument to our function that will return the number of detected spots.
 
 ```{code-cell} ipython3
 from napari.layers import Points
@@ -381,8 +376,15 @@ def print_number_of_points(points_layer: "napari.layers.Points"):
 
 ```
 
-Give it a shot in the viewer, you should get a print statement when you press the keybinding with a Points layer
-selected, but not with any other layer type.
+Give it a shot in the viewer, you should get a print statement in the notebook, when you press the 
+keybinding with a Points layer selected, but not with any other layer type.
+
+```{tip}
+We used `print`, so the output ends up in the notebook (or the terminal, REPL, etc.). To get something visible in the 
+viewer itself, you can use [`napari.utils.notifications.show_info`](https://napari.org/dev/api/napari.utils.notifications.html).
+However, be aware that this won't work when napari was launched from a Jupyter notebook (hopefully fixed in napari 0.5.0): nothing will
+happen.
+```
 
 Let's call the function to trigger it for the notebook:
 ```{code-cell} ipython3
