@@ -370,33 +370,30 @@ pass in a selected Points layer.
 ```{tip}
 If you use `print`, the print statement will be in the notebook. To get something visible in the 
 viewer, you can use [`napari.utils.notifications.show_info`](https://napari.org/dev/api/napari.utils.notifications.html).
+However, be aware that this won't work from Jupyter notebook at the moment (hopefully fixed in napari 0.5.0).
 ```
 
 ```{code-cell} ipython3
 from napari.layers import Points
-from napari.utils.notifications import show_info
 
 @Points.bind_key("Shift-D")
 def print_number_of_points(points_layer: "napari.layers.Points"):
-    show_info("Detected points: "+ str(len(points_layer.data)))
+    print("Detected points: " len(points_layer.data))
 
 ```
 
+Give it a shot in the viewer, you should get a print statement when you press the keybinding with a Points layer
+selected, but not with any other layer type.
+
 Let's call the function to trigger it for the notebook:
 ```{code-cell} ipython3
-
 print_number_of_points(viewer.layers['Points'])
-nbscreenshot(viewer)
 ```
 
 ```{important}
 At the moment, `bind_key` shortcuts cannot overwrite napari builtin shortcuts, even with `overwrite=True`.
 Worse yet, this will silently fail, because the builtin napari keybinding *will* trigger.
 ```
-
-Give it a shot in the viewer, you should get a notification when you press the keybinding with a Points layer
-selected, but not with any other layer type.
-
 
 There are actually a number of other events that you can connect callbacks to, other than just key presses.
 For more information, see the [napari events documentation](https://napari.org/stable/howtos/connecting_events.html).
