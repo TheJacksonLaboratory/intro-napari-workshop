@@ -378,7 +378,7 @@ from napari.layers import Points
 
 @Points.bind_key("Shift-D")
 def print_number_of_points(points_layer: "napari.layers.Points"):
-    print("Detected points: " len(points_layer.data))
+    print("Detected points: ", len(points_layer.data))
 
 ```
 
