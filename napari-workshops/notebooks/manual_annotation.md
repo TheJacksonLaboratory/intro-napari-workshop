@@ -312,6 +312,20 @@ viewer.layers['nuclei outlines'].visible = False
 nbscreenshot(viewer)
 ```
 
+````{tip}
+If you want to *remove* layers programmatically, you can do so by index, for
+example to remove the bottom most layer (0th index):
+
+```python
+viewer.layers.pop(0)    # remove the bottom-most layer
+```
+or you can also remove a layer by passing the layer directly:
+
+```python
+viewer.layers.remove(viewer.layers['layer to remove'])
+```
+````
+
 ## Painting labels for pixel-wise annotations
 
 With the labels layer we can now make pixel-wise annotations using a paintbrush, fill bucket, 
