@@ -9,7 +9,7 @@ April 23 & 30, 2024
 This site contains materials for the Introduction to `napari` workshop
 run at JAX on April 23 & 30, 2024.
 
-The slides for the introductory presentation can be accessed [here](https://psobolewskiphd.github.io/intro-napari-slides/).
+The slides for the introductory presentation can be accessed [here](https://thejacksonlaboratory.github.io/intro-napari-slides/).
 
 ## Colophon
 
