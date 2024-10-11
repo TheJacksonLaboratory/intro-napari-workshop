@@ -76,22 +76,22 @@ Once you have that set, you can skip to [the next section](setting-up-your-napar
 
    6. Once the installation has completed, you can verify it was correctly installed by opening a new command line. You should see `(base)` next to your command line prompt. Additionally, the following command:
 
-   ```
-   echo $CONDA_PREFIX
-   ```
+      ```
+      echo $CONDA_PREFIX
+      ```
 
-   should return the path to your `miniforge` installation, by default this is `~/miniforge3` (i.e., `miniforge3` in your home directory), so for example:
+      should return the path to your `miniforge` installation, by default this is `~/miniforge3` (i.e., `miniforge3` in your home directory), so for example:
 
 
-   ```bash
-   /Users/username/miniforge3
-   ```
+      ```bash
+      /Users/username/miniforge3
+      ```
 
-   or
+      or
 
-   ```bash
-   /home/username/miniforge3
-   ```
+      ```bash
+      /home/username/miniforge3
+      ```
 
    #### Manual initialization
 
