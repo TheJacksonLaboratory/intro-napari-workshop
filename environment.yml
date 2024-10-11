@@ -4,6 +4,7 @@ channels:
 dependencies:
   - jupyterlab
   - jupytext
+  - jupyterlab-myst
   - napari
   - pyqt
   - jupyter-book

@@ -53,7 +53,7 @@ conda activate napari-workshop
 ````
 
 ```bash
-conda install jupytext
+conda install jupytext jupyterlab-myst
 ```
 
 

@@ -1,4 +1,5 @@
 jupyter-book
 jupyterlab
 jupytext
+jupyterlab-myst
 napari[all]
