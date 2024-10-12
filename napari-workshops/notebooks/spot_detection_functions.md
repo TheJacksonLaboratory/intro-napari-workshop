@@ -96,7 +96,9 @@ For more information, see the official Python documentation for:
 from magicgui import magicgui
 
 @magicgui
-def gaussian_high_pass(image: "napari.types.ImageData", sigma: float = 2)->"napari.types.ImageData":
+def gaussian_high_pass(
+        image: "napari.types.ImageData", sigma: float = 2
+        ) -> "napari.types.ImageData":
     """Apply a gaussian high pass filter to an image.
 
     Parameters
@@ -194,10 +196,12 @@ viewer.window.remove_dock_widget("all")
 ```
 
 ```{code-cell} ipython3
-@magicgui(auto_call=True,
-            sigma={"widget_type": "FloatSlider", "min": 0, "max": 20}
-         )
-def gaussian_high_pass(image: "napari.types.ImageData", sigma: float = 2)->"napari.types.ImageData":
+@magicgui(
+    auto_call=True, 
+    sigma={"widget_type": "FloatSlider", "min": 0, "max": 20})
+def gaussian_high_pass(
+        image: "napari.types.ImageData", sigma: float = 2
+        ) -> "napari.types.ImageData":
     """Apply a gaussian high pass filter to an image.
 
     Parameters
@@ -276,11 +280,11 @@ from skimage.feature import blob_log
 
 @magicgui
 def detect_spots(
-    image: "napari.layers.Image",
-    high_pass_sigma: float = 2,
-    spot_threshold: float = 0.2,
-    blob_sigma: float = 2
-    )->"napari.types.LayerDataTuple":
+        image: "napari.layers.Image",
+        high_pass_sigma: float = 2,
+        spot_threshold: float = 0.2,
+        blob_sigma: float = 2
+        )->"napari.types.LayerDataTuple":
     """Apply a gaussian high pass filter to an image.
 
     Parameters
