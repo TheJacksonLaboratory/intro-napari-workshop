@@ -2,11 +2,13 @@ name: binder
 channels:
   - conda-forge
 dependencies:
-  - python=3.9
-  - jupyter-server-proxy>=1.4
+  - python=3.11
+  - jupyterlab
   - jupytext
+  - jupyterlab-myst
+  - napari
+  - pyqt
+  - jupyter-book
   - pip
-  - websockify
-  - libxcb
   - pip:
-    - jupyter-desktop-server
+    - jupyter-remote-desktop-proxy

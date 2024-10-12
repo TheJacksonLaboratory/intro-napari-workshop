@@ -1,11 +1,15 @@
 dbus-x11
-firefox
 xfce4
 xfce4-panel
 xfce4-session
 xfce4-settings
 xorg
 xubuntu-icon-theme
+tigervnc-standalone-server
+tigervnc-xorg-extension
+dbus-x11
+'^libxcb.*-dev'
+libegl1
 libx11-xcb-dev
 libglu1-mesa-dev
 libxrender-dev
