@@ -9,7 +9,7 @@ logo: logo.ico
 only_build_toc_files: true
 
 launch_buttons:
-  notebook_interface : classic  # The interface interactive links will activate ["classic", "jupyterlab"]
+  notebook_interface : jupyterlab  # The interface interactive links will activate ["classic", "jupyterlab"]
   binderhub_url : https://mybinder.org  # The URL of the BinderHub (e.g., https://mybinder.org)
 
 # Force re-execution of notebooks on each build.
