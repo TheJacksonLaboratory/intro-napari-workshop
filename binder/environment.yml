@@ -9,6 +9,7 @@ dependencies:
   - napari
   - pyqt
   - jupyter-book
+  - websockify
   - pip
   - pip:
     - jupyter-remote-desktop-proxy
