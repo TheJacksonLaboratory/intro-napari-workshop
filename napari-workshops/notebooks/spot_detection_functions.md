@@ -19,6 +19,19 @@ There are a number of ways to go about creating your own widgets, you can see [a
 
 In this module, we will implement elements of our previous workflow as functions and then use [`magicgui.magicgui`](https://pyapp-kit.github.io/magicgui/api/magicgui/#magicguimagicgui) decorator on those functions to return us compound widgets that we can use to make exploring the parameters easier in the GUI. For a nice overview of the `magicgui` decorators, see [the official documentation](https://pyapp-kit.github.io/magicgui/decorators/).
 
+## `binder` setup
+
+```{code-cell} ipython3
+:tags: [remove-output]
+
+# this cell is required to run these notebooks on Binder. Make sure that you also have a desktop tab open.
+import os
+if 'BINDER_SERVICE_HOST' in os.environ:
+    os.environ['DISPLAY'] = ':1.0'
+```
+
+## Loading data
+
 Let's get everything set up, based on the previous notebook:
 
 ```{code-cell} ipython3
@@ -44,6 +57,8 @@ viewer.add_image(nuclei, colormap = 'I Forest', blending = 'minimum')
 # add the spots image to the viewer
 viewer.add_image(spots, colormap = 'I Orange', blending='minimum')
 ```
+
+## A basic filtering function
 
 Now let's write a function that takes an array and a `sigma` value and performs the 
 high-pass operation.
