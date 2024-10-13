@@ -12,17 +12,15 @@ To open a notebook in Binder, click on the rocketship badge at the top of a note
 
 ![Binder badge shown in the "Bioimage visualization in Python" notebook](./resources/binder_button.png)
 
-Just opening the notebook is not sufficient. Because napari is a desktop application, we need a "Desktop" tab to see the napari GUI interface. To do this we need to return to the Jupyter dashboard, by clicking the Jupyter logo (marked in red below) in the upper left.
-
-![Jupyter logo tool-tip showing `dashboard`](./resources/jupyter_logo_dashboard.png)
+This will open the notebook in Markdown format, but it will not be runnable. Further, because napari is a desktop application, we need a "Desktop" tab to see the napari GUI interface. To do this, close the Markdown notebook and return to the Jupyter launcher.
 
 ## Open desktop tab
 
-In the Jupyter launcher tab, click on "Desktop".
+In the Jupyter launcher tab, click on the "Desktop" tile.
 
 ![Desktop tab button in Jupyter launcher tab](./resources/desktop_tab.png)
 
-After this, you should see a new tab open up in your browser window called "noVNC", with a basic desktop interface. Note if at first it doesn't connect, just close the tab and click the `D` tile a second time.
+After this, you should see a new tab open up in your browser window called "Jupyter Remote Desktop Proxy", with a basic Linux desktop interface. Note if at first it doesn't connect, just close the tab and click the `D` tile a second time.
 
 ![Desktop interface shown in browser tab](./resources/desktop.png)
 
