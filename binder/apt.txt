@@ -7,7 +7,6 @@ xorg
 xubuntu-icon-theme
 tigervnc-standalone-server
 tigervnc-xorg-extension
-dbus-x11
 libegl1
 libx11-xcb-dev
 libglu1-mesa-dev
