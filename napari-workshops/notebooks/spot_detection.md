@@ -120,7 +120,7 @@ nbscreenshot(viewer)
 
 ## Create an image filter
 
-If you look carefull at the `spots` layer, you will notice that it contains background and
+If you look carefully at the `spots` layer, you will notice that it contains background and
 autofluorescence from the cells. It may help to just look at the single channel.
 
 ```{code-cell} ipython3
@@ -130,7 +130,8 @@ viewer.layers['nuclei'].visible = False
 To improve spot detection, we will apply a high pass filter to improve the contrast of the spots.
 
 A simple way to achieve this is to:
-1. blur the image with a Gaussian, which removes high-frequency information—this is why we use it for denoising.
+1. blur the image with a Gaussian, which removes high-frequency information (small features, including
+our spots)—this is why we use it for denoising.
 2. subtract the blurred image from the original.
 
 Lets try this using the `gaussian_filter` from `scipy` with a sigma of 2 px and lets clip any negative values:
@@ -164,7 +165,7 @@ nbscreenshot(viewer)
 
 ## Detect spots
 
-Next, we will use one of the blob detection algorithms from sci-kit image to
+Next, we will use one of the blob detection algorithms from scikit-image to
 perform the blob detection.
 
 ```{tip}
@@ -177,11 +178,9 @@ from skimage.feature import blob_log
 
 # detect the spots on the filtered image
 blobs_log = blob_log(
-    high_passed_spots,
-    max_sigma=3,
-    threshold=None, # use a relative threshold instead
-    threshold_rel=0.2
-)
+    high_passed_spots, max_sigma=3,
+    threshold=None,  # use a relative threshold instead
+    threshold_rel=0.2)
     
 # convert the output of the blob detector to the 
 # desired points_coords and sizes arrays
@@ -216,21 +215,20 @@ viewer.camera.zoom = 8
 nbscreenshot(viewer)
 ```
 
-## Optional: using Points layer `properties`
+## Optional: using Points layer `features`
 
-`properties` is a table associated with a Points layer that can store additional data associated with
-a data point. It has one row per data element (Point) and one column per feature. Importantly,
-napari can not only display the values of associated features in the status bar, but also use them for
-styling, e.g. for `face_color`. For more information, see the [Points layer guide](https://napari.org/stable/howtos/layers/points.html#setting-point-edge-and-face-color-with-properties).
+`features` is a table associated with a Points layer that can store additional data associated with
+a data point. It has one row per data element (Point) and one column per feature. This would enable you 
+to add other attributes like `volume` or `maximum-intensity` should you calculate those for each cell. 
+Importantly, napari can not only display the values of associated features in the status bar, but 
+also use them for styling, e.g. for `face_color`. For more information, see the 
+[Points layer guide](https://napari.org/stable/howtos/layers/points.html#using-the-points-features-table), 
+[the Points annotation tutorial](https://napari.org/stable/tutorials/annotation/annotate_points.html) 
+or the ["Add points with features" Gallery example](https://napari.org/stable/gallery/add_points_with_features.html#sphx-glr-gallery-add-points-with-features-py).
 
-```{note}
-napari plans to deprecate `properties` in favor of `features` in a future release, but for the time being
-the documentation for `properties` is superior, so we use that here. Note that some examples in the Gallery
-have been updated to use `features`, but for the purposes of these simple examples you can replace
-`features` with `properties` or vice versa.
-```
 
-Let's use the `properties` dictionary to store the intensity value of the image at the coordinate of point
+
+Let's use the `features` dictionary to store the intensity value of the image at the coordinate of point
 and then we can encode the color of the point marker using that value.
 
 First let's get an array of the pixel values of the original data array at the coordinates of our detected
@@ -242,10 +240,10 @@ tuple_of_spots_as_indexes = tuple(np.round(spot_coords).astype(int).T)
 intensities = viewer.layers['spots'].data[tuple_of_spots_as_indexes]
 ```
 
-Now we will set the `properties` table of our Points layer—we could have done this when we constructed the layer.
+Now we will set the `features` table of our Points layer—we could have done this when we constructed the layer.
 
 ```{code-cell} ipython3
-viewer.layers['spot_coords'].properties = {'intensity': intensities}
+viewer.layers['spot_coords'].features = {'intensity': intensities}
 ```
 
 Now when you mouseover a point, you should see the corresponding intensity value in the status bar.

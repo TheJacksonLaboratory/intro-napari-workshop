@@ -19,6 +19,19 @@ There are a number of ways to go about creating your own widgets, you can see [a
 
 In this module, we will implement elements of our previous workflow as functions and then use [`magicgui.magicgui`](https://pyapp-kit.github.io/magicgui/api/magicgui/#magicguimagicgui) decorator on those functions to return us compound widgets that we can use to make exploring the parameters easier in the GUI. For a nice overview of the `magicgui` decorators, see [the official documentation](https://pyapp-kit.github.io/magicgui/decorators/).
 
+## `binder` setup
+
+```{code-cell} ipython3
+:tags: [remove-output]
+
+# this cell is required to run these notebooks on Binder. Make sure that you also have a desktop tab open.
+import os
+if 'BINDER_SERVICE_HOST' in os.environ:
+    os.environ['DISPLAY'] = ':1.0'
+```
+
+## Loading data
+
 Let's get everything set up, based on the previous notebook:
 
 ```{code-cell} ipython3
@@ -44,6 +57,8 @@ viewer.add_image(nuclei, colormap = 'I Forest', blending = 'minimum')
 # add the spots image to the viewer
 viewer.add_image(spots, colormap = 'I Orange', blending='minimum')
 ```
+
+## A basic filtering function
 
 Now let's write a function that takes an array and a `sigma` value and performs the 
 high-pass operation.
@@ -96,7 +111,9 @@ For more information, see the official Python documentation for:
 from magicgui import magicgui
 
 @magicgui
-def gaussian_high_pass(image: "napari.types.ImageData", sigma: float = 2)->"napari.types.ImageData":
+def gaussian_high_pass(
+        image: "napari.types.ImageData", sigma: float = 2
+        ) -> "napari.types.ImageData":
     """Apply a gaussian high pass filter to an image.
 
     Parameters
@@ -194,10 +211,13 @@ viewer.window.remove_dock_widget("all")
 ```
 
 ```{code-cell} ipython3
-@magicgui(auto_call=True,
-            sigma={"widget_type": "FloatSlider", "min": 0, "max": 20}
-         )
-def gaussian_high_pass(image: "napari.types.ImageData", sigma: float = 2)->"napari.types.ImageData":
+@magicgui(
+        auto_call=True, 
+        sigma={"widget_type": "FloatSlider", "min": 0, "max": 20}
+        )
+def gaussian_high_pass(
+        image: "napari.types.ImageData", sigma: float = 2
+        ) -> "napari.types.ImageData":
     """Apply a gaussian high pass filter to an image.
 
     Parameters
@@ -276,11 +296,11 @@ from skimage.feature import blob_log
 
 @magicgui
 def detect_spots(
-    image: "napari.layers.Image",
-    high_pass_sigma: float = 2,
-    spot_threshold: float = 0.2,
-    blob_sigma: float = 2
-    )->"napari.types.LayerDataTuple":
+        image: "napari.layers.Image",
+        high_pass_sigma: float = 2,
+        spot_threshold: float = 0.2,
+        blob_sigma: float = 2
+        ) -> "napari.types.LayerDataTuple":
     """Apply a gaussian high pass filter to an image.
 
     Parameters
