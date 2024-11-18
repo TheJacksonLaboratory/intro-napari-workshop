@@ -30,7 +30,7 @@ After a few seconds (or up to a minute if it's the first launch and you have var
 ## Open an Image
   
 * Open a sample image that comes with napari by selecting:  
-**File**>**Open Sample**>**napari**>**Cells (3D + 2Ch)**  
+**File** > **Open Sample** > **napari builtins** > **Cells (3D + 2Ch)**  
 
    **Note:** Open one of your own images with:  
 **File** > **Open files** and select a tif, png, or jpg file to open—or drag-n-drop one onto
@@ -41,7 +41,7 @@ the canvas.
 
 ## Explore Images in 2D and 3D  
 
-* Toggle layer visibility on and off with the **eye button next to the layer name** in the layer list.  
+* Toggle layer visibility on and off with the **eye button to the left of the layer name** in the layer list.  
 * Use the dimension sliders beneath the canvas to  control the z position/slice number. Slide through the 3D stack one 2D slice at a time.  
 
 * Scroll (use two finger scroll on a touchpad) to zoom in and out.  
@@ -67,13 +67,13 @@ It is second from the left end on the row of viewer buttons.
 * Select an image from the layers list (selected images are blue in the layer list).  
 * Adjust the contrast limits by using the contrast limits slider in the layer controls section.
 
-    ```{tip} You can control+click(Mac) or right-click(Windows) on the slider to open the expanded view with min and max pixel values labeled on the ends of the slider.
+    ```{tip} You can Control+click (Mac) or right-click (Windows and Linux) on the slider to open the expanded view with min and max pixel values labeled on the ends of the slider.
     ```  
 * Adjust opacity, color map, and blending modes in the layer controls section.  
 
 ## Explore Stack Manipulation  
 * Select both the nuclei and membrane layers in the layer list using shift+click.
-* Control+click(Mac)/right-click(Windows) either of the selected layers to open the layer actions menu. 
+* Control+click (Mac)/right-click (Windows and Linux) either of the selected layers to open the layer actions menu. 
 
     ```{note}
     The layer actions menu is contextually aware, so it will have different options enabled depending on the
@@ -83,19 +83,19 @@ It is second from the left end on the row of viewer buttons.
     * Merge layers:	
         * With both layers selected, click **Merge to Stack** to combine the **nuclei** and **membrane** layers to make a single layer with an additional slider that controls the channel axis.  
     * Rename this layer to **cells** by double clicking the layer in the layer list and replacing the text.  
-    * Rename the sliders **Ch** and **Z** by double clicking the **0** and **1** on the left side of the sliders and replacing the text.  
+    * Rename the dimension sliders at the bottom of the canvas to read **Ch** and **Z** by double clicking the **0** and **1** on the left side of the sliders and replacing the text.  
     * Explore the data using the sliders.  
     * Open the layer action menu and split the stacks with the **Split Stack** command.  
 
         ```{note}
-        **Split Stack** divides a layer in its *first listed dimension* (e.g. proper metadata will have [channel, z, y, x]), which would have index `0` and should be represented by the bottom-most slider. In this case, selecting the newly merged layer will separate the channels into separate layers. Meanwhile, applying **Split Stack** to one of the resulting layers will split the layer into a set of 2D layers for each of the z slices.
+        **Split Stack** divides a layer in its *first listed dimension*, which would have index `0` and should be represented by the bottom-most slider. In this case, selecting the newly merged layer will separate the channels into separate layers. Meanwhile, applying **Split Stack** to one of the resulting layers will split the layer into a set of 2D layers for each of the z slices.
         ```
 
 ## Explore Layer Types  
 
 The Points, Shapes, and Labels layers can be used for annotating you image layers and are accessible 
 through the GUI buttons. Additional data layers (Surfaces, Tracks, and Vectors) are available through 
-the API. For guides to using the various, please see the [napari layer guides](https://napari.org/stable/howtos/layers/index.html).
+the API. For guides to using the various layer types, please see the [napari layer guides](https://napari.org/stable/howtos/layers/index.html).
 
 * Add a points, shapes, or labels layer using the buttons above the layers list.
     * These layers will be blank to begin with.  
@@ -104,7 +104,7 @@ the API. For guides to using the various, please see the [napari layer guides](h
 
 ```{tip}
 You can delete layers selected individually using the trash can icon or by pressing the backspace key.
-Delete all layers in the layer list by selecting one layer, and then pressing Command+A(Mac) / Control+A(Windows) to select all layers. Then click the trash can button on the top right of the layer list. 
+Delete all layers in the layer list by selecting one layer, and then pressing Command+A (Mac) / Control+A (Windows and Linux) to select all layers. Then click the trash can button on the top right of the layer list. 
 ```
 
 ## Save your data
@@ -112,10 +112,10 @@ Delete all layers in the layer list by selecting one layer, and then pressing Co
 There are two options for saving your data: saving the layers themselves or saving the rendered view
 in the canvas. 
 
-To save the currently rendered view, use the File menu **Save Screenshot**. You can also chose to include
+To save the currently rendered view, use the File menu **Save Screenshot**. You can also choose to include
 the viewer or to save the screenshot to the clipboard instead of a file.
 
-You can save the layers individually using the File menu or Command+S(Mac) / Control+S(Windows). 
+You can save the layers individually using the File menu or Command+S (Mac) / Control+S (Windows and Linux). 
 * For image layers, you can select the file type by providing the extension. 
 Note: Some formats may not work for all image types, e.g. 3D stacks. Additional file types 
 can be made available by plugins.
@@ -124,8 +124,7 @@ can be made available by plugins.
 
 Multiple different layer types, e.g. image and points, can be saved to a single `.svg` file,
 which can be convenient for use in a vector graphics program or for web. 
-* Select more than one layer and use the File menu or Command+S(Mac) / Control+S(Windows), 
-then in the dialog dropdown menu ensure `napari-svg` is selected, give the file a name, and save.
+* Select more than one layer and use the File menu or Command+S (Mac) / Control+S (Windows and Linux), then in the dialog dropdown menu ensure `napari SVG` is selected, give the file a name, and save.
 
     ```{important} 
     The output file will not be openable in napari!
@@ -133,9 +132,7 @@ then in the dialog dropdown menu ensure `napari-svg` is selected, give the file 
 
 Perhaps more usefully, multiple different layer types, e.g. image and points, can be saved as
 individual layers (as described above) *to a folder.* 
-* Select more than one layer and use the File menu or Command+S(Mac) / Control+S(Windows) or use Command+Shift+S(Mac) / Control+Shift+S(Windows) to save all layers. Then in the dialog dropdown menu change `napari-svg`
-to `napari builtins Save to Folder`. Enter a folder name and hit save. A new folder with that name will be
-created and the files will be individually exported there, as noted above.
+* Select more than one layer and use the File menu or Command+S (Mac) / Control+S (Windows and Linux) or use Command+Option+S (Mac) / Control+Alt+S (Windows and Linux) to save all layers. Then in the dialog dropdown menu change `napari-svg` to `napari builtins Save to Folder`. Enter a folder name and hit save. A new folder with that name will be created and the files will be individually exported there, as noted above.
 
     ```{important} 
     To re-open the files, open the enclosing folder, select all the files, and drag-n-drop them on the napari canvas. At present, opening the folder directly, if it contains a mix of layer types, will not work—only images are supported in this way. Note that a folder of images will be imported as a stack.
@@ -191,7 +188,7 @@ Alternatively, you could use the index of the layer instead.
 If your layers disappeared, you will need to click the `home` button to reset the viewer and you may need to adjust the slider to a new slice
 ```
 
-* Add a scale bar using the GUI **View** > **Scale Bar** > **Visible** or by typing 
+* Add a scale bar using the GUI **View** > **Scale Bar** > **Scale Bar Visible** or by typing 
 `viewer.scale_bar.visible = True`  in the integrated console. 
 * Add physical units of microns to the scale bar by typing `viewer.scale_bar.unit = "um"`  
 in the integrated console.
@@ -200,9 +197,9 @@ in the integrated console.
 ````{tip}
 The integrated console is a full-featured iPython kernel. You can use it for interactive
 analysis, just import `numpy` or `skimage`. You can use `tab` for auto-completions and the Up
-arrow to access the command history. Use a ? to access documentation, e.g.
+arrow to access the command history. Use a `?` to access documentation, e.g.
     
-```Python
+```
 viewer?
 ```
 
