@@ -11,36 +11,18 @@ Currently, plugins can:
 Plugins can be installed as Python packages using conda or pip as normal or from within the
 napari GUI using the Plugin menu.
 
-```{note}
-Currently (napari 0.4.19) the built-in Plugin installer uses `pip` to install plugins into
-the Python environment. This means that plugins with compiled dependencies or those that require non-Python
-components may not install properly. In those cases, you will need to check the documentation of the plugin
-for information regarding installation.
-```
-
 For more information on plugins, please see the [official Plugin documentation](https://napari.org/stable/plugins/index.html).
 
 ## Install Your First Plugins  
-* Navigate to [napari-hub.org](https://www.napari-hub.org)—this is the platform to discover and share plugins.  
-* **napari-bio-sample-data** : some additional sample data (File menu)
-    * Search for **sample**.
-    * Scroll down until you see **napari-bio-sample-data**.  
-    * Select **napari-bio-sample-data**.  
-    * Read the documentation on the plugin page. 
-* **napari-skimage-regionprops** : widget to access [scikit-image `measure.regionprops`](https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops)
-    * Search for **regionprops**.
-    * Scroll down until you see **napari-skimage-regionprops**.  
-    * Select **napari-skimage-regionprops**.  
-    * Read the documentation on the plugin page. 
 * In napari, open  
 **Plugins**>**Install/Uninstall Plugins...**   
-and wait for the plugin list to populate.  
-* Search for **sample** in the top search/filter bar, and click the install button next to **napari-bio-sample-data**.
-* Once the install completes, search for **regionprops** and install that plugin as well.  
+* Search for **sample** in the top search/filter bar, and then, in the bottom pane, click the install button next to **napari-bio-sample-data**.
+* Once the install completes, search for **skimage** and install the **napari-skimage** plugin as well.  
 
     ```{note}
     - After clicking the install button and you can monitor the **installing…** process by clicking `Show status`. This can be helpful in trouble-shooting installation issues.
-    - After installing, you will typically need to close napari and reopen it, then  continue.
+    - You can queue multiple plugins to install at once, by searching for a new plugin and clicking the install button.
+    - After installing, it is recommended that you close napari and reopen it to continue.
     ``` 
 
 * Restart napari. 
@@ -50,26 +32,29 @@ and wait for the plugin list to populate.
     This sample data includes the same `nuclei` data as before, but this time a 3D labels and surface layer
     are present. You can explore these in the 3D view. Delete the surface layer once you're ready to move
     on.
-* Open **Tools**>**Measurement Tables**>**Regionprops (scikit-image, nsr)**
-    * Ensure that `nuclei (data)` is selected for the `image` layer and `nuclei label (data)` is selected
-    for the `labels` layer.
-    * Use the checkboxes to select some properties to measure. Refer to the [scikit-image `measure.regionprops` documentation](https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops) for more information
-    * Click run, which should yield a table of measurements—depending how many you checked, this could take
-    a moment to run.
+* Open **Layers**>**Measure**>**Regionprops (labels) (napari-skimage)**
+    * Ensure that `nuclei label` is selected for the `Label Layer` and `nuclei` is selected
+    for the `Intensity Image Layer`.
+    * Select some properties to measure, you can use shift or control/command to multiselect. Refer to the [scikit-image `measure.regionprops` documentation](https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops) for more information
+    * Click `Analyze`, which should yield a table of measurements—depending how many you checked, this could take a moment to run. You can save the results to a CSV file by clicking the `Save Results` button.
 
     ```{tip}
-    Grab the titlebar of the new widget `Properties of nuclei label` and drag it off the napari
+    Grab the titlebar of the Table widget, it's on the left edge, and drag it off the napari
     viewer to undock. Then you can resize the table for easier browsing.
-    You can re-dock the widget by dragging it on the existing side dock  or the bottom of the viewer,
+    You can re-dock the widget by dragging it on the existing side dock or the bottom of the viewer,
     e.g. where the viewer buttons are, to dock it beneath the canvas.
     ```
 
-    * In the labels layer layer controls widget, check the box `show selected` to only view the currently
-    selected label. Now in the table, when you click a cell you will be shown the corresponding label.
-    
-    ```{tip}
-    You can double-click a table header to generate a heat map of that property.
-    ```
+    * Select the `nuclei labels` layer in the layer list and in the layer controls widget at the top, check the box `show selected` to only view the currently
+    selected label. Now in the table, when you click a cell you will be shown the corresponding label. You could now use the brush and eraser tools to edit the segmentation and then re-run the analysis.
+
+
+```{tip}
+For the second session, we will use Jupyter notebooks. If you are using the napari bundled application (or you just want the easiest option) you can install the `napari-workshop-browser` plugin, which will allow you to download and run the notebooks that we will use in the second session. They will be pre-completed and follow along without needing to write code. Once installed, go to the menu **Plugins**>**Open a napari workshop** to open the widget. Then, to download the notebooks, you can double-click the pre-filled URL and paste the following URL into the `napari-workshop-browser` plugin:
+`https://github.com/TheJacksonLaboratory/intro-napari-workshop/archive/refs/heads/main.zip`
+Then click the `Launch Workshop` button. This will download the notebooks, hide the running napari application, and open a Jupyter session in your browser with the notebooks ready to go.
+```
+
 
 ## A few other handy plugins
 
@@ -78,9 +63,8 @@ and wait for the plugin list to populate.
 1. [napari-threedee](https://napari-threedee.github.io): a plugin to make interacting and annotating in 3D easier.
 1. [napari-ome-zarr](https://www.napari-hub.org/plugins/napari-ome-zarr): a reader plugin for for `zarr` backed
    OME-NGFF images (local or remote).
-1. [napari-aicsimageio](https://www.napari-hub.org/plugins/napari-aicsimageio): a reader plugin that uses
-   `aicsimageio` as a backend. Provides access to proprietary formats (e.g. `.lif`, `.czi`) via drag-n-drop. 
-   Can also give access to `bioformats` if `bioformats_jar` is installed from conda-forge (`conda install -c conda-forge bioformats_jar`).
+1. [napari-tiff](https://www.napari-hub.org/plugins/napari-tiff): a reader plugin that can open `tiff` files and variants like `svs` or `ndpi` and load them as multi-scale data.
+   with multiple pages and/or channels.
 1. [napari-matplotlib](https://napari-matplotlib.github.io): a plugin providing widgets with `matplotlib` based
    plots, such as histogram, scatter plot, line plot, etc. 
    
