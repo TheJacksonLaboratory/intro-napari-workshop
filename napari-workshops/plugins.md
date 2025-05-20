@@ -49,13 +49,6 @@ For more information on plugins, please see the [official Plugin documentation](
     selected label. Now in the table, when you click a cell you will be shown the corresponding label. You could now use the brush and eraser tools to edit the segmentation and then re-run the analysis.
 
 
-```{tip}
-For the second session, we will use Jupyter notebooks. If you are using the napari bundled application (or you just want the easiest option) you can install the `napari-workshop-browser` plugin, which will allow you to download and run the notebooks that we will use in the second session. They will be pre-completed and follow along without needing to write code. Once installed, go to the menu **Plugins**>**Open a napari workshop** to open the widget. Then, to download the notebooks, you can double-click the pre-filled URL and paste the following URL into the `napari-workshop-browser` plugin:
-`https://github.com/TheJacksonLaboratory/intro-napari-workshop/archive/refs/heads/main.zip`
-Then click the `Launch Workshop` button. This will download the notebooks, hide the running napari application, and open a Jupyter session in your browser with the notebooks ready to go.
-```
-
-
 ## A few other handy plugins
 
 1. [napari-animation](https://napari.org/napari-animation/): a plugin that lets you make
@@ -68,3 +61,8 @@ Then click the `Launch Workshop` button. This will download the notebooks, hide 
 1. [napari-matplotlib](https://napari-matplotlib.github.io): a plugin providing widgets with `matplotlib` based
    plots, such as histogram, scatter plot, line plot, etc. 
    
+## napari-workshop-browser
+
+For the second session, we will use Jupyter notebooks. If you are using the napari bundled application (or you just want the easiest option) you can install the `napari-workshop-browser` plugin, which will allow you to download and run the notebooks that we will use in the second session. They will be pre-completed and you can follow along without needing to write code. Once installed, go to the menu **Plugins**>**Open a napari workshop** to open the widget. Then, to download the notebooks, you can double-click the pre-filled URL and paste the following URL into the `napari-workshop-browser` plugin:
+`https://github.com/TheJacksonLaboratory/intro-napari-workshop/archive/refs/heads/main.zip`
+Then click the `Launch Workshop` button. This will download the notebooks, hide the running napari application, and open a Jupyter session in your browser with the notebooks ready to go.

@@ -1,4 +1,4 @@
-# How to open the notebooks in the cloud using [mybinder.org](https://mybinder.org)
+# Alternative: Open the notebooks in the cloud using [mybinder.org](https://mybinder.org)
 
 If you can't install napari and the Jupyter notebook application locally, or if you prefer using a cloud instance of Jupyter to execute and interact with the workshop notebooks, you can follow this guide.
 
