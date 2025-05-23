@@ -38,7 +38,7 @@ You can add multiple layers of different types into the viewer and work with the
 
 `napari` also supports bidirectional communication between the viewer and the Python kernel, which is especially useful when launching from jupyter notebooks or when using our built-in console. Using the console allows you to interactively load and save data from the viewer and control all the features of the viewer programmatically.
 
-You can (and are encouraged to!) extend `napari` using custom [key bindings](https://napari.org/stable/howtos/connecting_events.html#listening-for-keypress-events), [mouse functions](https://napari.org/stable/howtos/connecting_events.html#listening-for-mouse-events), and our new [**plugin-interface**](https://napari.org/stable/plugins/index.html).
+You can (and are encouraged to!) extend `napari` using custom [key bindings](https://napari.org/stable/howtos/extending/connecting_events.html#listening-for-keypress-events), [mouse functions](https://napari.org/stable/howtos/extending/connecting_events.html#listening-for-mouse-events), [widgets](https://napari.org/stable/howtos/extending/magicgui.html), and our [**plugin interface**](https://napari.org/stable/plugins/index.html). If you want to get a taste, check out the [I2K 2024 Intermediate napari workshop materials](https://psobolewskiphd.github.io/i2k2024_napari_workshop/home.html).
 
 Learn more about napari at [napari.org](https://napari.org/), including our [tutorials](https://napari.org/stable/usage.html), our [API documentation](https://napari.org/stable/api/index.html) and our [mission and values](https://napari.org/stable/community/mission_and_values.html).
 
