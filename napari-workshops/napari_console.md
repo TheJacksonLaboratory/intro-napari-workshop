@@ -47,9 +47,10 @@ As noted above, you could use the index of the layer instead of the name.
 You can use `tab` for auto-completions and the Up
 arrow to access the command history. Use a `?` to access documentation, e.g.
     
-    ```
-    viewer.camera?
-    ```
+```
+viewer.camera?
+```
+
 Use `q` or `escape` to exit the help mode. 
 ````
 
@@ -66,10 +67,11 @@ Use `q` or `escape` to exit the help mode.
         layer.scale = [0.35, 0.2, 0.2]
     ```
 
-```{important} 
-If your layers "disappeared", you will need to click the `home` button to reset the viewer and you may need to adjust the slider to a new slice.
-```
-Note that we have only changed the way the data is displayed! We have no altered tha actual data itself. You can check this by typing:
+    ```{important} 
+    If your layers "disappeared", you will need to click the `home` button ![home button](resources/home-button.png) to reset the viewer and you may need to adjust the slider to a new slice.
+    ```
+
+    Note that we have only changed the way the data is displayed! We have not altered the actual data itself. You can check this by typing:
 
    ```python
     viewer.layers['nuclei'].data.shape
@@ -123,18 +125,21 @@ You can also check the number of `True` voxels in the binary mask by typing:
 ```{important}
 The result may be unexpected! The Labels layer likely "spills over" the edges of the image! This is because we re-scaled the image Layers earlier, but did not provide a scale for the Labels layer! We can  update the scale of the Labels layer as we did before:
 
-    ```python
-    viewer.layers['nuclei_thresholded'].scale = [0.35, 0.2, 0.2]
-    ```
+```python
+viewer.layers['nuclei_thresholded'].scale = [0.35, 0.2, 0.2]
+```
+
 Better yet, recognizing that we want to use the scale of the `nuclei` layer, we can set the scale of the Labels layer to be the same as the `nuclei` layer by typing:
 
-    ```python
-    viewer.layers['nuclei_thresholded'].scale = viewer.layers['nuclei'].scale
-    ```
+```python
+viewer.layers['nuclei_thresholded'].scale = viewer.layers['nuclei'].scale
+```
+
 Then press the `home` button to reset the view.
 For future reference, we could have set the scale of the Labels layer when we added it to the viewer, by using the `scale` key word argument in the `add_labels` method:
 
-    ```python
-    viewer.add_labels(nuclei_thresholded, scale=viewer.layers['nuclei'].scale)
-    ```
+```python
+viewer.add_labels(nuclei_thresholded, scale=viewer.layers['nuclei'].scale)
 ```
+
+````
