@@ -11,6 +11,7 @@ chapters:
   - file: notebook_setup
   - file: launching_binder
 - file: intro_napari_GUI
+- file: napari_console
 - file: plugins
 - file: notebooks/index
   sections:

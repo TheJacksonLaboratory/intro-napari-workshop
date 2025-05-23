@@ -173,69 +173,17 @@ individual layers (as described above) *to a folder.*
 
 ## The Preferences/Settings
 
-Here you can customize the behavior of napari, e.g. keybindings, as well as the look (e.g. themes).
+Here you can customize the behavior of napari, e.g. keybindings, as well as the look (e.g. font size, highlight thickness, theme).
 * Access the Settings on Windows/Linux in the **File** menu or the Preferences in the **napari** menu on macOS
 ![Preferences/Settings window](resources/preferences.png)
-    * Be sure and check the extensive, editable keyboard shortcuts!
-    * If you know you will work with larger-than-memory images or remote data, we recommend you check the **Experimental** tab and enable the "Render Images Asynchronously" option. This will improve the user experience of the viewer for these cases, as the viewer will not freeze while loading data.
+    * If you mouse-over the options of a particular setting, you should see a tooltip with a brief description of what the setting does.
+    * Be sure and check the extensive, editable keyboard shortcuts for the viewer and each of the Layer types.
 
-```{note}
-- Preferences/Settings are stored *per Python environment*. 
-- They can reset using `napari --reset` in the terminal.
+```{important}
+If you know you will work with larger-than-memory images or remote data, we recommend you check the **Experimental** tab and enable the "Render Images Asynchronously" option. This will improve the user experience of the viewer for these cases, as the viewer will not freeze while loading data.
 ```
-
-## Use the integrated Python console to interact with the viewer
-
+If you have multiple Python environments with napari, you can have different settings for each environment, because Preferences/Settings are stored *per Python environment*.  
 ```{tip}
-You may want to delete any unneeded layers and/or re-open the Cells3D sample file.
+The settings can reset back to defaults using `napari --reset` in the command line/terminal. This can solve some issues preventing napari from starting or crashing, particularly if napari has been updated in the environment.
 ```
 
-* Open the integrated console with the first button on the row of the viewer control buttons.  
-![console-button](resources/console-button.png)
-
-    ```{important}
-    The integrated Python console is only available if napari was started from a non-interactive session, meaning the command line/terminal (using `napari`), a Python script, or the napari bundle application. If you are already in an interactive session, like iPython or a notebook, just keep using that!
-    ```
-Within the console, by default, the current viewer will be accessible as `viewer`. 
-
-* Get the layer list programmatically; enter:
-
-    ```python
-    viewer.layers
-    ```
-
-* Adjust the scale of an image. If you have just the `nuclei` and `membrane` image layers, you can provide micron to pixel scale information for the `nuclei` layer as follows:
-
-    ```Python
-    viewer.layers['nuclei'].scale = [0.35, 0.2, 0.2]
-    ```
-
-Alternatively, you could use the index of the layer instead. 
-
-* If you want to change the scale of all layers, enter the following commands one line at a time, ensuring an indent on the second line, as shown below: 
-
-    ```python
-    for layer in viewer.layers:  
-        layer.scale = [0.35, 0.2, 0.2]
-    ```
-
-```{important} 
-If your layers disappeared, you will need to click the `home` button to reset the viewer and you may need to adjust the slider to a new slice
-```
-
-* Add a scale bar using the GUI **View** > **Scale Bar** > **Scale Bar Visible** or by typing 
-`viewer.scale_bar.visible = True`  in the integrated console. 
-* Add physical units of microns to the scale bar by typing `viewer.scale_bar.unit = "um"`  
-in the integrated console.
-* Try zooming in and out of the image, while watching the scale bar!
-
-````{tip}
-The integrated console is a full-featured iPython kernel. You can use it for interactive
-analysis--in fact, `numpy` is already imported for you as `np`! You can import any other packages you need, like [`scikit-image`](https://scikit-image.org) or [`SciPy`](https://scipy.org). You can use `tab` for auto-completions and the Up
-arrow to access the command history. Use a `?` to access documentation, e.g.
-    
-```
-viewer?
-```
-Use `q` or `escape` to exit the help mode. 
-````
