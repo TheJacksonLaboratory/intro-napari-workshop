@@ -74,7 +74,7 @@ A good way to get a sense of the functionalities offered by a plugin is to use t
 1. [napari-ome-zarr](https://www.napari-hub.org/plugins/napari-ome-zarr): a reader plugin for for `zarr` backed
    OME-NGFF images (local or remote).
 1. [napari-tiff](https://www.napari-hub.org/plugins/napari-tiff): a reader plugin that can open `tiff` files and variants like `svs` or `ndpi` and load them as multi-scale data.
-   with multiple pages and/or channels.
+1. [napari-omero](https://www.napari-hub.org/plugins/napari-omero): a plugin to connect to an OMERO server, browse images, and load them into napari (also allows uploading annotations)
 1. [napari-matplotlib](https://napari-matplotlib.github.io): a plugin providing widgets with `matplotlib` based
    plots, such as histogram, scatter plot, line plot, etc. 
    
