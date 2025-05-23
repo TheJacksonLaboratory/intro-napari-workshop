@@ -4,10 +4,10 @@
 **Peter Sobolewski**   
 Imaging Applications, Research IT  
 napari core developer  
-April 23 & 30, 2024  
+May 27 & 29, 2025  
 
 This site contains materials for the Introduction to `napari` workshop
-run at JAX on April 23 & 30, 2024.
+run at JAX on May 27 & 29, 2025.
 
 The slides for the introductory presentation can be accessed [here](https://thejacksonlaboratory.github.io/intro-napari-slides/).
 

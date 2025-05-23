@@ -6,13 +6,13 @@ For full documentation of the napari viewer, please see [the Viewer tutorial](ht
 
 ## Launch napari
 
-For this introduction, we will launch the napari application directly from the terminal.
+For this introduction, we will launch the napari application directly from the terminal. Note: If you are using the napari bundle app, you can just double-click the napari icon to launch it like a normal application.
 
 ````{important}
 Remember to activate the right environment!
 
 ```bash
-conda activate napari-workshop
+conda activate intro-napari-workshop
 ```
 ````
 
@@ -29,24 +29,41 @@ After a few seconds (or up to a minute if it's the first launch and you have var
 
 ## Open an Image
   
+You can open one of your own images with:  
+* **File** > **Open files** and select a tif, png, or jpg file
+* drag-n-drop one onto the canvas
+* **File** > **New Image from Clipboard** to paste an image from the clipboard or open an image from a URL you have copied.
+
+```{note} By default, napari can open (and save) a wide range of non-proprietary file formats handled by [imageio](https://imageio.readthedocs.io/en/stable/formats/index.html) and [tifffile](https://pypi.org/project/tifffile/), as well as `zarr` and `numpy` arrays. For proprietary image formats or more advanced reader features (metadata or multiscale handling) you will need to install an appropriate plugin for the file. You can search the [napari-hub](https://napari-hub.org) to find one!
+```
+
 * Open a sample image that comes with napari by selecting:  
 **File** > **Open Sample** > **napari builtins** > **Cells (3D + 2Ch)**  
 
-   **Note:** Open one of your own images with:  
-**File** > **Open files** and select a tif, png, or jpg file to open—or drag-n-drop one onto
-the canvas.
+Images are opened as layers in the viewer and will be available in the "Layer List" on the left, middle side of the viewer. Typically, multi-channel images will be opened as multiple layers. The order of the layers in the list will determine how they are displayed on the canvas. The top layer in the list, the last one added, is rendered as on top of the others. You can change the order of the layers by dragging them up and down in the list.  
 
-```{note} By default, napari can open (and save) a wide range of non-proprietary file formats. For proprietary image formats, you will need to install an appropriate plugin. You can search the [napari-hub](https://napari-hub.org) to find one!
+```{tip}
+In napari the `Close` command will close the viewer. If you no longer wish to view a image, you can delete the layers associated with the image, by selecting them individually using the trash can icon or by pressing the backspace/delete key. To delete all layers in the layer list,  select any single layer, and then press Command+A (Mac) / Control+A (Windows and Linux) to select all layers. Then click the trash can button on the top right of the layer list. 
 ```
+
 
 ## Explore Images in 2D and 3D  
 
-* Toggle layer visibility on and off with the **eye button to the left of the layer name** in the layer list.  
-* Use the dimension sliders beneath the canvas to  control the z position/slice number. Slide through the 3D stack one 2D slice at a time.  
+* Toggle layer visibility on and off with the **eye button to the left of the layer name** in the layer list. You can also Alt/Option-click on the eye icon of a layer of interest to toggle hiding/showing all *other* layers. 
 
 * Scroll (use two finger scroll on a touchpad) to zoom in and out.  
 
 * Click and drag to move the images in the canvas.  
+
+* Use the dimension sliders beneath the canvas to  control the z position/slice number. Slide through the 3D stack one 2D slice at a time. You can jump to a specific slice by double clicking on the slice number on the far right side, entering a new number and pressing enter to confirm.  
+
+```{tip}
+You can re-name the slider axis by double clicking on the label (typically a number) on the left side of the slider. Enter a new label and press enter to confirm.
+```
+
+* To change the order of the displayed axes (e.g. to get an orthogonal view), you can use the dimensions sorter button:
+![dimensions-sorter-butotn](resources/dimensions-sorter.png)
+Right-click on it to drag and drop the axes in a different order or to rename the viewer axes labels.
 
 * Press the `home` button to bring the image back to the center of the canvas.  
 ![home button](resources/home-button.png)  
@@ -55,25 +72,37 @@ It is on the right end of the row of viewer buttons.
 * Explore images in 3D by toggling the `2D/3D` button.  When you're in 2D mode, it looks like this:  
 ![2d-3d-button](resources/2d-3d-button-2d.png)  
 When you're in 3D mode, it looks like this:  
-![2d-3d-button-3d](resources/2d-3d-button-3d.png)  
+![2d-3d-button-3d](resources/2d-3d-button-3d.png)
 It is second from the left end on the row of viewer buttons.
+
+```{tip}
+If you see a button with a tick mark in the lower right corner, like the `2D/3D` button above, it means that you can right click on the button to reveal a menu of additional options!
+```
+
 * Click and drag on the 3D image to rotate.
 * Shift + click and drag to translate (move) the 3D image.  
 * Scroll to zoom in and out of the 3D volume.
-* Move the _nuclei_ and _membrane_ images to be side-by-side by toggling the `grid mode` button; it's the second button from the right end on the row of viewer buttons and acts as a toggle. 
+* Move the _nuclei_ and _membrane_ layers to be side-by-side by toggling the `grid mode` button; it's the second button from the right end on the row of viewer buttons and acts as a toggle. 
 ![grid-button](resources/grid-button.png)  
  
-## Adjust Image Visualization   
-* Select an image from the layers list (selected images are blue in the layer list).  
+## Adjust Image Visualization
+
+* Select an Image layer from the layers list (selected layers are highlighted in blue in the layer list).  
 * Adjust the contrast limits by using the contrast limits slider in the layer controls section.
 
     ```{tip} You can Control+click (Mac) or right-click (Windows and Linux) on the slider to open the expanded view with min and max pixel values labeled on the ends of the slider.
     ```  
 * Adjust opacity, color map, and blending modes in the layer controls section.  
+* With the viewer in 3D mode, you can also change the depiction of the image from a volume rendering to a plane rendering or adjust the rendering method. 
 
-## Explore Stack Manipulation  
+```{tip}
+By default, napari uses `mip` or "maximum intensity projection" to render in 3D mode. This method will show the highest intensity voxels, regardless of their position relative to the camera. However, you can also use `attenuated_mip` or "attenuated maximum intensity projection" to render the image. This method will prioritize voxels closer to the camera, giving a better sense of the ordering of the visualized objects. It will also typically improve rendering performance, particularly for large volumes!
+```
+
+## Explore Stack Manipulation
+
 * Select both the nuclei and membrane layers in the layer list using shift+click.
-* Control+click (Mac)/right-click (Windows and Linux) either of the selected layers to open the layer actions menu. 
+* Control+click (Mac)/right-click (Windows and Linux) either of the selected layers to open the layer actions contextual menu. 
 
     ```{note}
     The layer actions menu is contextually aware, so it will have different options enabled depending on the
@@ -87,7 +116,7 @@ It is second from the left end on the row of viewer buttons.
     * Explore the data using the sliders.  
     * Open the layer action menu and split the stacks with the **Split Stack** command.  
 
-        ```{note}
+        ```{important}
         **Split Stack** divides a layer in its *first listed dimension*, which would have index `0` and should be represented by the bottom-most slider. In this case, selecting the newly merged layer will separate the channels into separate layers. Meanwhile, applying **Split Stack** to one of the resulting layers will split the layer into a set of 2D layers for each of the z slices.
         ```
 
@@ -97,32 +126,36 @@ The Points, Shapes, and Labels layers can be used for annotating you image layer
 through the GUI buttons. Additional data layers (Surfaces, Tracks, and Vectors) are available through 
 the API. For guides to using the various layer types, please see the [napari layer guides](https://napari.org/stable/howtos/layers/index.html).
 
-* Add a points, shapes, or labels layer using the buttons above the layers list.
+* Add a Points, Shapes, or Labels layer using the buttons above the layers list.
     * These layers will be blank to begin with.  
-    * In 2D mode, use the layer controls to add points, draw some shapes, or paint some labels on your image (referring to points, shapes, and labels layers respectively).
-* Re-order the layer list by dragging a selected layer in the list below another. Depending on the blending and opacity settings, this will change the visualization!
+    * In 2D mode, use the layer controls to add points, draw some shapes, or paint some labels on your image (referring to Points, Shapes, and Labels layers respectively). Annotating in 3D can be really tricky and is only supported for Points and Labels layers.
 
-```{tip}
-You can delete layers selected individually using the trash can icon or by pressing the backspace key.
-Delete all layers in the layer list by selecting one layer, and then pressing Command+A (Mac) / Control+A (Windows and Linux) to select all layers. Then click the trash can button on the top right of the layer list. 
-```
 
 ## Save your data
 
-There are two options for saving your data: saving the layers themselves or saving the rendered view
-in the canvas. 
+There are two options for saving your data: 
+* saving the *data* underlying the layer
+* saving the currently rendered view on the canvas 
+
+### Saving what you see on the screen
 
 To save the currently rendered view, use the File menu **Save Screenshot**. You can also choose to include
-the viewer or to save the screenshot to the clipboard instead of a file.
+the viewer or to save the screenshot to the clipboard instead of a file. Screenshots are saved as `.png` files, so you can easily use them in presentations, emails, or reports.
 
-You can save the layers individually using the File menu or Command+S (Mac) / Control+S (Windows and Linux). 
-* For image layers, you can select the file type by providing the extension. 
-Note: Some formats may not work for all image types, e.g. 3D stacks. Additional file types 
-can be made available by plugins.
-* Points and Shapes layers are saved as `.csv` files that contain their coordinates.
+### Saving the data of a single layer
+
+You can save the layers individually using the File menu or Command+S (Mac) / Control+S (Windows and Linux).
+* For image layers, you can select the file type by choosing the whether the output should be "lossy" or "lossless" and then providing the extension. A range of lossy (e.g. `.jpg`) and lossless (e.g. `.png` or `.tiff`) are supported by the builtin writer. Note: Some formats may not work equally well for all image types, e.g. 3D stacks may be saved as (animated) `.gif` or `.png` files, but not as `.jpg` files.
+* Points and Shapes layers are saved as `.csv` files that contain their coordinates and can be read back into napari.
 * Labels layers are saved as `.tiff` files.
 
-Multiple different layer types, e.g. image and points, can be saved to a single `.svg` file,
+```{tip}
+Plugins can provide additional saving options for layers!
+```
+
+### Saving the data of multiple layers
+
+Multiple different layer types, e.g. image and points, can be saved to a **single `.svg` file**,
 which can be convenient for use in a vector graphics program or for web. 
 * Select more than one layer and use the File menu or Command+S (Mac) / Control+S (Windows and Linux), then in the dialog dropdown menu ensure `napari SVG` is selected, give the file a name, and save.
 
@@ -140,67 +173,17 @@ individual layers (as described above) *to a folder.*
 
 ## The Preferences/Settings
 
-Here you can customize the behavior of napari, e.g. keybindings, as well as
-the look (e.g. themes).
+Here you can customize the behavior of napari, e.g. keybindings, as well as the look (e.g. font size, highlight thickness, theme).
 * Access the Settings on Windows/Linux in the **File** menu or the Preferences in the **napari** menu on macOS
 ![Preferences/Settings window](resources/preferences.png)
-    * Be sure and check the extensive, editable keyboard shortcuts!
+    * If you mouse-over the options of a particular setting, you should see a tooltip with a brief description of what the setting does.
+    * Be sure and check the extensive, editable keyboard shortcuts for the viewer and each of the Layer types.
 
-```{note}
-- Preferences/Settings are stored *per Python environment*. 
-- They can reset using `napari --reset` in the terminal
+```{important}
+If you know you will work with larger-than-memory images or remote data, we recommend you check the **Experimental** tab and enable the "Render Images Asynchronously" option. This will improve the user experience of the viewer for these cases, as the viewer will not freeze while loading data.
 ```
-
-## Use the integrated Python console to interact with the viewer
-
+If you have multiple Python environments with napari, you can have different settings for each environment, because Preferences/Settings are stored *per Python environment*.  
 ```{tip}
-You may want to delete any unneeded layers and/or re-open the Cells3D sample file.
+The settings can reset back to defaults using `napari --reset` in the command line/terminal. This can solve some issues preventing napari from starting or crashing, particularly if napari has been updated in the environment.
 ```
 
-* Open the integrated console with the first button on the row of the viewer control buttons.  
-![console-button](resources/console-button.png)
-
-    ```{important}
-    The integrated Python console is only available if napari was started from a non-interactive session, meaning the terminal (using `napari`) or a script. If you are already in an interactive session, like iPython or a notebook, keep using that!
-    ```
-* Get the layer list programmatically; enter:
-
-    ```python
-    viewer.layers
-    ```
-
-* Adjust the scale of an image. If you have just the `nuclei` and `membrane` image layers, you can provide micron to pixel scale information for the `nuclei` layer as follows:
-
-    ```Python
-    viewer.layers['nuclei'].scale = [0.35, 0.2, 0.2]
-    ```
-
-Alternatively, you could use the index of the layer instead. 
-
-* If you want to change the scale of all layers, enter the following commands one line at a time, ensuring an indent on the second line, as shown below: 
-
-    ```python
-    for layer in viewer.layers:  
-        layer.scale = [0.35, 0.2, 0.2]
-    ```
-
-```{important} 
-If your layers disappeared, you will need to click the `home` button to reset the viewer and you may need to adjust the slider to a new slice
-```
-
-* Add a scale bar using the GUI **View** > **Scale Bar** > **Scale Bar Visible** or by typing 
-`viewer.scale_bar.visible = True`  in the integrated console. 
-* Add physical units of microns to the scale bar by typing `viewer.scale_bar.unit = "um"`  
-in the integrated console.
-* Try zooming in and out of the image, while watching the scale bar!
-
-````{tip}
-The integrated console is a full-featured iPython kernel. You can use it for interactive
-analysis, just import `numpy` or `skimage`. You can use `tab` for auto-completions and the Up
-arrow to access the command history. Use a `?` to access documentation, e.g.
-    
-```
-viewer?
-```
-
-````

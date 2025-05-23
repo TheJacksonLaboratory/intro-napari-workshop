@@ -5,21 +5,29 @@ There are multiple ways that Python installations and packages can be managed. F
 breakdown, we recommend [this excellent guide and tutorial by Talley Lambert (Harvard Medical School)](https://hackmd.io/@talley/SJB_lObBi).
 For the purposes of this workshop, for consistency, we will use [`conda`](https://docs.conda.io/en/latest/) as the Python, package, and environment manager.
 
+```{tip}
+The first session of this workshop will be focused on using the napari application.  
+If you are not comfortable with Python and the command line, you can skip the instructions below and instead install and use the napari bundled application. This will allow you to use a graphical interface to install napari and then run it as an ordinary, stand-alone application:
+- Windows: [napari-0.6.1-Windows-x86_64.exe](https://github.com/napari/napari/releases/download/v0.6.1/napari-0.6.1-Windows-x86_64.exe)
+- macOS: [napari-0.6.1-macOS-arm64.dmg](https://github.com/napari/napari/releases/download/v0.6.1/napari-0.6.1-macOS-arm64.pkg)
+
+During the "Plugins" portion of the first session, you can install the `napari-workshop-browser` plugin, which will allow you to follow along with the notebooks used in the second session without needing to write code.
+```
+
 ## Installing Python using `conda`
 
 In this tutorial, we will install Python via miniforge, a distribution of
 Python based in the [conda package manager](https://docs.conda.io/en/latest/).
 
 ````{important}
-If you already have anaconda, miniconda, or miniforge installed, those will work
-as well. You can check using:
+Before you start, check if you have `conda` installed using:
 
 ```bash
 conda info
 ```
 
-However, we recommend you that the conda version is >23.10 and that you are using 
-[`conda-forge` channels](https://conda-forge.org/docs/user/introduction/). You can ensure this using:
+We recommend that you use conda version is >23.10 and that you are using 
+[`conda-forge` channels](https://conda-forge.org/docs/user/introduction/). You can ensure this using the following commands in your `(base)` environment:
 
 ```bash
 conda update conda
@@ -51,11 +59,11 @@ Once you have that set, you can skip to [the next section](setting-up-your-napar
    1. Find the file you downloaded (e.g. in your Downloads directory), it should look like `Miniforge3-Windows-x86_64.exe`. 
    2. Double-click with the left mouse button to execute it. 
    3. Follow the instructions to complete the installation. We recommend checking the options to "Create start menu shortcuts" and "Add Miniforge3 to my PATH environment variable".
-   4. Once the installation has completed, you can verify it was correctly installed by searching for the “miniforge prompt” in your Start menu.
+   4. Once the installation has completed, you can verify it was correctly installed by searching for the “Miniforge Prompt” in your Start menu.
 
    ### macOS & Linux
 
-   1. Find the file you downloaded (e.g. in your Downloads directory), it should look like `Miniforge3-MacOSX-arm64.sh` or `Miniforge3-Linux-x86_64.sh`.
+   1. Find the file you downloaded (e.g. in your Downloads directory), it should look like `Miniforge3-Darwin-arm64.sh` or `Miniforge3-Linux-x86_64.sh`.
    2. Using the command line, navigate to the location of the installer. For example, if it's in the Downloads directory, you can run:
 
    ```bash
@@ -113,20 +121,20 @@ Once you have that set, you can skip to [the next section](setting-up-your-napar
 2. We will use a virtual environment to encapsulate the Python tools used for this workshop.
    This ensures that the requirements for this workshop do not interfere with
    any other Python projects. To create the environment (named
-   `napari-workshop`) with Python 3.11 in it, enter the following command:
+   `intro-napari-workshop`) with Python 3.12 in it, enter the following command:
 
     ```bash
-    conda create -n napari-workshop -c conda-forge python=3.11 napari pyqt jupyterlab
+    conda create -n intro-napari-workshop -c conda-forge python=3.12 napari pyqt jupyterlab
     ```
 
 3. Once the environment setup has finished, activate the environment:
 
     ```bash
-    conda activate napari-workshop
+    conda activate intro-napari-workshop
     ```
 
     If you successfully activated the environment, you should now see
-   `(napari-workshop)` to the left of your command prompt.
+   `(intro-napari-workshop)` to the left of your command prompt.
 
    ```{important}
    Remember to activate the right environment for what you need! And always 

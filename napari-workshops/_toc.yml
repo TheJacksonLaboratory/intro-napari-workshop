@@ -11,6 +11,7 @@ chapters:
   - file: notebook_setup
   - file: launching_binder
 - file: intro_napari_GUI
+- file: napari_console
 - file: plugins
 - file: notebooks/index
   sections:
@@ -18,5 +19,4 @@ chapters:
   - file: notebooks/manual_annotation
   - file: notebooks/spot_detection
   - file: notebooks/spot_detection_functions
-- file: make_a_simple_plugin
 - file: napari_in_scripts
