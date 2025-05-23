@@ -39,7 +39,7 @@ import napari
 viewer = napari.Viewer()
 ```
 
-Hopfully when you ran the above command a new empty napari viewer appeared in a separate window.
+Hopefully when you ran the above command a new empty napari viewer appeared in a separate window.
 
 Unlike other jupyter widgets, napari is not embedded inside the jupyter notebook. This is because the graphical parts of napari are written in [Qt](https://www.qt.io/), making it hard to embed on the web.
 
@@ -66,15 +66,17 @@ There are a few different ways to load images to into our `viewer`.
 - Using the `viewer.open` command with a file path from within the notebook
 - Loading the image data into an array-like object and then passing that array using the `viewer.add_image` command
 
-For the first three options the file path will get passed through our `fileIO` plugin interface, allowing you to easily leverage highly customized `fileIO` plugins for your diverse needs. The fourth option allows you complete control over loading and visualization and is most suited for when you have data already loaded into your notebook from other sources.
+For the first three options the file path will get passed through our Reader plugin interface, allowing you to easily leverage highly customized plugins for your diverse needs. The fourth option allows you complete control over loading and visualization and is most suited for when you have data already loaded into your notebook from other sources.
 
-For example, you could explicitly load a 3D image using the `tifffile` library and the `add_image()` method of our `Viewer` object.
+For example, you could explicitly load a 3D image using the `tifffile` library and then use the `add_image()` method of our existing `Viewer` object named `viewer`.
 
 ```Python
+import napari
 from tifffile import imread
 
-# load the image data and inspect its shape
+# load the image data using tifffile
 nuclei = imread('data/nuclei.tif')
+viewer.add_image(nuclei)
 ```
 
 However, for simplicity, we will use the [`cells3d` dataset, provided by scikit-image](https://scikit-image.org/docs/stable/api/skimage.data.html#skimage.data.cells3d). 
@@ -88,7 +90,7 @@ membranes = image_data[:, 0, :, :]
 nuclei = image_data[:, 1, :, :]
 ```
 
-Now that we have the data arrays loaded, we can directly what we want to the viewer.
+Now that we have the data arrays loaded, we can directly add the data we want to visualize to the viewer.
 
 ```{code-cell} ipython3
 ## directly adding image data to the napari viewer
@@ -110,23 +112,6 @@ Let's take a screenshot to record this in our notebook:
 nbscreenshot(viewer)
 ```
 
-In the top left hand corner of the viewer we now have a control panel with controls that cover all our layers, and those that are specific to images like contrast limits and colormap.
-
-### Color channels and blending
-Right clicking on the **contrast limits** slider pulls up an elongated version of the slider which you can type specific numbers into. Let's give that a try to adjust the contrast limits to `(4000, 23000)`, and let's change the colormap to `blue` using the drop down menu.
-
-```{code-cell} ipython3
-:tags: [remove-cell]
-
-layer = viewer.layers[0]
-layer.contrast_limits = (4000, 23000)
-layer.colormap = 'blue'
-```
-
-```{code-cell} ipython3
-nbscreenshot(viewer)
-```
-
 One of the real strengths of napari is that you have full control over all the critical layer properties both programmatically and via the GUI.
 
 Each `layer` that is added to the `viewer` can be found in the `viewer.layers` list.
@@ -142,6 +127,24 @@ The layer list can be indexed either numerically or by the layer name, which is 
 nuclei_layer = viewer.layers['nuclei']
 first_layer = viewer.layers[0]
 nuclei_layer, first_layer
+```
+
+### Color channels and blending
+
+In the top left hand corner of the viewer we now have a control panel with controls that cover all our layers, and those that are specific to images like contrast limits and colormap.
+
+Right clicking on the **contrast limits** slider pulls up an elongated version of the slider which you can type specific numbers into. Let's give that a try to adjust the contrast limits to `(4000, 23000)`, and let's change the colormap to `blue` using the drop down menu.
+
+```{code-cell} ipython3
+:tags: [remove-cell]
+
+layer = viewer.layers[0]
+layer.contrast_limits = (4000, 23000)
+layer.colormap = 'blue'
+```
+
+```{code-cell} ipython3
+nbscreenshot(viewer)
 ```
 
 If we go in and get the `nuclei` layer from our layer list we can now see and edit the values of some of the properties that we can control in the GUI. First, let's print the values of some layer visualization properties.
@@ -250,6 +253,10 @@ nbscreenshot(viewer)
 # sleep to allow screenshot to finish before notebook closes
 from time import sleep
 sleep(3)
+```
+
+```{tip}
+If you want to save the rendered canvas view to a file, instead of having it displayed in the notebook, you can use the `viewer.screenshot` method instead of using `nbscreenshot`. This is equivalent to the GUI option in **File**>**Save Screenshot...**. You can specify the path to the output file, with the extension determining the file format. By default, the `canvas_only` argument is `True`, which means that only the canvas will be saved, without any of the viewer GUI elements.
 ```
 
 ## Conclusions
