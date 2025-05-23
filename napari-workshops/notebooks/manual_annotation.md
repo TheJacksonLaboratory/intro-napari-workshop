@@ -162,6 +162,17 @@ print('Number of non-diving cells: ', len(viewer.layers['non-dividing'].data))
 viewer.layers['non-dividing'].data
 ```
 
+We can remove points in the GUI by selecting them and deleting them. Programmatically, it's the same process. Let's remove the last `non-dividing` point we added.
+
+```{code-cell} ipython3
+viewer.layers['non-dividing'].selected_data = {len(viewer.layers['non-dividing'].data)-1}    # select the last point
+viewer.layers['non-dividing'].remove_selected()    # remove the selected point
+```
+
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
 To save a `csv` file with these values for each layer you can use our builtin writer functionality. Note these csv files can easily be opened up into standard tools like [`pandas`](https://pandas.pydata.org) or Excel for further analysis.
 
 ```{code-cell} ipython3
@@ -283,8 +294,6 @@ viewer.layers['nuclei outlines'].data
 
 You can add shapes programmatically by using the Shapes layer `add` method with a data array and specifying the shape type, or by using the shape specific method, like `add_polygons`. For more information, please see the [Shapes layer documentation](https://napari.org/stable/howtos/layers/shapes.html#adding-different-shape-types). As an example, let's add a rectangle programmatically.
 
-```{note}
-
 ```{code-cell} ipython3
 # By providing 4 vertices we can create a rectangle
 viewer.layers['nuclei outlines'].add_rectangles([[[0, 0], [100, 0], [100, 100], [0, 100]]])
@@ -294,11 +303,11 @@ viewer.layers['nuclei outlines'].add_rectangles([[[0, 0], [100, 0], [100, 100], 
 nbscreenshot(viewer)
 ```
 
-We can remove shapes in the GUI by selecting them and deleting them. Programmatically, it's the same process. Let's remove the last shape we added.
+We can remove shapes in the GUI by selecting them and deleting them. Programmatically, it's the same process as we saw for Points. Let's remove the last shape we added.
 
 ```{code-cell} ipython3
-viewer.layers['nuclei outlines'].selected_data = {-1}   # select the last shape
-viewer.layers['nuclei outlines'].remove_selected()      # remove the selected shape
+viewer.layers['nuclei outlines'].selected_data = {len(viewer.layers['nuclei outlines'].data)-1}    # select the last shape
+viewer.layers['nuclei outlines'].remove_selected()    # remove the selected shape
 ```
 
 ```{code-cell} ipython3
