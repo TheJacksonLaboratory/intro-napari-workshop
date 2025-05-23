@@ -27,11 +27,11 @@ Within the console, by default, the current viewer will be accessible as the var
     ```python
     viewer.layers['nuclei']
     ```
-or, you can use the index, remembering that the bottom-most layer is index 0:
+    or, you can use the index, remembering that the bottom-most layer is index 0:
     ```python
     viewer.layers[1]
     ```
-or, because the `nuclei` layer is the top layer, meaning the last one, you can also type:
+    or, because the `nuclei` layer is the top layer, meaning the last one, you can also type:
     ```python
     viewer.layers[-1]
     ```
@@ -41,7 +41,7 @@ or, because the `nuclei` layer is the top layer, meaning the last one, you can a
     ```python
     viewer.layers['nuclei'].data.shape
     ```
-As noted above, you could use the index of the layer instead of the name.
+    As noted above, you could use the index of the layer instead of the name.
 
 ````{tip}
 You can use `tab` for auto-completions and the Up
@@ -66,19 +66,22 @@ Use `q` or `escape` to exit the help mode.
         layer.scale = [0.35, 0.2, 0.2]
     ```
 
-```{important} 
-If your layers "disappeared", you will need to click the `home` button to reset the viewer and you may need to adjust the slider to a new slice.
-```
-Note that we have only changed the way the data is displayed! We have no altered tha actual data itself. You can check this by typing:
+    ```{important} 
+    If your layers "disappeared", you will need to click the `home` button to reset the viewer and you may need to adjust the slider to a new slice.
+    ```
 
-   ```python
+    Note that we have only changed the way the data is displayed! We have not altered the actual data itself. You can check this by typing:
+
+    ```python
     viewer.layers['nuclei'].data.shape
     ```
-and
+    and
+
     ```python
     viewer.layers['nuclei'].extent
     ```
-The first command will confirm that the shape of the data array hasn't changed. The second command will show you the extent of the data both in data coordinates and in the physical coordinates, which napari calls "world coordinates".
+
+    The first command will confirm that the shape of the data array hasn't changed. The second command will show you the extent of the data both in data coordinates and in the physical coordinates, which napari calls "world coordinates".
 
 
 * Add a scale bar using the GUI **View** > **Scale Bar** > **Scale Bar Visible** or by typing 
@@ -104,12 +107,12 @@ Finally, if you launch napari from a script, the console will inherit any variab
     ```python
     nuclei_thresholded.shape
     ```
-followed by:
+    followed by:
 
     ```python
     nuclei_thresholded.dtype
     ```
-You can also check the number of `True` voxels in the binary mask by typing:
+    You can also check the number of `True` voxels in the binary mask by typing:
 
     ```python
     np.sum(nuclei_thresholded)
@@ -120,7 +123,7 @@ You can also check the number of `True` voxels in the binary mask by typing:
     viewer.add_labels(nuclei_thresholded)
     ```
 
-```{important}
+````{important}
 The result may be unexpected! The Labels layer likely "spills over" the edges of the image! This is because we re-scaled the image Layers earlier, but did not provide a scale for the Labels layer! We can  update the scale of the Labels layer as we did before:
 
     ```python
@@ -137,4 +140,4 @@ For future reference, we could have set the scale of the Labels layer when we ad
     ```python
     viewer.add_labels(nuclei_thresholded, scale=viewer.layers['nuclei'].scale)
     ```
-```
+````

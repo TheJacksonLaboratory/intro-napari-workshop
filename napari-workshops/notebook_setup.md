@@ -6,7 +6,7 @@ would like to be able to run the completed notebooks locally, you can download t
 and launch the `jupyter lab` application using the instructions below.
 
 ```{tip}
-You can also run the completed notebooks using the `napari-workshop-browser` plugin. To do this, follow the instructions at the bottom of the [Plugins](./plugins.md) section of the workshop. Note that the notebooks will only be available temporarily, so if you want to keep them, you should download them as instructed below.
+You can also run the completed notebooks using the `napari-workshop-browser` plugin. To do this, follow the instructions at the bottom of the [Plugins](./plugins.md) section of the workshop. Note that the notebooks will only be available via the plugin temporarily, so if you want to keep them, you should download them as instructed below.
 ```
 
 ## Downloading the notebooks
@@ -46,13 +46,13 @@ this tutorial.
 
 Because the notebooks were converted to MyST Markdown files (with a .md extension),
 to better  visualize on GitHub and provide a nice rendered look on the web,
-you need to install one additional dependency to run them locally.
+you need to install additional dependencies to run them locally.
 
 ````{important}
 Remember to activate the right environment!
 
 ```bash
-conda activate napari-workshop
+conda activate intro-napari-workshop
 ```
 ````
 
@@ -70,10 +70,10 @@ Navigate to the `notebooks` subdirectory of the
 cd <path to intro-napari-workshop>/notebooks
 ```
 
-Remember to activate the `napari-workshop` conda environment if you haven't already.
+Remember to activate the `intro-napari-workshop` conda environment if you haven't already.
 
 ```bash
-conda activate napari-workshop
+conda activate intro-napari-workshop
 ```
 
 To start the Jupyter application, enter:

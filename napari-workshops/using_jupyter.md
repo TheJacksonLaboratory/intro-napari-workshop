@@ -8,16 +8,16 @@ with your own, fresh notebook, using the executed and rendered notebooks [includ
 
 1. Open your terminal application
 
-2. Activate the `napari-workshop` conda environment, if you haven't already.
+2. Activate the `intro-napari-workshop` conda environment, if you haven't already.
 
    ```bash
-    conda activate napari-workshop
+    conda activate intro-napari-workshop
     ```
 
-   You should see `(napari-workshop)` to the left of your command prompt. For example it could look something like this:
+   You should see `(intro-napari-workshop)` to the left of your command prompt. For example it could look something like this:
 
    ```bash
-   (napari-workshop) $
+   (intro-napari-workshop) $
    ```
 
 3. Launch teh Jupyter lab web interface:
