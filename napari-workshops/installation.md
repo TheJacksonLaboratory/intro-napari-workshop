@@ -11,7 +11,7 @@ If you are not comfortable with Python and the command line, you can skip the in
 - Windows: [napari-0.6.1-Windows-x86_64.exe](https://github.com/napari/napari/releases/download/v0.6.1/napari-0.6.1-Windows-x86_64.exe)
 - macOS: [napari-0.6.1-macOS-arm64.dmg](https://github.com/napari/napari/releases/download/v0.6.1/napari-0.6.1-macOS-arm64.pkg)
 
-During the "Plugins" portion of the first session, you can install the `napari-workshop-browser` plugin, which will allow you to follow along with the notebooks used in the second session without needing to write code.
+For the second session, which will use Jupyter notebooks, you can [install the `napari-workshop-browser` plugin](plugins.md#napari-workshop-browser), which will allow you to follow along with the notebooks without needing to write code. We will cover installing plugins using the GUI during the first session.
 ```
 
 ## Installing Python using `conda`
@@ -149,7 +149,7 @@ Once you have that set, you can skip to [the next section](setting-up-your-napar
    stop the notebook server.
 
     ```bash
-    jupyter notebook
+    jupyter lab
     ```
 
 5. Test your napari installation. Enter the command below and an empty napari
