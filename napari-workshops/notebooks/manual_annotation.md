@@ -177,14 +177,15 @@ Points layers also have a properties dictionary that would enable you to add oth
 Another common task for research biologists and bioimage analysts is drawing polygons around regions of interest, in this case nuclei. These polygons might be used for segmentation and to quantify properties of interest.
 
 ```{note}
-At present (napari 0.4.19), napari does not support adding or editing shapes in 3D viewer mode. This 
+At present (napari 0.6.1), napari does not support adding or editing shapes in 3D viewer mode. This 
 means they can only be drawn/edited on the orthogonal 2D slices.
 However, shapes can be added programmatically that have vertexes that are not on the 2D orthogonal planes
 and they will be properly rendered in 3D.
+Likewise, in the GUI napari does not support adding shapes with holes in them, but as of napari 0.6.0 such shapes can be displayed
+properly if added programmatically or via a plugin.
 ```
 
-For the sake of this example, lets make a 2D maximum intensity projection of our cells in order to keep things simple. We can actually use the data we've already loaded into napari, because it's just a numpy array,
-and use it for the projection.
+For the sake of this example, lets make a 2D maximum intensity projection of our cells in order to keep things simple. We can actually use the data we've already loaded into napari, because it's just a `numpy` array, and use it for the projection.
 
 ```{code-cell} ipython3
 # Take the maximum intensity projection of the cells
@@ -280,6 +281,30 @@ The vertices for these shapes can be obtained from the shapes layer as follows:
 viewer.layers['nuclei outlines'].data
 ```
 
+You can add shapes programmatically by using the Shapes layer `add` method with a data array and specifying the shape type, or by using the shape specific method, like `add_polygons`. For more information, please see the [Shapes layer documentation](https://napari.org/stable/howtos/layers/shapes.html#adding-different-shape-types). As an example, let's add a rectangle programmatically.
+
+```{note}
+
+```{code-cell} ipython3
+# By providing 4 vertices we can create a rectangle
+viewer.layers['nuclei outlines'].add_rectangles([[[0, 0], [100, 0], [100, 100], [0, 100]]])
+```
+
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
+We can remove shapes in the GUI by selecting them and deleting them. Programmatically, it's the same process. Let's remove the last shape we added.
+
+```{code-cell} ipython3
+viewer.layers['nuclei outlines'].selected_data = {-1}   # select the last shape
+viewer.layers['nuclei outlines'].remove_selected()      # remove the selected shape
+```
+
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
 These shapes, and the underlying image can be saved as an svg file using our dedicated svg writer. This functionality is useful if you want to put the image and the shapes into a tool like illustrator when preparing a figure or a presentation.
 
 ```{code-cell} ipython3
@@ -298,11 +323,15 @@ nuclei_labels = viewer.layers['nuclei outlines'].to_labels(labels_shape=shape)
 print('Number of labels:', nuclei_labels.max())
 ```
 
+```{important}
+When using the `to_labels` method, you should provide a shape for the labels data array. Otherwise, the method will use the extent of the Shapes layer, which is just the bounding box of all of the Shapes combined. This need not match the size of your image, e.g. if you just have a single shape in the middle. Note: when you use the right-click contextual menu to convert a Shapes layer to Labels, napari will only be aware of the Shapes layer and will use the extent of the Shapes layer, so if you then try to paint in the Labels layer you will find that you may not be able to paint over the entire extent of any image layers you have.
+```
+
 We can now add this labels image to the viewer as a labels layer.
 
 ```{code-cell} ipython3
 # Add the cell segmentation labels as a labels layer
-viewer.add_labels(nuclei_labels);
+viewer.add_labels(nuclei_labels)
 
 # Turn off the visibility of the shapes layer so as not to get confused
 viewer.layers['nuclei outlines'].visible = False
