@@ -66,8 +66,6 @@ A good way to get a sense of the functionalities offered by a plugin is to use t
 * Hide the Labels layer and close any open widgets.
 * Explore a few of the other functions offered by the **napari-skimage** plugin. You can find them in the **Layers** menu (or the **Plugins** menu), or by using the Command Palette. For example, you can try **Layers**>**Filter**>**Filtering**>**Gaussian filter**. This open a widget that will allow you to apply a Gaussian filter to a specified Image layer and create a new Image layer with the output. The widget even provides a link to the [documentation](https://scikit-image.org/docs/stable/api/skimage.filters.html#skimage.filters.gaussian). You can also try one of the options in the **Layers**>**Filter**>**Thresholding** menu, which will allow you to apply a threshold to a specified Image layer.
 
-```{tip}
-
 ## A few other handy plugins
 
 1. [napari-animation](https://napari.org/napari-animation/): a plugin that lets you make

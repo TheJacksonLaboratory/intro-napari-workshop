@@ -34,7 +34,8 @@ You can open one of your own images with:
 * drag-n-drop one onto the canvas
 * **File** > **New Image from Clipboard** to paste an image from the clipboard or open an image from a URL you have copied.
 
-```{note} By default, napari can open (and save) a wide range of non-proprietary file formats handled by [imageio](https://imageio.readthedocs.io/en/stable/formats/index.html) and [tifffile](https://pypi.org/project/tifffile/), as well as `zarr` and `numpy` arrays. For proprietary image formats or more advanced reader features (metadata or multiscale handling) you will need to install an appropriate plugin for the file. You can search the [napari-hub](https://napari-hub.org) to find one!
+```{note}
+By default, napari can open (and save) a wide range of non-proprietary file formats handled by [imageio](https://imageio.readthedocs.io/en/stable/formats/index.html) and [tifffile](https://pypi.org/project/tifffile/), as well as `zarr` and `numpy` arrays. For proprietary image formats or more advanced reader features (metadata or multiscale handling) you will need to install an appropriate plugin for the file. You can search the [napari-hub](https://napari-hub.org) to find one!
 ```
 
 * Open a sample image that comes with napari by selecting:  
@@ -61,18 +62,21 @@ In napari the `Close` command will close the viewer. If you no longer wish to vi
 You can re-name the slider axis by double clicking on the label (typically a number) on the left side of the slider. Enter a new label and press enter to confirm.
 ```
 
-* To change the order of the displayed axes (e.g. to get an orthogonal view), you can use the dimensions sorter button:
-![dimensions-sorter-butotn](resources/dimensions-sorter.png)
+* To change the order of the displayed axes (e.g. to get an orthogonal view), you can use the dimensions sorter button:  
+![dimensions-sorter-button](resources/dims-sorter.png)
+
 Right-click on it to drag and drop the axes in a different order or to rename the viewer axes labels.
 
 * Press the `home` button to bring the image back to the center of the canvas.  
 ![home button](resources/home-button.png)  
+
 It is on the right end of the row of viewer buttons.  
 
 * Explore images in 3D by toggling the `2D/3D` button.  When you're in 2D mode, it looks like this:  
 ![2d-3d-button](resources/2d-3d-button-2d.png)  
 When you're in 3D mode, it looks like this:  
 ![2d-3d-button-3d](resources/2d-3d-button-3d.png)
+
 It is second from the left end on the row of viewer buttons.
 
 ```{tip}
@@ -82,7 +86,7 @@ If you see a button with a tick mark in the lower right corner, like the `2D/3D`
 * Click and drag on the 3D image to rotate.
 * Shift + click and drag to translate (move) the 3D image.  
 * Scroll to zoom in and out of the 3D volume.
-* Move the _nuclei_ and _membrane_ layers to be side-by-side by toggling the `grid mode` button; it's the second button from the right end on the row of viewer buttons and acts as a toggle. 
+* Move the _nuclei_ and _membrane_ layers to be side-by-side by toggling the `grid mode` button; it's the second button from the right end on the row of viewer buttons and acts as a toggle.  
 ![grid-button](resources/grid-button.png)  
  
 ## Adjust Image Visualization
