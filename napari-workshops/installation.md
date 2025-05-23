@@ -7,7 +7,7 @@ For the purposes of this workshop, for consistency, we will use [`conda`](https:
 
 ```{tip}
 The first session of this workshop will be focused on using the napari application.  
-If you are not comfortable with Python and the command line, you can skip the instructions below and instead install and use the napari bundled application. This will allow you to use a graphical interface to install napari and then run it as an ordinary, stand-alone application:
+If you are not comfortable with Python and the command line, you can install and use the napari bundled application, instead of following the instructions on this page. This will allow you to use a graphical interface to install napari and then run it as an ordinary, stand-alone application:
 - Windows: [napari-0.6.1-Windows-x86_64.exe](https://github.com/napari/napari/releases/download/v0.6.1/napari-0.6.1-Windows-x86_64.exe)
 - macOS: [napari-0.6.1-macOS-arm64.dmg](https://github.com/napari/napari/releases/download/v0.6.1/napari-0.6.1-macOS-arm64.pkg)
 

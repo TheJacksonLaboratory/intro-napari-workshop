@@ -80,7 +80,11 @@ A good way to get a sense of the functionalities offered by a plugin is to use t
    
 ## napari-workshop-browser
 
-For the second session, we will use Jupyter notebooks. If you are using the napari bundled application (or you just want the easiest option) you can install the `napari-workshop-browser` plugin, which will allow you to download and run the notebooks that we will use in the second session. They will be pre-completed and you can follow along without needing to write code. Once installed, go to the menu **Plugins**>**Open a napari workshop** to open the widget. Then, to download the notebooks, you can double-click the pre-filled URL and paste the following URL into the `napari-workshop-browser` plugin:
+For the second session, we will use Jupyter notebooks to interact with napari.  
+If you are using the napari bundled application (or you just want the easiest option), you can install the `napari-workshop-browser` plugin. This plugin will allow you to download and run the notebooks that we will use in the second session. They will be pre-completed and you can follow along without needing to write code.  
+* Install the plugin using the napari GUI, just like any of the other plugins above.
+* Once installed, go to the menu **Plugins**>**Open a napari workshop** to open the widget. 
+* To download the correct notebooks, delete the pre-filled URL in the widget and copy-paste the following URL instead:
 `https://github.com/TheJacksonLaboratory/intro-napari-workshop/archive/refs/heads/main.zip`
-Then click the `Launch Workshop` button. This will download the notebooks, hide the running napari application, and open a Jupyter session in your browser with the notebooks ready to go.  
-When you are finished with the notebooks, to return to napari, click the `Quit` button at the top of the *first Jupyter browser tab* that has the listing of all notebooks. Then you can restore the original napari window.
+* Click the `Launch Workshop` button. This will **hide the running napari application**, download the notebooks, and open a Jupyter session in your browser with the notebooks ready to go.
+* When you are finished with the notebooks, to return to napari, click the `Quit` button at the top of the **first Jupyter browser tab** that has the listing of all of the notebooks. Then you can restore the original napari window and keep using it or quit napari.

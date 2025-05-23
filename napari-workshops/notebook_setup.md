@@ -6,7 +6,7 @@ would like to be able to run the completed notebooks locally, you can download t
 and launch the `jupyter lab` application using the instructions below.
 
 ```{tip}
-You can also run the completed notebooks using the `napari-workshop-browser` plugin. To do this, follow the instructions at the bottom of the [Plugins](./plugins.md) section of the workshop. Note that the notebooks will only be available via the plugin temporarily, so if you want to keep them, you should download them as instructed below.
+You can also run the completed notebooks using the `napari-workshop-browser` plugin. To do this, follow [the instructions at the bottom of the Plugins section](plugins.md#napari-workshop-browser). Note that the notebooks will only be available via the plugin temporarily, so if you want to keep them, you should download them as instructed below.
 ```
 
 ## Downloading the notebooks
