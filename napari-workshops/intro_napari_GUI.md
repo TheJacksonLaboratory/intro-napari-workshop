@@ -134,6 +134,10 @@ the API. For guides to using the various layer types, please see the [napari lay
     * These layers will be blank to begin with.  
     * In 2D mode, use the layer controls to add points, draw some shapes, or paint some labels on your image (referring to Points, Shapes, and Labels layers respectively). Annotating in 3D can be really tricky and is only supported for Points and Labels layers.
 
+```{tip}
+Starting with release 0.6.0, napari has a command palette that can be opened with the keyboard shortcut Command/Ctrl+Shift+P. Once open, start typing the name of a command/action you want to use. You can keep typing to refine or use the arrow keys to change the selection. Once you have the action you want highlighted, press Enter to run the action.  
+Note: plugin actions/commands will also be available in the command palette!
+```
 
 ## Save your data
 
