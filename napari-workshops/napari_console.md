@@ -145,3 +145,15 @@ viewer.add_labels(nuclei_thresholded, scale=viewer.layers['nuclei'].scale)
 ```
 
 ````
+
+## Saving your console session
+
+IPython provides two ["magics"](https://ipython.readthedocs.io/en/stable/interactive/magics.html#) for saving your console session: `%save` and `%notebook`.
+* `%save file_name` saves the commands you entered in the console to a Python script file `file_name.py`. You can also provide a range of lines to save, e.g. `%save file_name 2-8 10-12`.
+* `%notebook file_name` saves the entire session history to a Jupyter notebook file `file_name.ipynb`.
+
+```{important}
+The above commands will only save what you entered in the console. At this point, it is not possible to save any GUI interactions you performed, such as adding layers or changing layer properties.
+```
+
+You can re-run the saved session in a new console using the `%run` magic, followed by the file name.
