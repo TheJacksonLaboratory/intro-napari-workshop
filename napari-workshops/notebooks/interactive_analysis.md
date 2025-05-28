@@ -269,7 +269,7 @@ When mapping values to colors using a napari colormap, the input values should b
 ```{code-cell} ipython3
 from napari.utils.colormaps import ensure_colormap
 
-viridis = ensure_colormap['viridis']
+viridis = ensure_colormap('viridis')
 
 volume_colors = viridis.map(info_table['area']/info_table['area'].max())
 ```
