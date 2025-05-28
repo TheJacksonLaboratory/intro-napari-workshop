@@ -4,7 +4,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.16.1
+    jupytext_version: 1.17.1
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -55,6 +55,7 @@ nbscreenshot(viewer)
 ```
 
 ## Segmentation workflow
+
 Let's develop a segmentation workflow for the nuclei using processing utilities from scikit-image.
 
 ```{code-cell} ipython3
@@ -195,7 +196,7 @@ nbscreenshot(viewer)
 ```
 
 ```{important}
-If you don't see any points, you may need to use the slider to look at other z-slices of the image. You can also click the `out of slice` option in the Points layer controls, which will show points in adjacent slices based on their diameters.
+If you don't see any points, you may need to use the slider to look at other z-slices of the image or switch to 3D view. You can also click the `out of slice` option in the Points layer controls, which will show points in adjacent slices based on their diameters.
 ```
 
 We can now remove any of the points that don't correspond to nuclei centers or add any new ones using 
@@ -242,102 +243,46 @@ We can now save our segmentation programmatically using our builtin save method.
 #viewer.layers['nuclei_segmentation'].save('nuclei-automated-segmentation.tif', plugin='builtins')
 ```
 
-## Interactive thresholding with a custom GUI element
+## Visualizing measurements
 
-Interactivity can be greatly enhanced by custom GUI elements like slides and push buttons, custom mouse functions, or custom keybindings. **[napari](https://napari.org/)** can easliy be exteneded with these features, and a companion library **[magicgui](https://magicgui.readthedocs.io/en/latest/)** maintained by the napari team allows users to make extensions to the GUI without having to write any GUI code.
-
-We'll now explore adding such interactivty to **napari**.
+We can use the `skimage.measure.regionprops_table` to make measurements using the segmentation. For the available properties to compute, please see the [`skimage.measure.regionprops` documentation](https://github.com/scikit-image/scikit-image/blob/v0.25.2/skimage/measure/_regionprops.py#L1109-L1410). Here we will compute the area, mean intensity, and solidity of each nucleus.
 
 ```{code-cell} ipython3
-# Remove all processed layers
-for l in viewer.layers[1:]:
-    viewer.layers.remove(l)
-```
-
-```{code-cell} ipython3
-# Import magicgui
-from magicgui import magicgui
-```
-
-```{code-cell} ipython3
-from napari.types import ImageData, LabelsData
-
-@magicgui(auto_call=True,
-          percentile={"widget_type": "IntSlider", "min": 0, "max": 100})
-def threshold(image: ImageData, percentile: int = 50) -> LabelsData:
-    data_min = np.min(image)
-    data_max = np.max(image)
-    return image > data_min + percentile / 100 * (data_max - data_min)
-```
-
-```{code-cell} ipython3
-viewer.window.add_dock_widget(threshold, area="right")
-```
-
-```{code-cell} ipython3
-nbscreenshot(viewer)
-```
-
-## Adding a custom key binding to the viewer for processing foreground data
-
-```{code-cell} ipython3
-@viewer.bind_key('Shift-P')
-def process_foreground(viewer):
-    data = viewer.layers['threshold result'].data
-    data_processed = morphology.remove_small_holes(data, 60)
-    data_processed = morphology.remove_small_objects(data_processed, min_size=50)
-    viewer.layers['threshold result'].data = data_processed
-```
-
-```{code-cell} ipython3
-:tags: [remove-cell]
-
-process_foreground(viewer)
-```
-
-```{code-cell} ipython3
-# Add an empty labels layer with the same shape as our maximum intensity projection
-viewer.add_labels(np.zeros(nuclei.shape, dtype=int), name='nuclei segmentation')
-```
-
-```{code-cell} ipython3
-# Bind another keybinding to complete segmentation
-@viewer.bind_key('Shift-S')
-def complete_segmentation(viewer):
-    foreground = viewer.layers['threshold result'].data
-    distance = ndimage.distance_transform_edt(foreground)
-    smoothed_distance = filters.gaussian(distance, 10)
-    peaks = feature.peak_local_max(
-        distance,
-        min_distance=12
+info_table = measure.regionprops_table(
+        nuclei_segmentation,
+        intensity_image=nuclei,
+        properties=['area', 'mean_intensity', 'solidity'],
     )
-    peaks = np.round(peaks).astype(int).T
-    seeds = np.zeros(smoothed_distance.shape, dtype=bool)
-    seeds[(peaks[0], peaks[1])] = 1
-
-    markers = measure.label(seeds)
-    nuclei_segmentation = segmentation.watershed(
-        -smoothed_distance, 
-        markers, 
-        mask=foreground
-    )
-    viewer.layers['nuclei segmentation'].data = nuclei_segmentation
 ```
 
-```{code-cell} ipython3
-:tags: [remove-cell]
-
-image_data = viewer.layers['nuclei'].data
-thresholded = image_data > image_data.min() + 12 / 100 * (image_data.max() - image_data.min())
-viewer.layers['threshold result'].data = thresholded
-process_foreground(viewer)
-complete_segmentation(viewer)
+```{note}
+When using `regionprops` in 3D, `area` ends up being a volume in voxels. You can also pass the keyword argument `spacing` with the pixel spacing (the Layer `scale` property) in each dimension to get values in scaled units.
 ```
 
+Now lets visualize the results in napari by mapping, for example, normalized volume (`area` property) to the color of the segmentations. First we will import a colormap, in this case `viridis` and use it to get an array of colors from the normalized volumes. 
+
 ```{code-cell} ipython3
-nbscreenshot(viewer)
+from napari.utils.colormaps import AVAILABLE_COLORMAPS
+
+viridis = AVAILABLE_COLORMAPS['viridis']
+
+volume_colors = viridis.map(info_table['area']/info_table['area'].max())
+```
+Then we can set the `colormap` property of the segmentation layer to this array of colors. 
+
+```{code-cell} ipython3
+viewer.layers['nuclei_segmentation'].colormap = volume_colors
+```
+
+This will set the `color mode` of the Labels layer to `direct`, meaning that the color of each label will be determined by the corresponding value in the `colormap` array. You can use the layer controls to switch back to the `auto` mode to get the default behavior of assigning a random color to each label.
+
+Finally, lets also add all of the computed properties to the segmentation layer. Layer `features` store a table or data frame where each column represents a feature and each row represents a label (or Point or Shape). Importantly, `features` will be displayed in the status bar when you mouse over a label.
+
+```{code-cell} ipython3
+viewer.layers['nuclei_segmentation'].features = info_table
 ```
 
 ## Conclusions
 
-We've now seen how to interactively perform analyses by adding data to the napari viewer, and editing it as we moved through an analysis workflow. We've also seen how to extend the viewer with custom GUI functionality and keybindings, making analyses even more interactive!
+We've now seen how to interactively perform analyses by adding data to the napari viewer and exploring different filters or workflow parameters as we moved through an analysis workflow. We've also seen how we can visualize derived data, such as segmentation results or measurements, in the viewer.
+This is a powerful way to explore data and develop analysis workflows, as it allows you to quickly iterate on your analysis and visualize the results in real-time.
