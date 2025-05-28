@@ -251,7 +251,7 @@ We can use the `skimage.measure.regionprops_table` to make measurements using th
 info_table = measure.regionprops_table(
         nuclei_segmentation,
         intensity_image=nuclei,
-        properties=['area', 'mean_intensity', 'solidity'],
+        properties=['label', 'area', 'mean_intensity', 'solidity'],
     )
 ```
 
@@ -259,7 +259,7 @@ info_table = measure.regionprops_table(
 When using `regionprops` in 3D, `area` ends up being a volume in voxels. You can also pass the keyword argument `spacing` with the pixel spacing (the Layer `scale` property) in each dimension to get values in scaled units.
 ```
 
-Now lets visualize the results in napari by mapping, for example, normalized volume (`area` property) to the color of the segmentations. First we will import a colormap, in this case `viridis` and use it to get an array of colors from the normalized volumes. 
+Now lets visualize the results in napari by mapping, for example, normalized volume (`area` property) to the color of the segmentations. First we will import a colormap, in this case `viridis` and use it to get an array of colors from the normalized volumes.
 
 ```{code-cell} ipython3
 from napari.utils.colormaps import AVAILABLE_COLORMAPS
@@ -268,7 +268,8 @@ viridis = AVAILABLE_COLORMAPS['viridis']
 
 volume_colors = viridis.map(info_table['area']/info_table['area'].max())
 ```
-Then we can set the `colormap` property of the segmentation layer to this array of colors. 
+
+Then we can set the `colormap` property of the segmentation layer to this array of colors.
 
 ```{code-cell} ipython3
 viewer.layers['nuclei_segmentation'].colormap = volume_colors
@@ -276,11 +277,26 @@ viewer.layers['nuclei_segmentation'].colormap = volume_colors
 
 This will set the `color mode` of the Labels layer to `direct`, meaning that the color of each label will be determined by the corresponding value in the `colormap` array. You can use the layer controls to switch back to the `auto` mode to get the default behavior of assigning a random color to each label.
 
+```{code-cell} ipython3
+nbscreenshot(viewer)
+```
+
 Finally, lets also add all of the computed properties to the segmentation layer. Layer `features` store a table or data frame where each column represents a feature and each row represents a label (or Point or Shape). Importantly, `features` will be displayed in the status bar when you mouse over a label.
 
 ```{code-cell} ipython3
 viewer.layers['nuclei_segmentation'].features = info_table
 ```
+
+````{tip}
+An alternative to visualizing the measurements by mapping them onto the labels is to use the helper function [`map_array` from `skimage.util`](https://github.com/scikit-image/scikit-image/blob/main/skimage/util/_map_array.py#L4-L73). This function will create a new array where each label is replaced by the corresponding value from the provided mapping. This can then be added as a new image layer in the viewer!
+````
+
+```python
+from skimage.util import map_array
+
+viewer.add_image(map_array(input_arr=nuclei_segmentation, input_vals=info_table['label'], output_vals=info_table['area']))
+```
+````
 
 ## Conclusions
 
