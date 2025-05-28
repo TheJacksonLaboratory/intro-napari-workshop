@@ -90,41 +90,5 @@ napari was closed!
    Gallery](https://napari.org/stable/developers/contributing.html#adding-examples-to-the-gallery)!
    ```
 
-1. Remember, when you launch napari from a script, you have access to the napari console! But, by default
-   you won't have access to all of the local variables from your script in the console. If you do want
-   to access them, e.g. names of layer objects, etc. you can push the local variables to the console by
-   including the following line at the end of your script:
-
-   ```Python
-   viewer.update_console(locals())
-   ```
-   
-   To see this in action, save this simple example as a `.py` locally, e.g. `update_console_example.py`:
-
-   ```Python
-   from skimage import data
-
-   import napari
-
-   # create the viewer with an image
-   viewer = napari.view_image(data.astronaut(), rgb=True, name="Astronaut")
-
-   astro = viewer.layers['Astronaut']
-   dummy_var = 42
-
-   # push local variabls (astro and dummy var) to the console
-   viewer.update_console(locals())
-
-   # start the event loop allowing you to interact with the viewer
-   napari.run()
-   ```
-   
-   Run it and try to access `astro` or `dummy_var` in the napari console of the spawned viewer, 
-   for example using `astro.data.shape`, or `print(dummy_var)`.
-   
-   ```{tip} 
-   You will also have access to imported modules! Try: `data.cells3d().shape`
-   ```
-
-   Then, close the viewer, comment out the `viewer.update_console(locals())` line and run the script 
-   again. Now try to access `astro` or `dummy_var` and you will get a **NameError**.
+1. Remember, when you launch napari from a script, you have access to the napari console! Further, by default
+   you will have access to all of the local variables from your script in the console.
