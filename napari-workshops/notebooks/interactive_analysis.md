@@ -12,6 +12,7 @@ kernelspec:
 ---
 
 # Interactive analysis with napari
+
 One need for bioimage analysts is to interactively perform analysis on images. This interaction could be manual parameter tuning, such as adjusting thresholds, or performing human-in-the-loop analysis through clicking on specific regions of an image.
 
 **[napari](https://napari.org/)** makes such interactive analyses easy because of it's easy coupling with Python and Scientific Python ecosystem, including tools like **[numpy](https://numpy.org/)** and **[scikit-image](https://scikit-image.org/)**.
@@ -289,7 +290,6 @@ viewer.layers['nuclei_segmentation'].features = info_table
 
 ````{tip}
 An alternative to visualizing the measurements by mapping them onto the labels is to use the helper function [`map_array` from `skimage.util`](https://github.com/scikit-image/scikit-image/blob/main/skimage/util/_map_array.py#L4-L73). This function will create a new array where each label is replaced by the corresponding value from the provided mapping. This can then be added as a new image layer in the viewer!
-````
 
 ```python
 from skimage.util import map_array
