@@ -58,9 +58,10 @@ nbscreenshot(viewer)
 Let's develop a segmentation workflow for the nuclei using processing utilities from scikit-image.
 
 ```{code-cell} ipython3
-from skimage import morphology
 from skimage import feature
+from skimage import filters
 from skimage import measure
+from skimage import morphology
 from skimage import segmentation
 from scipy import ndimage
 import numpy as np
