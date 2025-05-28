@@ -15,7 +15,7 @@ kernelspec:
 
 One need for bioimage analysts is to interactively perform analysis on images. This interaction could be manual parameter tuning, such as adjusting thresholds, or performing human-in-the-loop analysis through clicking on specific regions of an image.
 
-**[napari](https://napari.org/)** makes such interactive analyses easy because of it's easy coupling with Python and Scientific Python ecosystem, including tools like **[numpy](https://numpy.org/)** and **[scikit-image](https://scikit-image.org/)**.
+**[napari](https://napari.org/)** makes such interactive analyses easy because of its easy coupling with Python and Scientific Python ecosystem, including tools like **[numpy](https://numpy.org/)** and **[scikit-image](https://scikit-image.org/)**.
 
 ## Setup
 
@@ -38,7 +38,7 @@ from napari.utils import nbscreenshot
 viewer = napari.Viewer()
 ```
 
-Let's read the same `cells3d` image from previous lessons, take a maximum projection, and view it in napari:
+Let's read the same `cells3d` image from previous lessons and view it in napari:
 
 ```{code-cell} ipython3
 from skimage.data import cells3d
@@ -260,12 +260,16 @@ info_table = measure.regionprops_table(
 When using `regionprops` in 3D, `area` ends up being a volume in voxels. You can also pass the keyword argument `spacing` with the pixel spacing (the Layer `scale` property) in each dimension to get values in scaled units.
 ```
 
-Now lets visualize the results in napari by mapping, for example, normalized volume (`area` property) to the color of the segmentations. First we will import a colormap, in this case `viridis` and use it to get an array of colors from the normalized volumes.
+Now lets visualize the results in napari by mapping, for example, normalized volume (`area` property) to the color of the segmentations. First we will import a colormap, in this case `viridis`, and use it to get an array of colors from the normalized volumes.
+
+```{important}
+When mapping values to colors using a napari colormap, the input values should be normalized to the range [0, 1].
+```
 
 ```{code-cell} ipython3
-from napari.utils.colormaps import AVAILABLE_COLORMAPS
+from napari.utils.colormaps import ensure_colormap
 
-viridis = AVAILABLE_COLORMAPS['viridis']
+viridis = ensure_colormap['viridis']
 
 volume_colors = viridis.map(info_table['area']/info_table['area'].max())
 ```
