@@ -81,7 +81,7 @@ nbscreenshot(viewer)
 ```
 
 ```{tip}
-We applied the threshold to the `nuclei` array, but we could have also used the data backing the `nuclei` Image layer in the viewer: `viewer.layers['nuclei'].data`. Further, when adding the layer, we can assign the return to a variable to make accessing the layer easier in the future, e.g. `fg_layer = viewer.add_labels(foreground)`. Then we can use `fg_layer.data` to access the data in the layer.
+We applied the threshold to the `nuclei` array, but we could have also used the data backing the `nuclei` Image layer in the viewer: `viewer.layers['nuclei'].data`. Further, when adding a layer using one of the `add` methods, we can assign the return to a variable to make accessing the layer easier in the future. For example, for the case of the "foreground" labels layer we could use, e.g. `fg_layer = viewer.add_labels(foreground)`. Then we can use `fg_layer.data` to access the data in the layer.
 ```
 
 Now we can see that the image has some noise, which is reflected in the threshold output so lets apply a Gaussian blur to smooth it. You can of course use any other smoothing filter, such as a median filter. `napari` makes it easy to compare multiple outputs by toggling the visibility of the layers in the viewer.
@@ -147,7 +147,13 @@ nbscreenshot(viewer)
 As you can see, we have all the objects labeled, but touching objects are not separated. To do this, 
 we can use a [**marker controlled watershed** approach](https://scikit-image.org/docs/dev/api/skimage.segmentation.html#skimage.segmentation.watershed). But to use this we will need to choose some locations for the markers.
 
-There are a number of strategies that you can use to choose marker locations for the watershed step. Here we will use the distance transform of the binary mask and place markers at the local maxima of that. The first step in this procedure is to calculate a distance transform on the binary mask as follows.
+There are a number of strategies that you can use to choose marker locations for the watershed step. Here we will use the distance transform of the binary mask and place markers at the local maxima of that. 
+
+```{note}
+Instead of computing the marker locations programmatically, you could instead use the GUI tools to add points to a Points layer.
+```
+
+The first step in this procedure is to calculate a distance transform on the binary mask as follows.
 
 ```{code-cell} ipython3
 distance = ndimage.distance_transform_edt(foreground_processed)
@@ -188,8 +194,8 @@ viewer.add_points(peak_local_max, name='peaks', size=5, face_color='red', blendi
 nbscreenshot(viewer)
 ```
 
-```{note}
-Instead of computing the marker locations programmatically, you could instead use the GUI tools to add points to a Points layer.
+```{important}
+If you don't see any points, you may need to use the slider to look at other z-slices of the image. You can also click the `out of slice` option in the Points layer controls, which will show points in adjacent slices based on their diameters.
 ```
 
 We can now remove any of the points that don't correspond to nuclei centers or add any new ones using 
@@ -210,7 +216,7 @@ We'll use the Points layer data, because we may have added or removed a point!
 ```
 
 ```{code-cell} ipython3
-markers = util.label_points(viewer.layers['peaks'].data, shape=nuclei.shape)
+markers = util.label_points(viewer.layers['peaks'].data, output_shape=nuclei.shape)
 ```
 
 Now that we have our markers, we can proceed with the watershed.
