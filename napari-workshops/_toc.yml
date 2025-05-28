@@ -17,6 +17,7 @@ chapters:
   sections:
   - file: notebooks/intro_bioimage_visualization
   - file: notebooks/manual_annotation
+  - file: notebooks/interactive_analysis
   - file: notebooks/spot_detection
   - file: notebooks/spot_detection_functions
 - file: napari_in_scripts
