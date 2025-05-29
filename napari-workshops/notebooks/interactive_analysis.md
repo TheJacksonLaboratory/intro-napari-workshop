@@ -89,9 +89,9 @@ We applied the threshold to the `nuclei` array, but we could have also used the 
 Now we can see that the image has some noise, which is reflected in the threshold output so lets apply a Gaussian blur to smooth it. You can of course use any other smoothing filter, such as a median filter. `napari` makes it easy to compare multiple outputs by toggling the visibility of the layers in the viewer.
 
 ```{code-cell} ipython3
-blur = filters.gaussian(nuclei, sigma=10, preserve_range=True)
+blur = filters.gaussian(nuclei, sigma=3, preserve_range=True)
 viewer.add_image(blur)
-foreground_blur = nuclei >= filters.threshold_li(blur)
+foreground_blur = blur >= filters.threshold_li(blur)
 viewer.add_labels(foreground_blur, name='foreground_blur')
 ```
 
@@ -246,7 +246,7 @@ We can now save our segmentation programmatically using our builtin save method.
 
 ## Visualizing measurements
 
-We can use the `skimage.measure.regionprops_table` to make measurements using the segmentation. For the available properties to compute, please see the [`skimage.measure.regionprops` documentation](https://github.com/scikit-image/scikit-image/blob/v0.25.2/skimage/measure/_regionprops.py#L1109-L1410). Here we will compute the area, mean intensity, and solidity of each nucleus.
+We can use the `skimage.measure.regionprops_table` to make measurements using the segmentation. For the available properties to compute, please see the [`skimage.measure.regionprops` documentation](https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops). Here we will compute the area, mean intensity, and solidity of each nucleus.
 
 ```{code-cell} ipython3
 info_table = measure.regionprops_table(
