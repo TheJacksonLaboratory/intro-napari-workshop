@@ -39,7 +39,7 @@ Then, clone the repository. This will download all of the files necessary for
 this tutorial.
 
  ```bash
- git clone https://github.com/napari/napari-workshop-template.git
+ git clone https://github.com/TheJacksonLaboratory/intro-napari-workshop.git
  ```
 
 ## Install additional `jupytext` dependency
