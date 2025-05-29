@@ -11,7 +11,7 @@ kernelspec:
   name: python3
 ---
 
-# Exploratory analysis: spot detection
+# Exploratory analysis: spot detection (Optional)
 
 ## Overview
 In this activity, we will perform spot detection on some in situ sequencing data
