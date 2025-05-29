@@ -11,7 +11,7 @@ kernelspec:
   name: python3
 ---
 
-# From workflow to widget: customizing napari
+# From workflow to widget: customizing napari (Intermediate)
 
 The napari application uses a backend for the graphical user interface (GUI) called [Qt](https://doc.qt.io). A key feature of this framework is the use of [widgets](https://doc.qt.io/qt-6/qtwidgets-index.html), which are composable, basic UI elements. napari not only utilizes these for its UI, but also enables you can add your own as `dockable` elements. In fact, the layer controls, layer list, and napari console are all such dockable containers of Qt widgets.
 
@@ -400,10 +400,8 @@ Give it a shot in the viewer, you should get a print statement in the notebook, 
 keybinding with a Points layer selected, but not with any other layer type.
 
 ```{tip}
-We used `print`, so the output ends up in the notebook (or the terminal, REPL, etc.). To get something visible in the 
+We used `print` here to keep it simple; the output ends up in the notebook (or the terminal, REPL, etc.). To get something visible in the 
 viewer itself, you can use [`napari.utils.notifications.show_info`](https://napari.org/dev/api/napari.utils.notifications.html).
-However, be aware that this won't work when napari was launched from a Jupyter notebook (hopefully fixed in napari 0.5.0): nothing will
-happen.
 ```
 
 Let's call the function to trigger it for the notebook:
