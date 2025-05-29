@@ -92,7 +92,7 @@ Now we can see that the image has some noise, which is reflected in the threshol
 blur = filters.gaussian(nuclei, sigma=10, preserve_range=True)
 viewer.add_image(blur)
 foreground_blur = nuclei >= filters.threshold_li(blur)
-viewer.add_labels(foreground, name='foreground_blur')
+viewer.add_labels(foreground_blur, name='foreground_blur')
 ```
 
 ```{code-cell} ipython3
