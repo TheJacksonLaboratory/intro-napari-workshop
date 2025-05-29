@@ -177,8 +177,8 @@ To save a `csv` file with these values for each layer you can use our builtin wr
 
 ```{code-cell} ipython3
 # Uncomment the lines below to save out Points layer data to csv files
-#viewer.layers['dividing'].save('dividing.csv', plugin='builtins')
-#viewer.layers['non-dividing'].save('non-dividing.csv', plugin='builtins')
+#viewer.layers['dividing'].save('dividing.csv')
+#viewer.layers['non-dividing'].save('non-dividing.csv')
 ```
 
 Points layers also have a properties dictionary that would enable you to add other attributes like `volume` or `maximum-intensity` should you calculate those for each cell. You can learn more about the these advanced points annotations from the [tutorial](https://napari.org/stable/tutorials/applications/annotate_points).
